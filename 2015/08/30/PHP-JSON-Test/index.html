@@ -1,0 +1,248 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>PHP简单接收POST数据和返回POST数据以及iOS请求分析 | LECASON&#39;S WIKI</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="PHP简单接收POST数据和返回POST数据以及iOS请求分析由于各种原因，以及没写过后台API，想测试一下POST，但是没有API,就想用PHP自己写一个，查了一下。发现PHP请求POST数据有3种方法。由于没有以前没有学过PHP，找了一下资料，就试试，写了以下博文。所以这些都是个人推测。
+方法1 用表单方法接收最常见的方法是：$_POST[‘fieldname’];
+1$_POST[&#39;fieldname&#39;];
+说明：只能接收 Content-Type: application/x-www-form-urlencoded 提交的数据解释：也就是表单POST过来的数据
+PHP 源码1234567&amp;lt;?php$username = $_POST[&#39;username&#39;];  $password = $_POST[&#39;password&#39;];echo &quot;username:&quot;.$username;echo &quot;\n&quot;;echo &quot;password:&quot;.$password; //只是简单的打印?&amp;gt;">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="PHP简单接收POST数据和返回POST数据以及iOS请求分析"/>
+  <meta property="og:site_name" content="LECASON&#39;S WIKI"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON&#39;S WIKI" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON&#39;S WIKI</a><span class="split"></span><span class="title">PHP简单接收POST数据和返回POST数据以及iOS请求分析</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-30</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  <div class="col-xs-12 col-sm-3 col-md-3 toc"> 
+	<!-- toc -->
+<script type="text/javascript">
+		jQuery(document).ready(function() {
+ 		   generateWikiTOC('.note', '.toc',  2 , 2 );
+		});
+</script>
+  </div><!-- col-md-3 -->
+  
+  
+
+  
+  <div class="col-xs-12 col-sm-9 col-md-9 note">
+	
+
+	  <!-- content -->
+	  <h1 id="PHP简单接收POST数据和返回POST数据以及iOS请求分析">PHP简单接收POST数据和返回POST数据以及iOS请求分析</h1><p>由于各种原因，以及没写过后台API，想测试一下POST，但是没有API,就想用PHP自己写一个，查了一下。发现PHP请求POST数据有3种方法。由于没有以前没有学过PHP，找了一下资料，就试试，写了以下博文。所以这些都是个人推测。</p>
+<h2 id="方法1_用表单方法接收">方法1 用表单方法接收</h2><p>最常见的方法是：$_POST[‘fieldname’];</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$_POST</span>[<span class="string">'fieldname'</span>];</span><br></pre></td></tr></table></figure>
+<p>说明：只能接收 Content-Type: application/x-www-form-urlencoded 提交的数据<br>解释：也就是表单POST过来的数据</p>
+<h3 id="PHP_源码">PHP 源码</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="variable">$username</span> = <span class="variable">$_POST</span>[<span class="string">'username'</span>];  </span><br><span class="line"><span class="variable">$password</span> = <span class="variable">$_POST</span>[<span class="string">'password'</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"username:"</span>.<span class="variable">$username</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"password:"</span>.<span class="variable">$password</span>; <span class="comment">//只是简单的打印</span></span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="iOS_NSString测试代码">iOS NSString测试代码</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//请求URL</span></span><br><span class="line"><span class="built_in">NSString</span> *urlStr = <span class="string">@"http://121.201.63.206/wel.php"</span>;</span><br><span class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlStr];</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求方法</span></span><br><span class="line"><span class="built_in">NSMutableURLRequest</span> *request = [<span class="built_in">NSMutableURLRequest</span> requestWithURL:url];</span><br><span class="line">request<span class="variable">.HTTPMethod</span> = <span class="string">@"POST"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求参数</span></span><br><span class="line"><span class="built_in">NSString</span> *str = <span class="string">@"username=lecason&amp;password=0ca175b9c0f726a831d895e269332461"</span>;</span><br><span class="line"><span class="built_in">NSData</span> *data = [str dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//发送请求</span></span><br><span class="line">[request setHTTPBody:data];</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印请求</span></span><br><span class="line"><span class="built_in">NSData</span> *received = [<span class="built_in">NSURLConnection</span> sendSynchronousRequest:request returningResponse:<span class="literal">nil</span> error:<span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSString</span> *returnStr = [[<span class="built_in">NSString</span> alloc]initWithData:received encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,returnStr);</span><br></pre></td></tr></table></figure>
+<p>这时候查看<code>Form</code>请求数据是这个样子的：</p>
+<p><img src="/img/phppost1.png" alt=""></p>
+<p>这时候查看<code>Text</code>请求数据是这个样子的：</p>
+<p><img src="/img/phppost2.png" alt=""></p>
+<p>这时候查看返回是这样子的:</p>
+<p><img src="/img/phppost3.png" alt=""></p>
+<p>iOS打印是这样子的:</p>
+<p><img src="/img/phppost4.png" alt=""></p>
+<h3 id="iOS_NSDictionary测试代码">iOS NSDictionary测试代码</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//请求URL</span></span><br><span class="line"><span class="built_in">NSString</span> *urlStr = <span class="string">@"http://121.201.63.206/wel.php"</span>;</span><br><span class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlStr];</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求方法</span></span><br><span class="line"><span class="built_in">NSMutableURLRequest</span> *request = [<span class="built_in">NSMutableURLRequest</span> requestWithURL:url];</span><br><span class="line">request<span class="variable">.HTTPMethod</span> = <span class="string">@"POST"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSDictionary</span> *jsonDic = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys: <span class="string">@"lecason"</span>,<span class="string">@"username"</span>,<span class="string">@"0ca175b9c0f726a831d895e269332461"</span>,<span class="string">@"password"</span>,<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ([<span class="built_in">NSJSONSerialization</span> isValidJSONObject:jsonDic])</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSError</span> *error;</span><br><span class="line">    <span class="built_in">NSData</span> *jsonData = [<span class="built_in">NSJSONSerialization</span> dataWithJSONObject:jsonDic options:<span class="built_in">NSJSONWritingPrettyPrinted</span> error:&amp;error];</span><br><span class="line">    <span class="built_in">NSString</span> *json =[[<span class="built_in">NSString</span> alloc] initWithData:jsonData encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"请求的Json数据 :%@"</span>,json);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//发送请求</span></span><br><span class="line">    [request setHTTPBody:jsonData];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSData</span> *received = [<span class="built_in">NSURLConnection</span> sendSynchronousRequest:request returningResponse:<span class="literal">nil</span> error:<span class="literal">nil</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSString</span> *returnStr = [[<span class="built_in">NSString</span> alloc]initWithData:received encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"返回的Json数据 :%@"</span>,returnStr);</span><br><span class="line">    </span><br><span class="line"> </span><br><span class="line">    <span class="comment">//转化成字典并打印返回的Json</span></span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:received</span><br><span class="line">                                                        options:<span class="built_in">NSJSONReadingAllowFragments</span></span><br><span class="line">                                                          error:&amp;error];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"转化成字典 %@"</span>,dic);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时候查看<code>Form</code>请求数据是这个样子的：可以看到请求的内容已经成为了<em>表单名</em> ！</p>
+<p><img src="/img/phppost5.png" alt=""></p>
+<p>这时候查看<code>Text</code>请求数据是这个样子的：</p>
+<p><img src="/img/phppost6.png" alt=""></p>
+<p>结果为空，因为我们表单【username】【password】都没有接收到数据。这时候查看返回是这样子的:</p>
+<p><img src="/img/phppost7.png" alt=""></p>
+<p>iOS打印是这样子的:</p>
+<p><img src="/img/phppost8.png" alt=""></p>
+<h2 id="方法2_读取_POST_的原始数据">方法2 读取 POST 的原始数据</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file_get_contents(<span class="string">"php://input"</span>)</span><br></pre></td></tr></table></figure>
+<p>说明：<br>允许读取 POST 的原始数据。<br>和 <code>$HTTP_RAW_POST_DATA</code> 比起来，它给内存带来的压力较小，并且不需要任何特殊的 php.ini 设置。<br><code>php://input</code> 不能用于 <code>enctype=”multipart/form-data”</code><br>由于APP端用<code>Dictionary</code>和<code>NSJSONSerialization</code>组建出来是个纯<code>Json</code>格式文件。所以用这种方法来得到APP推送上来的数据最好。</p>
+<h3 id="PHP_源码-1">PHP 源码</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">&lt;?php</span></span><br><span class="line"><span class="variable">$postValue</span> = file_get_contents(<span class="string">"php://input"</span>);</span><br><span class="line"><span class="variable">$postValue</span> = str_replace(<span class="string">"\n"</span>,<span class="keyword">null</span>,<span class="variable">$postValue</span>); <span class="comment">//把换行符去掉</span></span><br><span class="line"><span class="keyword">echo</span> json_encode(<span class="variable">$postValue</span>); <span class="comment">//json化输出</span></span><br><span class="line"><span class="preprocessor">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="iOS_NSString测试代码-1">iOS NSString测试代码</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//请求URL</span></span><br><span class="line"><span class="built_in">NSString</span> *urlStr = <span class="string">@"http://121.201.63.206/wel.php"</span>;</span><br><span class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlStr];</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求方法</span></span><br><span class="line"><span class="built_in">NSMutableURLRequest</span> *request = [<span class="built_in">NSMutableURLRequest</span> requestWithURL:url];</span><br><span class="line">request<span class="variable">.HTTPMethod</span> = <span class="string">@"POST"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求参数</span></span><br><span class="line"><span class="built_in">NSString</span> *str = <span class="string">@"username=lecason&amp;password=0ca175b9c0f726a831d895e269332461"</span>;</span><br><span class="line"><span class="built_in">NSData</span> *data = [str dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//发送请求</span></span><br><span class="line">[request setHTTPBody:data];</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印请求</span></span><br><span class="line"><span class="built_in">NSData</span> *received = [<span class="built_in">NSURLConnection</span> sendSynchronousRequest:request returningResponse:<span class="literal">nil</span> error:<span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSString</span> *returnStr = [[<span class="built_in">NSString</span> alloc]initWithData:received encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,returnStr);</span><br></pre></td></tr></table></figure>
+<p>这时候查看<code>Form</code>请求数据是这个样子的：</p>
+<p><img src="/img/phppost9.png" alt=""></p>
+<p>这时候查看<code>Text</code>请求数据是这个样子的：</p>
+<p><img src="/img/phppost10.png" alt=""></p>
+<p>这时候查看返回是这样子的:</p>
+<p><img src="/img/phppost11.png" alt=""></p>
+<p>iOS打印是这样子的:</p>
+<p><img src="/img/phppost12.png" alt=""></p>
+<h3 id="iOS_NSDictionary测试代码-1">iOS NSDictionary测试代码</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">//请求URL</span></span><br><span class="line"><span class="built_in">NSString</span> *urlStr = <span class="string">@"http://121.201.63.206/wel.php"</span>;</span><br><span class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlStr];</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求方法</span></span><br><span class="line"><span class="built_in">NSMutableURLRequest</span> *request = [<span class="built_in">NSMutableURLRequest</span> requestWithURL:url];</span><br><span class="line">request<span class="variable">.HTTPMethod</span> = <span class="string">@"POST"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSDictionary</span> *jsonDic = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys: <span class="string">@"lecason"</span>,<span class="string">@"username"</span>,<span class="string">@"0ca175b9c0f726a831d895e269332461"</span>,<span class="string">@"password"</span>,<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ([<span class="built_in">NSJSONSerialization</span> isValidJSONObject:jsonDic])</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSError</span> *error;</span><br><span class="line">    <span class="built_in">NSData</span> *jsonData = [<span class="built_in">NSJSONSerialization</span> dataWithJSONObject:jsonDic options:<span class="built_in">NSJSONWritingPrettyPrinted</span> error:&amp;error];</span><br><span class="line">    <span class="built_in">NSString</span> *json =[[<span class="built_in">NSString</span> alloc] initWithData:jsonData encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"请求的Json数据 :%@"</span>,json);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//发送请求</span></span><br><span class="line">    [request setHTTPBody:jsonData];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSData</span> *received = [<span class="built_in">NSURLConnection</span> sendSynchronousRequest:request returningResponse:<span class="literal">nil</span> error:<span class="literal">nil</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSString</span> *returnStr = [[<span class="built_in">NSString</span> alloc]initWithData:received encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"返回的Json数据 :%@"</span>,returnStr);</span><br><span class="line">    </span><br><span class="line"> </span><br><span class="line">    <span class="comment">//转化成字典并打印返回的Json</span></span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:received</span><br><span class="line">                                                        options:<span class="built_in">NSJSONReadingAllowFragments</span></span><br><span class="line">                                                          error:&amp;error];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"转化成字典 %@"</span>,dic);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时候查看<code>Form</code>请求数据是这个样子的：</p>
+<p><img src="/img/phppost13.png" alt=""></p>
+<p>这时候查看<code>Text</code>请求数据是这个样子的：</p>
+<p><img src="/img/phppost14.png" alt=""></p>
+<p>因为我们接收到的是流，所以我们得到了POST上来的Json数据！这时候查看返回是这样子的:</p>
+<p><img src="/img/phppost15.png" alt=""></p>
+<p>iOS打印是这样子的:</p>
+<p><img src="/img/phppost16.png" alt=""></p>
+<h3 id="用AFNetworking来请求">用AFNetworking来请求</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *urlStr = <span class="string">@"http://121.201.63.206/wel.php"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSDictionary</span> *parmas = @&#123;<span class="string">@"cmd"</span>:<span class="string">@"login"</span>,<span class="string">@"account"</span>:<span class="string">@"18688888999"</span>,<span class="string">@"password"</span>:<span class="string">@"0ca175b9c0f726a831d895e269332461"</span>&#125;;</span><br><span class="line"></span><br><span class="line">AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];</span><br><span class="line">manager<span class="variable">.responseSerializer</span> = [AFHTTPResponseSerializer serializer];</span><br><span class="line">manager<span class="variable">.responseSerializer</span><span class="variable">.acceptableContentTypes</span> = [<span class="built_in">NSSet</span> setWithObject:<span class="string">@"text/html"</span>];</span><br><span class="line"></span><br><span class="line">[manager POST:urlStr parameters:parmas success:^(AFHTTPRequestOperation *operation, <span class="keyword">id</span> responseObject) &#123;</span><br><span class="line">            <span class="built_in">NSString</span> *returnStr = [[<span class="built_in">NSString</span> alloc]initWithData:responseObject encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"返回的Json数据 :%@"</span>,returnStr);</span><br><span class="line">    </span><br><span class="line">&#125; failure:^(AFHTTPRequestOperation *operation, <span class="built_in">NSError</span> *error) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"error : %@"</span>,error);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>这时候查看<code>Form</code>请求数据是这个样子的：</p>
+<p><img src="/img/phppost17.png" alt=""></p>
+<p>这时候查看<code>Text</code>请求数据是这个样子的：</p>
+<p><img src="/img/phppost18.png" alt=""></p>
+<p>这时候查看返回是这样子的:</p>
+<p><img src="/img/phppost19.png" alt=""></p>
+<p>iOS打印是这样子的:</p>
+<p><img src="/img/phppost20.png" alt=""></p>
+<p>可以看出，AFNetworking是把参数拆分，已模拟表单的方式来接收数据的。这时候我们PHP端就可以判断，如果接收到的是纯Json就用<code>json_decode()</code>和<code>json_encode()</code>来处理数据。如果是表单就用表单来处理。当然，这是服务端处理的方法，也可以客户端适应服务端，拼接好参数发送。</p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	
+		<li class="prev"><a href="/2015/08/31/Dictonary-To-JsonString-And-Back/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2015/08/29/jsonRequest/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 Lecason
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.    
+</p> </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

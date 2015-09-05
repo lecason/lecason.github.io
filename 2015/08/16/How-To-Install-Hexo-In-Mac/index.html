@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Mac 安装 Hexo 教程 | LECASON&#39;S WIKI</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="Hexo,作者是来自湾湾的tommy351大神,一个基于 Node.js 的博客框架，可以实现一个静态网页组成的博客，而且更轻更快，更适合程序猿使用。Hexo 是一个轻量的静态博客框架。通过Hexo可以快速生成一个静态博客框架,仅需要几条命令就可以完成,相当方便。而架设Hexo的环境更简单了 不需要lnmp/lamp这些繁琐复杂的环境 仅仅需要一个简单的http服务器即可使用 或者使用互联网上免费的页面托管服务比如Hexo的官方网站http://hexo.io 就是托管于github的pages服务上。
+下载安装Node.js1https://nodejs.org/dist/v0.12.7/node-v0.12.7.pkg
+把Node.js的官方源替换为淘宝npm源，再执行安装Hexo。
+1sudo npm install -g cnpm --registry=https://registry.npm.taobao.org">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Mac 安装 Hexo 教程"/>
+  <meta property="og:site_name" content="LECASON&#39;S WIKI"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON&#39;S WIKI" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON&#39;S WIKI</a><span class="split"></span><span class="title">Mac 安装 Hexo 教程</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-16</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  <div class="col-xs-12 col-sm-3 col-md-3 toc"> 
+	<!-- toc -->
+<script type="text/javascript">
+		jQuery(document).ready(function() {
+ 		   generateWikiTOC('.note', '.toc',  2 , 2 );
+		});
+</script>
+  </div><!-- col-md-3 -->
+  
+  
+
+  
+  <div class="col-xs-12 col-sm-9 col-md-9 note">
+	
+
+	  <!-- content -->
+	  <p>Hexo,作者是来自湾湾的<code>tommy351</code>大神,一个基于 <code>Node.js</code> 的博客框架，可以实现一个静态网页组成的博客，而且更轻更快，更适合程序猿使用。Hexo 是一个轻量的静态博客框架。通过Hexo可以快速生成一个静态博客框架,仅需要几条命令就可以完成,相当方便。<br>而架设Hexo的环境更简单了 不需要lnmp/lamp这些繁琐复杂的环境 仅仅需要一个简单的http服务器即可使用 或者使用互联网上免费的页面托管服务比如Hexo的官方网站<a href="http://hexo.io" target="_blank" rel="external">http://hexo.io</a> 就是托管于github的pages服务上。</p>
+<h2 id="下载安装Node-js">下载安装Node.js</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://nodejs.org/dist/v0.<span class="number">12.7</span>/node-v0.<span class="number">12.7</span>.pkg</span><br></pre></td></tr></table></figure>
+<p>把Node.js的官方源替换为淘宝npm源，再执行安装Hexo。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<a id="more"></a> 
+<h2 id="通过npm安装Hexo">通过npm安装Hexo</h2><p>新建一个文件夹用来保存Blog</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br></pre></td></tr></table></figure>
+<p>初使化Hexo</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br><span class="line">sudo npm install</span><br></pre></td></tr></table></figure>
+<p>如果安装失败，我尝试下面的命令来安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install --unsafe-perm --verbose -g hexo</span><br></pre></td></tr></table></figure>
+<h1 id="Hexo的配置方法">Hexo的配置方法</h1><p>所有配置通过<code>_config.yml</code>来配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Archives</span></span><br><span class="line">archive: <span class="number">1</span> <span class="comment">#设置为1 是全部展示</span></span><br><span class="line">category: <span class="number">2</span></span><br><span class="line">tag: <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Server</span></span><br><span class="line">port: <span class="number">4000</span> <span class="comment">#本地服务器端口是4000</span></span><br><span class="line">server_ip: localhost <span class="comment">#本地服务器地址</span></span><br><span class="line">logger: <span class="literal">false</span></span><br><span class="line">logger_format: dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># Date / Time format</span></span><br><span class="line">date_format: MMM D YYYY <span class="comment">#日期格式</span></span><br><span class="line">time_format: H:mm:ss <span class="comment">#时间格式</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pagination</span></span><br><span class="line"><span class="comment">## Set per_page to 0 to disable pagination</span></span><br><span class="line">per_page: <span class="number">10</span></span><br><span class="line">pagination_dir: page</span><br><span class="line"></span><br><span class="line"><span class="comment"># Disqus</span></span><br><span class="line">disqus_shortname: <span class="comment">#disqus的用户名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Extensions</span></span><br><span class="line">theme: landscape <span class="comment">#主题设置</span></span><br><span class="line">exclude_generator:</span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>:</span><br><span class="line">Hexo主题设置</span><br><span class="line"></span><br><span class="line">同样编辑主题文件夹的_config.yml</span><br><span class="line"></span><br><span class="line"><span class="comment"># Header</span></span><br><span class="line">menu:    <span class="comment">#导航栏连接</span></span><br><span class="line">   Home: /</span><br><span class="line">   Archives: /archives</span><br><span class="line">rss: /atom.xml  <span class="comment">#rss地址  默认即可</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Content</span></span><br><span class="line">excerpt_link: Read More <span class="comment">#阅读更多的文字显示</span></span><br><span class="line">fancybox: <span class="literal">true</span> <span class="comment">#开启fancybox效果</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Sidebar  #侧边栏设置</span></span><br><span class="line">sidebar: right</span><br><span class="line">widgets:</span><br><span class="line">  - category</span><br><span class="line">  - tag</span><br><span class="line">  - tagcloud</span><br><span class="line">  - archive</span><br><span class="line">  - recent_posts</span><br><span class="line"></span><br><span class="line"><span class="comment"># Miscellaneous # 社交网络和统计连接地址</span></span><br><span class="line">google_analytics: <span class="comment"># google analytics ID</span></span><br><span class="line">favicon: /favicon.png <span class="comment"># 网站的favicon</span></span><br><span class="line">twitter:</span><br><span class="line">google_plus:</span><br><span class="line">fb_admins:</span><br><span class="line">fb_app_id:</span><br></pre></td></tr></table></figure>
+<h3 id="配置_Github_Pages">配置 Github Pages</h3><p>想上传到github要先配置好hexo。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>再改_config.yum配置文件下面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># You can use this:</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: &lt;repository url&gt;</span><br><span class="line">  branch: [branch]</span><br><span class="line">  message: [message]</span><br><span class="line"></span><br><span class="line"><span class="comment"># or this:</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  message: [message]</span><br><span class="line">  repo: </span><br><span class="line">    github: &lt;repository url&gt;,[branch]</span><br><span class="line">    gitcafe: &lt;repository url&gt;,[branch]</span><br></pre></td></tr></table></figure>
+<p>配置git的一个例子</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: http://hexo.io/docs/deployment.html</span></span><br><span class="line">deploy: </span><br><span class="line"> <span class="built_in">type</span>: git</span><br><span class="line"> repo: https://github.com/lecason/lecason.github.io.git</span><br><span class="line"> branch: master   </span><br><span class="line"> -----------------------</span><br></pre></td></tr></table></figure>
+<h3 id="添加RSS">添加RSS</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-generator-feed --save <span class="comment">#安装feed</span></span><br></pre></td></tr></table></figure>
+<p>在_config.yml里添加</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rss: /atom.xml</span><br></pre></td></tr></table></figure>
+<h3 id="添加Wixo主题">添加Wixo主题</h3><p>在博客根目录下执行如下命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/wzpan/hexo-theme-wixo.git themes/wixo</span><br></pre></td></tr></table></figure>
+<p>Wixo 需要安装 Hexo 3.0 及以上版本，请先升级您的 Hexo 程序，再启用此主题。<br>修改你的博客根目录下的_config.yml配置文件中的theme属性，将其设置为wixo。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: wixo</span><br></pre></td></tr></table></figure>
+<p>配置主题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rss: atom.xml</span><br><span class="line">fancybox: <span class="literal">true</span></span><br><span class="line">favicon: favicon.png</span><br><span class="line">fold: <span class="literal">true</span>  <span class="comment"># 是否开启所有目录功能</span></span><br><span class="line">google_analytics:</span><br><span class="line">scratch_name: Scratch  <span class="comment"># 新建文章的时候没有目录标签会默认放在这个目录</span></span><br></pre></td></tr></table></figure>
+<p>用<code>hexo new post &#39;test&#39;</code>生成的文章配置的一个例子</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: Tag Plugins</span><br><span class="line">date: <span class="number">2014</span>-<span class="number">03</span>-<span class="number">16</span> <span class="number">10</span>:<span class="number">17</span>:<span class="number">16</span></span><br><span class="line">categories: Docs <span class="comment"># 文件夹功能</span></span><br><span class="line">toc: <span class="literal">true</span>  <span class="comment"># 目录功能开关</span></span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>更新主题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> themes/wixo</span><br><span class="line">git pull origin master</span><br></pre></td></tr></table></figure>
+<p>请先备份您主题目录下的 _config.yml 文件后再升级。主题的配置文件在主题的<code>_config.yml</code>里面配置。</p>
+<h3 id="给主题没带有目录功能的Hexo加上目录功能">给主题没带有目录功能的Hexo加上目录功能</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install hexo-toc --save</span><br></pre></td></tr></table></figure>
+<p>然后在<code>_config.yml</code>里面添加</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">toc:</span><br><span class="line">  maxDepth: <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>然后在文章里面想要的位置添加<code>&lt;!-- toc --&gt;</code>就可以了。</p>
+<h2 id="Hexo部署方法">Hexo部署方法</h2><h3 id="推送到_Github_Pages">推送到 Github Pages</h3><p>修改后就可以部署上去了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean <span class="comment">#清除缓存 网页正常情况下可以忽略此条命令</span></span><br><span class="line">hexo g <span class="comment">#生成静态网页</span></span><br><span class="line">hexo d <span class="comment">#开始部署</span></span><br></pre></td></tr></table></figure>
+<h3 id="本地查看">本地查看</h3><p>本地服务查看 localhost:4000</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server <span class="comment">#本地服务查看</span></span><br></pre></td></tr></table></figure>
+<h2 id="写文章">写文章</h2><h3 id="新建文章">新建文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="新建页面">新建页面</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p>然后你会发现source里面多了个目录about，里面有个index.md。其实你也可以手动建立。页面的格式和文章一样。接着把链接加上,在主题下的<code>_config.yml</code>里面的menu一项，添加一行<code>About: /about</code>。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##### Menu</span></span><br><span class="line">menu:</span><br><span class="line">  Home: /</span><br><span class="line">  Archives: /archives</span><br><span class="line">  iOS: /iOS</span><br><span class="line">  About: /about</span><br><span class="line"><span class="comment">## you can create `tags` and `categories` folders in `../source`.</span></span><br><span class="line"><span class="comment">## And create a `index.md` file in each of them.</span></span><br><span class="line"><span class="comment">## set `front-matter`as</span></span><br><span class="line"><span class="comment">## layout: tags (or categories)</span></span><br><span class="line"><span class="comment">## title: tags (or categories)</span></span><br><span class="line"><span class="comment">## ---</span></span><br></pre></td></tr></table></figure>
+<p>创建出来的<code>index.md</code>文件前缀</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">title: title <span class="comment">#文章标题</span></span><br><span class="line">date: <span class="number">2015</span>-<span class="number">02</span>-<span class="number">05</span> <span class="number">12</span>:<span class="number">47</span>:<span class="number">44</span> <span class="comment">#文章生成时间</span></span><br><span class="line">categories: <span class="comment">#文章分类目录 可以省略</span></span><br><span class="line">tags: <span class="comment">#文章标签 可以省略</span></span><br><span class="line">description: <span class="comment">#你对本页的描述 可以省略</span></span><br><span class="line">---   </span><br><span class="line">这里开始使用markdown格式输入你的正文。</span><br></pre></td></tr></table></figure>
+<h3 id="多标签注意语法格式">多标签注意语法格式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tags:</span><br><span class="line">- 标签<span class="number">1</span></span><br><span class="line">- 标签<span class="number">2</span></span><br><span class="line">- 标签<span class="number">3</span></span><br><span class="line">- etc...</span><br></pre></td></tr></table></figure>
+<p>或者用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[tags1,tags2]</span><br></pre></td></tr></table></figure>
+<h3 id="设置文章摘要">设置文章摘要</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以上是文章摘要</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line">以下是余下全文</span><br></pre></td></tr></table></figure>
+<h2 id="可能的问题">可能的问题</h2><p>有可能权限有问题,出现这种错误把package.json 的归属从root改回你当前的用户。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Error: EACCES, open <span class="string">'/Users/lecason/Documents/Blog/package.json'</span></span><br><span class="line">    at Error (native)</span><br></pre></td></tr></table></figure>
+<p>生成的文章有问题，注意查看代码块之间要有换行，标题之间要有空格。</p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+	
+		<li class="prev"><a href="/2015/08/18/Custom-Switch-PassCell/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next disabled"><a>next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 Lecason
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.    
+</p> </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

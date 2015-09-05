@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>系统原生 API 请求数据的方式 | LECASON&#39;S WIKI</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="系统原生 API 请求数据的方式Post 用NSString组建12345678910111213141516171819//请求URLNSString *urlStr = @&quot;http://www.sinaapp.com/interface.php&quot;;NSURL *url = [NSURL URL">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="系统原生 API 请求数据的方式"/>
+  <meta property="og:site_name" content="LECASON&#39;S WIKI"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON&#39;S WIKI" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON&#39;S WIKI</a><span class="split"></span><span class="title">系统原生 API 请求数据的方式</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-29</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <h1 id="系统原生_API_请求数据的方式">系统原生 API 请求数据的方式</h1><h2 id="Post_用NSString组建">Post 用NSString组建</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//请求URL</span></span><br><span class="line"><span class="built_in">NSString</span> *urlStr = <span class="string">@"http://www.sinaapp.com/interface.php"</span>;</span><br><span class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlStr];</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求方法</span></span><br><span class="line"><span class="built_in">NSMutableURLRequest</span> *request = [<span class="built_in">NSMutableURLRequest</span> requestWithURL:url];</span><br><span class="line">request<span class="variable">.HTTPMethod</span> = <span class="string">@"POST"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求参数</span></span><br><span class="line"><span class="built_in">NSString</span> *str = <span class="string">@"request=&#123;\"cmd\":\"login\",\"account\": \"18688889999\",\"password\": \"0ca175b9c0f726a831d895e269332461\"&#125;"</span>;</span><br><span class="line"><span class="built_in">NSData</span> *data = [str dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//发送请求</span></span><br><span class="line">[request setHTTPBody:data];</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印请求</span></span><br><span class="line"><span class="built_in">NSData</span> *received = [<span class="built_in">NSURLConnection</span> sendSynchronousRequest:request returningResponse:<span class="literal">nil</span> error:<span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSString</span> *returnStr = [[<span class="built_in">NSString</span> alloc]initWithData:received encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,returnStr);</span><br></pre></td></tr></table></figure>
+<p>这时候请求的数据是这样子的：<br><img src="/img/nsmutableurlrequest1.jpg" alt=""></p>
+<h2 id="Post_用NSDictionary组建">Post 用NSDictionary组建</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//请求URL</span></span><br><span class="line"><span class="built_in">NSString</span> *urlStr = <span class="string">@"http://www.sinaapp.com/interface.php"</span>;</span><br><span class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlStr];</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求方法</span></span><br><span class="line"><span class="built_in">NSMutableURLRequest</span> *request = [<span class="built_in">NSMutableURLRequest</span> requestWithURL:url];</span><br><span class="line">request<span class="variable">.HTTPMethod</span> = <span class="string">@"POST"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSDictionary</span> *jsonDic = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys:<span class="string">@"login"</span>,<span class="string">@"cmd"</span>,<span class="string">@"18688889999"</span>,<span class="string">@"account"</span>,<span class="string">@"0ca175b9c0f726a831d895e269332461"</span>,<span class="string">@"password"</span> ,<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ([<span class="built_in">NSJSONSerialization</span> isValidJSONObject:jsonDic])</span><br><span class="line">    </span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSError</span> *error;</span><br><span class="line">    <span class="built_in">NSData</span> *jsonData = [<span class="built_in">NSJSONSerialization</span> dataWithJSONObject:jsonDic options:<span class="built_in">NSJSONWritingPrettyPrinted</span> error:&amp;error];</span><br><span class="line">    <span class="built_in">NSString</span> *json =[[<span class="built_in">NSString</span> alloc] initWithData:jsonData encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"请求的Json数据 :%@"</span>,json);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//发送请求</span></span><br><span class="line">    [request setHTTPBody:jsonData];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印请求</span></span><br><span class="line"><span class="built_in">NSData</span> *received = [<span class="built_in">NSURLConnection</span> sendSynchronousRequest:request returningResponse:<span class="literal">nil</span> error:<span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSString</span> *returnStr = [[<span class="built_in">NSString</span> alloc]initWithData:received encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"接收的Json数据 :%@"</span>,returnStr);</span><br></pre></td></tr></table></figure>
+<p>这时候请求的数据是这样子的：<br><img src="/img/nsmutableurlrequest2.jpg" alt=""></p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+	
+		<li class="prev"><a href="/2015/08/30/PHP-JSON-Test/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2015/08/28/Objectivec-Convert/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 Lecason
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.    
+</p> </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
