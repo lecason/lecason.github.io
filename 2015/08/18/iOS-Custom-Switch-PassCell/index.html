@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS UITableViewCell里面的自定义控件传值 | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="TableViewCell里面添加了一个Switch，当点击Switch的时候，把当前点击的行和自身的isOn值传给拥有TableViewCell的TableView来处理。
+处理TableViewCell先新建一个TableViewCell的文件，定义代理变量，和添加zjSwitch属性。
+123456@interface SettingTableViewCell : UITableViewCell@property (strong,nonatomic) ZJSwitch *zjSwitch; /// 自定义的Switch或者系统的@property (weak,nonatomic) id&amp;lt;ZJSwitchDelegate&amp;gt; delegate;@end">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS UITableViewCell里面的自定义控件传值"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS UITableViewCell里面的自定义控件传值</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-18</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p>TableViewCell里面添加了一个Switch，当点击Switch的时候，把当前点击的行和自身的isOn值传给拥有TableViewCell的TableView来处理。</p>
+<h2 id="处理TableViewCell">处理TableViewCell</h2><p>先新建一个TableViewCell的文件，定义代理变量，和添加zjSwitch属性。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">SettingTableViewCell</span> : <span class="title">UITableViewCell</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>,<span class="keyword">nonatomic</span>) ZJSwitch *zjSwitch; <span class="comment">/// 自定义的Switch或者系统的</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>,<span class="keyword">nonatomic</span>) <span class="keyword">id</span>&lt;ZJSwitchDelegate&gt; delegate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>在initWithStyle方法里面并添加Switch。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithStyle:(<span class="built_in">UITableViewCellStyle</span>)style reuseIdentifier:(<span class="built_in">NSString</span> *)reuseIdentifier</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> initWithStyle:style reuseIdentifier:reuseIdentifier];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.zjSwitch</span> = [[ZJSwitch alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="keyword">self</span><span class="variable">.frame</span><span class="variable">.size</span><span class="variable">.width</span> - <span class="number">20</span>, <span class="number">15</span>, <span class="number">60</span>, <span class="number">31</span>)];</span><br><span class="line">        <span class="keyword">self</span><span class="variable">.zjSwitch</span><span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> clearColor];</span><br><span class="line">        [<span class="keyword">self</span><span class="variable">.zjSwitch</span> addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(handleSwitchEvent:) forControlEvents:<span class="built_in">UIControlEventValueChanged</span>];</span><br><span class="line">        [<span class="keyword">self</span> addSubview:<span class="keyword">self</span><span class="variable">.zjSwitch</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>定义一个代理</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">ZJSwitchDelegate</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)zjSwitchTouch:(<span class="built_in">BOOL</span>)isON inCell:(SettingTableViewCell *)cell;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>Switch点击的时候就把值通过代理传出去</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)handleSwitchEvent:(<span class="keyword">id</span>)sender</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/// 把当前是否打开的值通过代理传出去</span></span><br><span class="line">    SettingTableViewCell * cell = (SettingTableViewCell *)[sender superview];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.delegate</span> zjSwitchTouch:<span class="keyword">self</span><span class="variable">.zjSwitch</span><span class="variable">.isOn</span> inCell:cell];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="处理TabelView">处理TabelView</h2><p>遵守协议</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">TableViewController</span> ()&lt;<span class="title">ZJSwitchDelegate</span>&gt;</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>在cellForRowAtIndexPath里面设置代理为自己</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cell<span class="variable">.delegate</span> = <span class="keyword">self</span>;</span><br></pre></td></tr></table></figure>
+<p>当点击Cell上的Switch的时候，就会触发TableView里面的代理方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)zjSwitchTouch:(<span class="built_in">BOOL</span>)isON inCell:(SettingTableViewCell *)cell</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">BOOL</span> ison = isON;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@ %@"</span>,cell<span class="variable">.settingsNameLabel</span><span class="variable">.text</span>,ison?<span class="string">@"开"</span>:<span class="string">@"关"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+			
+		
+	
+		
+	
+	
+		<li class="prev"><a href="/2015/08/19/iOS-Custom-Object-NSCoding/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next disabled"><a>next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 Lecason
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.    
+</p> </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
