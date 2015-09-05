@@ -186,3 +186,118 @@ pre .keyword,
 pre .javascript .function {
   color: #c9c;
 }
+
+
+
+/* Objective-C Hightlights */
+
+.highlight.objectivec {
+    padding: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border-style: solid;
+    color: #000000;
+    border: 1px solid #9F9F9F;
+    background: #F1F1F1 !important;
+}
+.highlight.objectivec .code {
+    padding: 5px;
+}
+.highlight.objectivec pre {
+    background: #F1F1F1 !important;
+    color: #000000;
+    min-width: 33px;
+}
+.highlight.objectivec pre .class {
+    color: #000000;
+}
+.highlight.objectivec .gutter pre {
+    padding:5px 5px 5px 10px;
+    background-color: #EEEEEE;
+    border-radius: 0px;
+    border-right: 1px solid #9F9F9F;
+    text-align: right;
+    color: #9F9F9F;
+}
+.highlight.objectivec .preprocessor {
+    color: #77492d;
+}
+.highlight.objectivec .preprocessor .title{
+    color: #cf3125;
+}
+.highlight.objectivec .comment {
+    color: #008312;
+}
+.highlight.objectivec .string {
+    color: #cf3125;
+}
+.highlight.objectivec .keyword {
+    color: #b833a1;
+}
+.highlight.objectivec .built_in {
+    color: #6f41a7;
+}
+.highlight.objectivec .number {
+    color: #2934d4;
+}
+.highlight.objectivec .literal {
+    color: #b833a1;
+}
+.highlight.objectivec .variable {
+    color: #508187;
+}
+.highlight.objectivec .class .title {
+    color: #508187;
+}
+
+/* Reset Hightlights */
+
+.highlight {
+    padding: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border-style: solid;
+    color: #000000;
+    border: 1px solid #9F9F9F;
+    background: #F1F1F1 !important;
+    text-align: right;
+    color: #9f9f9f;
+}
+.highlight pre {
+    background: #F1F1F1 !important;
+    color: #000000;
+}
+.highlight .code {
+    padding: 5px;
+}
+.highlight .gutter pre {
+    padding:5px 5px 5px 10px;
+    background-color: #EEEEEE;
+    border-radius: 0px;
+    border-right: 1px solid #9F9F9F;
+    text-align: right;
+    color: #9F9F9F;
+    min-width: 33px;
+}
+
+/* Reset Body */
+.page .panel-collapse .panel-body {
+    background-color: white;
+}
+.panel-group .panel+.panel {
+    margin-top: 25px;
+}
+h2 {
+    border-bottom: none;
+    color: black;
+}
+.page {
+    padding-top: 0px;
+}
+h3 {
+    border-bottom: none;
+    padding-top: 20px;
+    color: black;
+}
