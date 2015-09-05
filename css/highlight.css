@@ -283,11 +283,20 @@ pre .javascript .function {
 }
 
 /* Reset Body */
+.content {
+    color: #2f2f2f;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.7;
+}
 .page .panel-collapse .panel-body {
     background-color: white;
 }
 .panel-group .panel+.panel {
     margin-top: 25px;
+}
+h1 {
+    font-size: 2em;
 }
 h2 {
     border-bottom: none;
