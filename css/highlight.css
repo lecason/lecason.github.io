@@ -282,6 +282,49 @@ pre .javascript .function {
     min-width: 33px;
 }
 
+/* Swift Style */
+
+.highlight.swift .keyword,.highlight.swift .preprocessor {
+    color: #b833a1;
+}
+.highlight.swift .comment {
+    color: #008312;
+}
+.highlight.swift .type {
+    color: #6f41a7;
+}
+.highlight.swift .built_in {
+    color: #3d237f;
+}
+.highlight.swift .string {
+    color: #cf3125;
+}
+.highlight.swift .string .subst {
+    color: #000000;
+}
+.highlight.swift .number {
+    color: #2934d4;
+}
+.highlight.swift .class .title {
+    color: #508187;
+}
+.highlight.swift .class {
+    color: #000000;
+}
+.highlight.swift .func .title {
+    color: #000000;
+}
+.highlight.swift .func .params {
+    color: #6f41a7;
+}
+.highlight.swift .literal {
+    color: #b833a1;
+}
+
+/*.highlight.swift .class .keyword + .title {*/
+/*    color: #b833a1;*/
+/*}*/
+
 /* Reset Body */
 .content {
     color: #2f2f2f;
