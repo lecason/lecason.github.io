@@ -3,15 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Objective-C NSDictionary 与 JsonString 之间的转换 | LECASON</title>
+  <title>Swift 怎么使用sizeof | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="NSDictionary 转 JsonString12345678NSDictionary *dic = @&amp;#123;@&quot;cmd&quot;:@&quot;login&quot;,@&quot;account&quot;:@&quot;18688889999&quot;,@&quot;password&quot;:@&quot;0ca175b9c0f726a831d895e269332461&quot;&amp;">
+  <meta name="description" content="以前用Objective-C 的时候,可以很方便的用sizeof()来查看字节的长度
+1234NSMutableData *data = [[NSMutableData alloc] init];int i = 1;[data appendBytes:&amp;amp;i length:sizeof(i)]">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Objective-C NSDictionary 与 JsonString 之间的转换"/>
+  <meta property="og:title" content="Swift 怎么使用sizeof"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -58,7 +59,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Objective-C NSDictionary 与 JsonString 之间的转换</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-31</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Swift 怎么使用sizeof</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-06</span></h1>
 </div>		
 
 <div class="row page">
@@ -71,8 +72,10 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <h2 id="NSDictionary_转_JsonString">NSDictionary 转 JsonString</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *dic = @&#123;<span class="string">@"cmd"</span>:<span class="string">@"login"</span>,<span class="string">@"account"</span>:<span class="string">@"18688889999"</span>,<span class="string">@"password"</span>:<span class="string">@"0ca175b9c0f726a831d895e269332461"</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSData</span> *jsonData = [<span class="built_in">NSJSONSerialization</span></span><br><span class="line">                        dataWithJSONObject:dic options:<span class="built_in">NSJSONWritingPrettyPrinted</span> error:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *jsonString = [[<span class="built_in">NSString</span> alloc] initWithData:jsonData encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"jsonStirng %@"</span>,jsonString);</span><br></pre></td></tr></table></figure>
-<h2 id="JsonString_转_NSDicionary">JsonString 转 NSDicionary</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *jsonString = <span class="string">@"&#123;\"cmd\":\"login\",\"account\": \"18688889999\",\"password\": \"0ca175b9c0f726a831d895e269332461\"&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSData</span> *jsonData = [jsonString dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">   </span><br><span class="line"><span class="built_in">NSDictionary</span> *jsonDic = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:data options:<span class="built_in">NSJSONReadingMutableLeaves</span> error:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"jsonDic %@"</span>, jsonDic);</span><br></pre></td></tr></table></figure>	  
+	  <p>以前用Objective-C 的时候,可以很方便的用<code>sizeof()</code>来查看字节的长度</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableData</span> *data = [[<span class="built_in">NSMutableData</span> alloc] init];</span><br><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">[data appendBytes:&amp;i length:<span class="keyword">sizeof</span>(i)];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"data:%@ size:%lu"</span>,data,<span class="keyword">sizeof</span>(i));</span><br></pre></td></tr></table></figure>
+<p>但在Swift里要这样子来查看<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data:<span class="type">NSMutableData</span> = <span class="type">NSMutableData</span>()</span><br><span class="line"><span class="keyword">var</span> i:<span class="type">Int</span> = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> size:<span class="type">Int</span> = <span class="built_in">sizeof</span>(i.<span class="keyword">dynamicType</span>)</span><br><span class="line">data.appendBytes(&amp;i, length:size)</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"data:<span class="subst">\(data)</span> size:<span class="subst">\(size)</span>"</span>)</span><br></pre></td></tr></table></figure></p>
+	  
 
 	  <div>
   		<center>
@@ -84,12 +87,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 		
-	
-		
-	
-		
-	
-		
 			
 			
 		
@@ -99,25 +96,23 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-			
-			
-			
-		
 	
 		
-			
+	
 		
 	
 		
 	
 		
-			
+	
+		
+	
 		
 	
 		
 	
 		
-			
+	
 		
 	
 		
@@ -129,7 +124,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
 	
-		<li class="next"><a href="/2015/08/28/Objective-C-Hex-String-NSData-Convert/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		<li class="next disabled"><a>next<i class="fa fa-arrow-circle-o-right"></i></a></li>
 	
 </ul>
 </div>
