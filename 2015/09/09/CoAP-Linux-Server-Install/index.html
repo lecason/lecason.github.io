@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Objective-C 定时器 NSTimer 使用 | LECASON</title>
+  <title>CoAP Linux服务器上安装CoAP服务器端 | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="NSTimer 有一个属性叫 fireDate ，意思就是开始时间。所以我们设置一个超远的时间就是暂停，设置当前时间就是开始。
-创建1_timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(t">
+  <meta name="description" content="要求软件版本 autoconf &amp;gt; 2.65 gccFireFox Copper插件地址 https://addons.mozilla.org/en-US/firefox/addon/copper-270430/
+获得libCoAP1wget https://github.com/lecaso">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Objective-C 定时器 NSTimer 使用"/>
+  <meta property="og:title" content="CoAP Linux服务器上安装CoAP服务器端"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -59,7 +59,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Objective-C 定时器 NSTimer 使用</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-26</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">CoAP Linux服务器上安装CoAP服务器端</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-09</span></h1>
 </div>		
 
 <div class="row page">
@@ -72,11 +72,15 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <p>NSTimer 有一个属性叫 fireDate ，意思就是开始时间。所以我们设置一个超远的时间就是暂停，设置当前时间就是开始。</p>
-<h2 id="创建">创建</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_timer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">1</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(testTimer) userInfo:<span class="literal">nil</span> repeats:<span class="literal">YES</span>];</span><br></pre></td></tr></table></figure>
-<h2 id="暂停">暂停</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_timer setFireDate:[<span class="built_in">NSDate</span> distantFuture]];</span><br></pre></td></tr></table></figure>
-<h2 id="继续">继续</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_timer setFireDate:[<span class="built_in">NSDate</span> date]];</span><br></pre></td></tr></table></figure>
-<h2 id="停止">停止</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_time invalidate];</span><br></pre></td></tr></table></figure>
+	  <p>要求软件版本 <code>autoconf &gt; 2.65</code> <code>gcc</code><br>FireFox <code>Copper</code>插件地址 <code>https://addons.mozilla.org/en-US/firefox/addon/copper-270430/</code></p>
+<h2 id="获得libCoAP">获得libCoAP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/lecason/libCoAP/archive/master.zip</span><br></pre></td></tr></table></figure>
+<h2 id="编译安装libCoAP">编译安装libCoAP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> libCoAP-master</span><br><span class="line">autoconf</span><br><span class="line">./configure</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<p>如果提示<code>has modification time 2.5e+08 s in the future</code>，是机器时间设置的问题,重新设置下机器时间就搞定了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ntp</span><br><span class="line">ntpdate time.nist.gov</span><br></pre></td></tr></table></figure>
+<h2 id="libCoAP使用">libCoAP使用</h2><p>开启服务端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> examples/</span><br><span class="line">./coap-server</span><br></pre></td></tr></table></figure>
+<p>这时候就可以在安装好了<code>Copper</code>插件的FireFox上打开服务器所在地址，注意防火墙开端口，测试的话直接关了。点击<code>GET</code>就可以看到返回信息了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This is a <span class="built_in">test</span> server made with libcoap (see http://libcoap.sf.net)</span><br><span class="line">Copyright (C) <span class="number">2010</span>--<span class="number">2013</span> Olaf Bergmann &lt;bergmann@tzi.org&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/img/coap1.png" alt=""></p>
 	  
 
 	  <div>
@@ -89,34 +93,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 		
-	
-		
-	
-		
-			
-		
-	
-		
-	
-		
-	
-		
-	
-		
-			
-		
-	
-		
-	
-		
-	
-		
-			
-		
-	
-		
-	
-		
 			
 			
 		
@@ -124,11 +100,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-			
-			
-			
+	
 		
-			
+	
 		
 	
 		
@@ -137,12 +111,32 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 		
 	
+		
 	
-		<li class="prev"><a href="/2015/08/28/Objective-C-Hex-String-NSData-Convert/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
 	
 	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
 	
-		<li class="next"><a href="/2015/08/19/Objective-C-How-To-NSLog-NSData-In-Binary/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		<li class="next disabled"><a>next<i class="fa fa-arrow-circle-o-right"></i></a></li>
 	
 </ul>
 </div>
