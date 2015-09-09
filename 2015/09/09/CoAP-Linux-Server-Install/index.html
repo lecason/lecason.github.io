@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>CoAP Linux服务器上安装CoAP服务器端 | LECASON</title>
+  <title>CoAP Linux服务器上安装以及使用 | LECASON</title>
   <meta name="author" content="Lecason">
   
   <meta name="description" content="要求软件版本 autoconf &amp;gt; 2.65 gccFireFox Copper插件地址 https://addons.mozilla.org/en-US/firefox/addon/copper-270430/
@@ -12,7 +12,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="CoAP Linux服务器上安装CoAP服务器端"/>
+  <meta property="og:title" content="CoAP Linux服务器上安装以及使用"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -59,7 +59,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">CoAP Linux服务器上安装CoAP服务器端</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-09</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">CoAP Linux服务器上安装以及使用</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-09</span></h1>
 </div>		
 
 <div class="row page">
@@ -81,6 +81,17 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> examples/</span><br><span class="line">./coap-server</span><br></pre></td></tr></table></figure>
 <p>这时候就可以在安装好了<code>Copper</code>插件的FireFox上打开服务器所在地址，注意防火墙开端口，测试的话直接关了。点击<code>GET</code>就可以看到返回信息了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This is a <span class="built_in">test</span> server made with libcoap (see http://libcoap.sf.net)</span><br><span class="line">Copyright (C) <span class="number">2010</span>--<span class="number">2013</span> Olaf Bergmann &lt;bergmann@tzi.org&gt;</span><br></pre></td></tr></table></figure></p>
 <p><img src="/img/coap1.png" alt=""></p>
+<p>客户端测试</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./coap-client -m put get coap://<span class="number">10.172</span>.<span class="number">1.199</span></span><br></pre></td></tr></table></figure>
+<p>返回</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v:<span class="number">1</span> t:<span class="number">0</span> tkl:<span class="number">0</span> c:<span class="number">3</span> id:<span class="number">54574</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>【v】表示coap的版本编号，此时的coap的版本编号为1。</li>
+<li>【t】表示报文类型为CON，</li>
+<li>【tkl】表示token区域的长度，此时的token区域的长度为0。</li>
+<li>【c】表示访问方法（该处还需要分析）</li>
+<li>【id】表示message id</li>
+</ul>
 	  
 
 	  <div>
