@@ -3,24 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOS Bluetooth 设置后台运行 | LECASON</title>
+  <title>iOS 设置导航栏透明并去除1px细线 | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="方法一 在 info.plist 设置在info.plist里面添加一条
-
-UIBackgroundModes
-
-并设置两个条目
-
-App communicates using CoreBluetooth
-App communicates using CoreBluetooth
-
-方法二 在项目设置">
+  <meta name="description" content="设置导航栏透明只要在viewDidLoad()写上
+123self.navigationItem.title =  &quot;智能手环&quot;self.navigationController?.navigationBar.setBackgroundImage(UIImage.new(), forBarPosit">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="iOS Bluetooth 设置后台运行"/>
+  <meta property="og:title" content="iOS 设置导航栏透明并去除1px细线"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -67,7 +59,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS Bluetooth 设置后台运行</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-27</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 设置导航栏透明并去除1px细线</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-10</span></h1>
 </div>		
 
 <div class="row page">
@@ -80,17 +72,12 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <h2 id="方法一_在_info-plist_设置">方法一 在 info.plist 设置</h2><p>在<code>info.plist里面</code>添加一条</p>
-<ul>
-<li><code>UIBackgroundModes</code></li>
-</ul>
-<p>并设置两个条目</p>
-<ul>
-<li><code>App communicates using CoreBluetooth</code></li>
-<li><code>App communicates using CoreBluetooth</code></li>
-</ul>
-<h2 id="方法二_在项目设置里面设置">方法二 在项目设置里面设置</h2><p>点击左侧蓝色项目 &gt; Targets &gt; Capabilities</p>
-<p><img src="/img/bluetoothBackgroundMode.png" alt=""></p>
+	  <p>设置导航栏透明只要在viewDidLoad()写上</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.navigationItem.title =  <span class="string">"智能手环"</span></span><br><span class="line"><span class="keyword">self</span>.navigationController?.navigationBar.setBackgroundImage(<span class="type">UIImage</span>.<span class="keyword">new</span>(), forBarPosition: <span class="type">UIBarPosition</span>.<span class="type">Any</span>, barMetrics: <span class="type">UIBarMetrics</span>.<span class="type">Compact</span>)</span><br><span class="line"><span class="keyword">self</span>.navigationController?.navigationBar.shadowImage = <span class="type">UIImage</span>.<span class="keyword">new</span>()</span><br></pre></td></tr></table></figure>
+<p>发现有1px线线<br><img src="/img/navigartionbartransparents1.png" alt=""></p>
+<p>这时候只要再加上下面代码就可以完全透明了</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.navigationController?.navigationBar.barStyle = <span class="type">UIBarStyle</span>.<span class="type">BlackTranslucent</span></span><br><span class="line"><span class="keyword">self</span>.navigationController?.navigationBar.clipsToBounds = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/navigartionbartransparents2.png" alt=""></p>
 	  
 
 	  <div>
@@ -104,36 +91,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 		
 			
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-			
-		
-	
-		
-			
-		
-	
-		
-	
-		
-	
-		
-			
-		
-	
-		
-	
-		
-			
 			
 		
 	
@@ -155,12 +112,42 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 		
 	
+		
 	
-		<li class="prev"><a href="/2015/08/29/iOS-jsonRequest/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
 	
 	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
 	
-		<li class="next"><a href="/2015/08/19/iOS-Custom-Object-NSCoding/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		<li class="next"><a href="/2015/09/02/iOS-Localizaion/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
 	
 </ul>
 </div>

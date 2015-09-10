@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-09-09T05:29:44.000Z</updated>
+  <updated>2015-09-10T03:50:04.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -13,6 +13,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[iOS 设置导航栏透明并去除1px细线]]></title>
+    <link href="http://lecason.com/2015/09/10/iOS-Set-Transarent-NavigationBar/"/>
+    <id>http://lecason.com/2015/09/10/iOS-Set-Transarent-NavigationBar/</id>
+    <published>2015-09-10T03:45:49.000Z</published>
+    <updated>2015-09-10T03:50:04.000Z</updated>
+    <content type="html"><![CDATA[<p>设置导航栏透明只要在viewDidLoad()写上</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.navigationItem.title =  <span class="string">"智能手环"</span></span><br><span class="line"><span class="keyword">self</span>.navigationController?.navigationBar.setBackgroundImage(<span class="type">UIImage</span>.<span class="keyword">new</span>(), forBarPosition: <span class="type">UIBarPosition</span>.<span class="type">Any</span>, barMetrics: <span class="type">UIBarMetrics</span>.<span class="type">Compact</span>)</span><br><span class="line"><span class="keyword">self</span>.navigationController?.navigationBar.shadowImage = <span class="type">UIImage</span>.<span class="keyword">new</span>()</span><br></pre></td></tr></table></figure>
+<p>发现有1px线线<br><img src="/img/navigartionbartransparents1.png" alt=""></p>
+<p>这时候只要再加上下面代码就可以完全透明了</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.navigationController?.navigationBar.barStyle = <span class="type">UIBarStyle</span>.<span class="type">BlackTranslucent</span></span><br><span class="line"><span class="keyword">self</span>.navigationController?.navigationBar.clipsToBounds = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p><img src="/img/navigartionbartransparents2.png" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>设置导航栏透明只要在viewDidLoad()写上</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span cla]]>
+    </summary>
+    
+      <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
+    
+      <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[CoAP Linux服务器上安装以及使用]]></title>
