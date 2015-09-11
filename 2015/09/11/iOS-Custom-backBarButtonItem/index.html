@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Swift 怎么使用sizeof | LECASON</title>
+  <title>iOS 自定义导航栏标题 | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="以前用Objective-C 的时候,可以很方便的用sizeof()来查看字节的长度
-1234NSMutableData *data = [[NSMutableData alloc] init];int i = 1;[data appendBytes:&amp;amp;i length:sizeof(i)]">
+  <meta name="description" content="在OC的时候很容易就设置导航栏的返回按钮标题
+1234// 返回按钮UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];backItem.title = @&quot;&quot;;self.navigationItem.backBarButtonIte">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Swift 怎么使用sizeof"/>
+  <meta property="og:title" content="iOS 自定义导航栏标题"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -59,7 +59,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Swift 怎么使用sizeof</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-06</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 自定义导航栏标题</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-11</span></h1>
 </div>		
 
 <div class="row page">
@@ -72,10 +72,14 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <p>以前用Objective-C 的时候,可以很方便的用<code>sizeof()</code>来查看字节的长度</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableData</span> *data = [[<span class="built_in">NSMutableData</span> alloc] init];</span><br><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">[data appendBytes:&amp;i length:<span class="keyword">sizeof</span>(i)];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"data:%@ size:%lu"</span>,data,<span class="keyword">sizeof</span>(i));</span><br></pre></td></tr></table></figure>
-<p>但在Swift里要这样子来查看<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data:<span class="type">NSMutableData</span> = <span class="type">NSMutableData</span>()</span><br><span class="line"><span class="keyword">var</span> i:<span class="type">Int</span> = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> size:<span class="type">Int</span> = <span class="built_in">sizeof</span>(i.<span class="keyword">dynamicType</span>)</span><br><span class="line">data.appendBytes(&amp;i, length:size)</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"data:<span class="subst">\(data)</span> size:<span class="subst">\(size)</span>"</span>)</span><br></pre></td></tr></table></figure></p>
-	  
+	  <p>在OC的时候很容易就设置导航栏的返回按钮标题</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回按钮</span></span><br><span class="line"><span class="built_in">UIBarButtonItem</span> *backItem = [[<span class="built_in">UIBarButtonItem</span> alloc] init];</span><br><span class="line">backItem<span class="variable">.title</span> = <span class="string">@""</span>;</span><br><span class="line"><span class="keyword">self</span><span class="variable">.navigationItem</span><span class="variable">.backBarButtonItem</span> = backItem;</span><br></pre></td></tr></table></figure>
+<p>但在Swift下试过很多方法都不行</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> barBack = <span class="type">UIBarButtonItem</span>(title: <span class="string">"Reset"</span>, style: <span class="type">UIBarButtonItemStyle</span>.<span class="type">Plain</span>, target: <span class="keyword">self</span>, action: <span class="string">"reset:"</span>)</span><br><span class="line"><span class="keyword">self</span>.navigationItem.leftBarButtonItem = barBack</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.navigationItem.backBarButtonItem.title = <span class="string">"Reset"</span></span><br></pre></td></tr></table></figure>
+<p>最后只能在pushViewController前设置NavigationBar自身的Title为空</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">presentShareViewController</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> shareVC: <span class="type">HWShareViewController</span> = <span class="type">HWShareViewController</span>()</span><br><span class="line">    title = <span class="string">""</span></span><br><span class="line">    <span class="keyword">self</span>.navigationController?.pushViewController(shareVC, animated: <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>	  
 
 	  <div>
   		<center>
@@ -87,7 +91,30 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 		
+			
+			
+		
 	
+		
+			
+			
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
 		
 	
 		
@@ -106,43 +133,32 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 		
 			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
 			
 		
 	
 		
 	
-		
 	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-	
-		<li class="prev"><a href="/2015/09/07/Swift-Print-In-To-Binary/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
 	
 	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
 	
-		<li class="next disabled"><a>next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		<li class="next"><a href="/2015/09/11/iOS-Create-Round-Photo-And-Boder/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
 	
 </ul>
 </div>
