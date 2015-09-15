@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-09-15T07:28:26.000Z</updated>
+  <updated>2015-09-15T07:36:27.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://lecason.com/2015/09/15/iOS-Remote-Notificaton/"/>
     <id>http://lecason.com/2015/09/15/iOS-Remote-Notificaton/</id>
     <published>2015-09-15T02:27:45.000Z</published>
-    <updated>2015-09-15T07:28:26.000Z</updated>
+    <updated>2015-09-15T07:36:27.000Z</updated>
     <content type="html"><![CDATA[<h2 id="注册推送证书">注册推送证书</h2><p>我们的客户端与苹果服务器之间和我们自己的服务器与苹果服务器之间都需要证书来进行链接。下面我们来开始进入证书的制作过程。</p>
 <h3 id="生成CSR文件">生成CSR文件</h3><p>打开<code>MAC</code> - <code>钥匙串访问</code> - <code>菜单</code> - <code>证书助理</code> - <code>从证书颁发机构请求证书</code> - <code>存储到磁盘</code></p>
 <p><img src="/img/remotenotification1.png" alt=""></p>
@@ -101,6 +101,8 @@
 <p><img src="/img/remotenotification24.png" alt=""></p>
 <p>发送透传消息</p>
 <p><img src="/img/remotenotification25.png" alt=""></p>
+<p>iPhone 收到推送消息的效果：</p>
+<p><img src="/img/remotenotification26.png" alt=""></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="注册推送证书">注册推送证书</h2><p>我们的客户端与苹果服务器之间和我们自己的服务器与苹果服务器之间都需要证书来进行链接。下面我们来开始进入证书的制作过程。</p>
