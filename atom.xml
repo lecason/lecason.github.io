@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-09-17T02:24:43.000Z</updated>
+  <updated>2015-09-17T02:35:28.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[Debug linker command failed ]]></title>
+    <title><![CDATA[Debug Linker command failed 连接命令失败]]></title>
     <link href="http://lecason.com/2015/09/17/Debug-linker-command-failed/"/>
     <id>http://lecason.com/2015/09/17/Debug-linker-command-failed/</id>
     <published>2015-09-17T02:16:32.000Z</published>
-    <updated>2015-09-17T02:24:43.000Z</updated>
+    <updated>2015-09-17T02:35:28.000Z</updated>
     <content type="html"><![CDATA[<p>项目编译的时候出现</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang: <span class="keyword">error</span>: linker command failed <span class="keyword">with</span> <span class="keyword">exit</span> code <span class="number">1</span> (use -v <span class="keyword">to</span> see invocation)</span><br></pre></td></tr></table></figure>
 <p>可能是由于引用的静态库文件找不到。</p>
