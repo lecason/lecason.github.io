@@ -3,15 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Objective-C NSDictionary 与 JsonString 之间的转换 | LECASON</title>
+  <title>Debug linker command failed  | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="NSDictionary 转 JsonString12345678NSDictionary *dic = @&amp;#123;@&quot;cmd&quot;:@&quot;login&quot;,@&quot;account&quot;:@&quot;18688889999&quot;,@&quot;password&quot;:@&quot;0ca175b9c0f726a831d895e269332461&quot;&amp;">
+  <meta name="description" content="项目编译的时候出现
+1clang: error: linker command failed with exit code 1 (use -v to see invocation)
+可能是由于引用的静态库文件找不到。
+这时候，点击  Build Settings - All - Search Pat">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Objective-C NSDictionary 与 JsonString 之间的转换"/>
+  <meta property="og:title" content="Debug linker command failed "/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -58,7 +61,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Objective-C NSDictionary 与 JsonString 之间的转换</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-31</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Debug linker command failed </span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-17</span></h1>
 </div>		
 
 <div class="row page">
@@ -71,8 +74,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <h2 id="NSDictionary_转_JsonString">NSDictionary 转 JsonString</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *dic = @&#123;<span class="string">@"cmd"</span>:<span class="string">@"login"</span>,<span class="string">@"account"</span>:<span class="string">@"18688889999"</span>,<span class="string">@"password"</span>:<span class="string">@"0ca175b9c0f726a831d895e269332461"</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSData</span> *jsonData = [<span class="built_in">NSJSONSerialization</span></span><br><span class="line">                        dataWithJSONObject:dic options:<span class="built_in">NSJSONWritingPrettyPrinted</span> error:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *jsonString = [[<span class="built_in">NSString</span> alloc] initWithData:jsonData encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"jsonStirng %@"</span>,jsonString);</span><br></pre></td></tr></table></figure>
-<h2 id="JsonString_转_NSDicionary">JsonString 转 NSDicionary</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *jsonString = <span class="string">@"&#123;\"cmd\":\"login\",\"account\": \"18688889999\",\"password\": \"0ca175b9c0f726a831d895e269332461\"&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSData</span> *jsonData = [jsonString dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">   </span><br><span class="line"><span class="built_in">NSDictionary</span> *jsonDic = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:data options:<span class="built_in">NSJSONReadingMutableLeaves</span> error:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"jsonDic %@"</span>, jsonDic);</span><br></pre></td></tr></table></figure>	  
+	  <p>项目编译的时候出现</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang: <span class="keyword">error</span>: linker command failed <span class="keyword">with</span> <span class="keyword">exit</span> code <span class="number">1</span> (use -v <span class="keyword">to</span> see invocation)</span><br></pre></td></tr></table></figure>
+<p>可能是由于引用的静态库文件找不到。</p>
+<p>这时候，点击  <code>Build Settings</code> - <code>All</code> - <code>Search Paths</code> - <code>Library Search Paths</code> -<code>添加库文件所在位置</code></p>
+<p><img src="/img/linkerfilenotfound1.png" alt=""></p>
+<p>清理，编译几次试试。</p>
+	  
 
 	  <div>
   		<center>
@@ -84,36 +92,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-			
-		
-	
-		
-	
-		
-	
-		
-	
-		
 			
 			
 		
@@ -129,15 +107,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-			
+	
 		
 	
 		
-			
-		
 	
-		
-			
 		
 	
 		
@@ -146,12 +120,38 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 		
 	
+		
 	
-		<li class="prev"><a href="/2015/09/07/Objective-C-4byte-HexString-Operation/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
 	
 	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
 	
-		<li class="next"><a href="/2015/08/28/Objective-C-Hex-String-NSData-Convert/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		<li class="next"><a href="/2015/09/14/Debug-Libray-not-loaded/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
 	
 </ul>
 </div>
