@@ -288,7 +288,7 @@
     <link href="http://lecason.com/2015/09/09/CoAP-Linux-Server-Install/"/>
     <id>http://lecason.com/2015/09/09/CoAP-Linux-Server-Install/</id>
     <published>2015-09-09T01:22:56.000Z</published>
-    <updated>2015-09-09T05:29:44.000Z</updated>
+    <updated>2015-09-17T02:28:03.000Z</updated>
     <content type="html"><![CDATA[<p>要求软件版本 <code>autoconf &gt; 2.65</code> <code>gcc</code><br>FireFox <code>Copper</code>插件地址 <code>https://addons.mozilla.org/en-US/firefox/addon/copper-270430/</code></p>
 <h2 id="获得libCoAP">获得libCoAP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/lecason/libCoAP/archive/master.zip</span><br></pre></td></tr></table></figure>
 <h2 id="编译安装libCoAP">编译安装libCoAP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> libCoAP-master</span><br><span class="line">autoconf</span><br><span class="line">./configure</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
@@ -313,6 +313,8 @@
     <summary type="html">
     <![CDATA[<p>要求软件版本 <code>autoconf &gt; 2.65</code> <code>gcc</code><br>FireFox <code>Copper</code>插件地址 <code>https://addons.mozilla.org/en-US/firefox]]>
     </summary>
+    
+      <category term="CoAP" scheme="http://lecason.com/tags/CoAP/"/>
     
       <category term="CoAP" scheme="http://lecason.com/categories/CoAP/"/>
     
