@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-09-17T02:35:28.000Z</updated>
+  <updated>2015-09-18T03:01:14.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -13,6 +13,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[iOS 设置Label的行间距 首行缩进]]></title>
+    <link href="http://lecason.com/2015/09/18/iOS-Reset-Label-line-Space-Head-Index/"/>
+    <id>http://lecason.com/2015/09/18/iOS-Reset-Label-line-Space-Head-Index/</id>
+    <published>2015-09-18T02:54:51.000Z</published>
+    <updated>2015-09-18T03:01:14.000Z</updated>
+    <content type="html"><![CDATA[<p>Swift 版本</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">resetContent</span><span class="params">(#text:String)</span></span> -&gt; (<span class="type">NSAttributedString</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> atributedString: <span class="type">NSMutableAttributedString</span> = <span class="type">NSMutableAttributedString</span>(string: text)</span><br><span class="line">    <span class="keyword">var</span> paragraphStyle: <span class="type">NSMutableParagraphStyle</span> = <span class="type">NSMutableParagraphStyle</span>()</span><br><span class="line">    paragraphStyle.alignment = <span class="type">NSTextAlignment</span>.<span class="type">Center</span></span><br><span class="line">    paragraphStyle.maximumLineHeight = <span class="number">60</span> <span class="comment">//最大的行高</span></span><br><span class="line">    paragraphStyle.lineSpacing = <span class="number">5</span>  <span class="comment">//行自定义行高度</span></span><br><span class="line">    paragraphStyle.firstLineHeadIndent = <span class="number">0</span> <span class="comment">// 首行缩进</span></span><br><span class="line">    atributedString.addAttribute(<span class="type">NSParagraphStyleAttributeName</span>, value: paragraphStyle, range:<span class="type">NSMakeRange</span>(<span class="number">0</span>, <span class="built_in">count</span>(text)))</span><br><span class="line">    <span class="keyword">return</span> atributedString</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Objective-C 版本</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSAttributedString</span> *)resetContentText:(<span class="built_in">NSString</span> *)text</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> *attributedString = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:text];</span><br><span class="line">    <span class="built_in">NSMutableParagraphStyle</span> *paragraphStyle = [[<span class="built_in">NSMutableParagraphStyle</span> alloc] init];</span><br><span class="line">    paragraphStyle<span class="variable">.alignment</span> = <span class="built_in">NSTextAlignmentLeft</span>;</span><br><span class="line">    paragraphStyle<span class="variable">.maximumLineHeight</span> = <span class="number">60</span>;  <span class="comment">//最大的行高</span></span><br><span class="line">    paragraphStyle<span class="variable">.lineSpacing</span> = <span class="number">5</span>;  <span class="comment">//行自定义行高度</span></span><br><span class="line">    [paragraphStyle setFirstLineHeadIndent: <span class="number">5</span>];<span class="comment">//首行缩进 根据用户昵称宽度在加5个像素</span></span><br><span class="line">    [attributedString addAttribute:<span class="built_in">NSParagraphStyleAttributeName</span> value:paragraphStyle range:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>,text<span class="variable">.length</span>)];</span><br><span class="line">    <span class="keyword">return</span> attributedString;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用的时候:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">label.attributedText = <span class="keyword">self</span>.resetContent(<span class="string">"Your String"</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<p>Swift 版本</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</spa]]>
+    </summary>
+    
+      <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
+    
+      <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[iOS 基础课程]]></title>
+    <link href="http://lecason.com/2015/09/17/iOS-Study-Note/"/>
+    <id>http://lecason.com/2015/09/17/iOS-Study-Note/</id>
+    <published>2015-09-17T15:22:52.000Z</published>
+    <updated>2015-09-17T16:11:15.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="UIWindow">UIWindow</h2><p>UIWindow级别有三个，级别有3个，<code>UIWindowLevelNormal</code> &lt; <code>UIWindowsLevelAlert</code> &lt; <code>UIWindowLevelStatusBar</code>,3个可同时显示在屏幕，每个级别可以创建多个，但同个级别同时只有一个能显示在屏幕上。</p>
+<p>在AppDelegate创建窗口并显示：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.window</span> = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:[[<span class="built_in">UIScreen</span> mainScreen] bounds]];</span><br><span class="line">    RootViewController *rootVC =[[RootViewController alloc] init];</span><br><span class="line">    <span class="keyword">self</span><span class="variable">.window</span><span class="variable">.rootViewController</span> = rootVC;</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.window</span> makeKeyAndVisible];</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="UIView">UIView</h2><p>创建一个View</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIView</span> *view = [[<span class="built_in">UIView</span> alloc] init];</span><br><span class="line">view<span class="variable">.frame</span> = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">view<span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> blueColor];</span><br></pre></td></tr></table></figure>
+<p>iPhone屏幕的尺寸</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/<span class="keyword">*</span> --------------------------------------------------</span><br><span class="line"></span><br><span class="line">3GS        3.5'    320 <span class="keyword">*</span> 480     <span class="comment">@1x  -   320 * 480</span></span><br><span class="line">4/4S       3.5'    320 <span class="keyword">*</span> 480     <span class="comment">@2x  -   640 * 960</span></span><br><span class="line">5/5c/5s    4.0'    320 <span class="keyword">*</span> 568     <span class="comment">@2x  -   640 * 1136</span></span><br><span class="line">6          4.7'    375 <span class="keyword">*</span> 667     <span class="comment">@2x  -   750 * 1344</span></span><br><span class="line">6p         5.5'    414 <span class="keyword">*</span> 736     <span class="comment">@3x  -  1242 * 2208</span></span><br><span class="line"></span><br><span class="line">status bar         22</span><br><span class="line"></span><br><span class="line">----------------------------------------------------<span class="keyword">*</span>/</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>bounds 边框大小，bounds.size.x , bounds.size.y 永远为0</p>
+</blockquote>
+<p>得到View的父视图</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIView</span> *superView = view<span class="variable">.superview</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>坐标是根据父视图的位置来设置的，不会跨层</p>
+</blockquote>
+<p> 得到View的子视图</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *subViews = view<span class="variable">.subviews</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">UIView</span> *view <span class="keyword">in</span> subViews) &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,view);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过设置View Tag 值来得到对应的子视图</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">view<span class="variable">.tag</span> = <span class="number">0</span></span><br><span class="line"><span class="built_in">UIView</span> *otherview = [superView viewWithTag:<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>同一个父视图中，先加入的View会被覆盖在下面</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="UIWindow">UIWindow</h2><p>UIWindow级别有三个，级别有3个，<code>UIWindowLevelNormal</code> &lt; <code>UIWindowsLevelAlert</code> &lt; <code>UIWi]]>
+    </summary>
+    
+      <category term="Study" scheme="http://lecason.com/tags/Study/"/>
+    
+      <category term="Note" scheme="http://lecason.com/categories/Note/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Debug Linker command failed 连接命令失败]]></title>
@@ -600,60 +662,6 @@
     <summary type="html">
     <![CDATA[<h2 id="十六进制字符串Hex_NSString_转换成_NSData">十六进制字符串Hex NSString 转换成 NSData</h2><p>创建一个NSString的类别</p>
 <figure class="highlight objectivec"><tabl]]>
-    </summary>
-    
-      <category term="Objective-C" scheme="http://lecason.com/tags/Objective-C/"/>
-    
-      <category term="Objective-C" scheme="http://lecason.com/categories/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[iOS Bluetooth 设置后台运行]]></title>
-    <link href="http://lecason.com/2015/08/27/iOS-Bluetooth-Background-Mode/"/>
-    <id>http://lecason.com/2015/08/27/iOS-Bluetooth-Background-Mode/</id>
-    <published>2015-08-27T02:03:23.000Z</published>
-    <updated>2015-09-05T09:06:22.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="方法一_在_info-plist_设置">方法一 在 info.plist 设置</h2><p>在<code>info.plist里面</code>添加一条</p>
-<ul>
-<li><code>UIBackgroundModes</code></li>
-</ul>
-<p>并设置两个条目</p>
-<ul>
-<li><code>App communicates using CoreBluetooth</code></li>
-<li><code>App communicates using CoreBluetooth</code></li>
-</ul>
-<h2 id="方法二_在项目设置里面设置">方法二 在项目设置里面设置</h2><p>点击左侧蓝色项目 &gt; Targets &gt; Capabilities</p>
-<p><img src="/img/bluetoothBackgroundMode.png" alt=""></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="方法一_在_info-plist_设置">方法一 在 info.plist 设置</h2><p>在<code>info.plist里面</code>添加一条</p>
-<ul>
-<li><code>UIBackgroundModes</code></li>
-</ul]]>
-    </summary>
-    
-      <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
-    
-      <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Objective-C 定时器 NSTimer 使用]]></title>
-    <link href="http://lecason.com/2015/08/26/Objective-CNSTimer/"/>
-    <id>http://lecason.com/2015/08/26/Objective-CNSTimer/</id>
-    <published>2015-08-26T10:05:22.000Z</published>
-    <updated>2015-09-05T09:18:31.000Z</updated>
-    <content type="html"><![CDATA[<p>NSTimer 有一个属性叫 fireDate ，意思就是开始时间。所以我们设置一个超远的时间就是暂停，设置当前时间就是开始。</p>
-<h2 id="创建">创建</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_timer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">1</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(testTimer) userInfo:<span class="literal">nil</span> repeats:<span class="literal">YES</span>];</span><br></pre></td></tr></table></figure>
-<h2 id="暂停">暂停</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_timer setFireDate:[<span class="built_in">NSDate</span> distantFuture]];</span><br></pre></td></tr></table></figure>
-<h2 id="继续">继续</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_timer setFireDate:[<span class="built_in">NSDate</span> date]];</span><br></pre></td></tr></table></figure>
-<h2 id="停止">停止</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_time invalidate];</span><br></pre></td></tr></table></figure>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>NSTimer 有一个属性叫 fireDate ，意思就是开始时间。所以我们设置一个超远的时间就是暂停，设置当前时间就是开始。</p>
-<h2 id="创建">创建</h2><figure class="highlight objectivec"><table><tr><t]]>
     </summary>
     
       <category term="Objective-C" scheme="http://lecason.com/tags/Objective-C/"/>
