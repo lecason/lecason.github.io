@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 日期加一天 | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="Swift 日期加一天
+123456789101112func nextDay () -&amp;gt; (String) &amp;#123;    var components = NSDateComponents()    components.day = 1    var expirationDate = ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS 日期加一天"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 日期加一天</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-21</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p>Swift 日期加一天</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">nextDay</span> <span class="params">()</span></span> -&gt; (<span class="type">String</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> components = <span class="type">NSDateComponents</span>()</span><br><span class="line">    components.day = <span class="number">1</span></span><br><span class="line">    <span class="keyword">var</span> expirationDate = <span class="type">NSCalendar</span>.currentCalendar().dateByAddingComponents(components,</span><br><span class="line">    toDate: date, options: <span class="type">NSCalendarOptions</span>(<span class="number">0</span>))</span><br><span class="line">    date = expirationDate</span><br><span class="line">    <span class="keyword">var</span> formatter = <span class="type">NSDateFormatter</span>()</span><br><span class="line">    formatter.dateFormat = <span class="string">"yyyy-MM-dd"</span></span><br><span class="line">    <span class="keyword">return</span> formatter.stringFromDate(expirationDate!)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Formatter的些格式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.常用的</span><br><span class="line">[dateFormatter <span class="built_in">set</span>DateFormat:@<span class="string">"yyyy-MM-dd HH:mm:ss EEEE"</span>];</span><br><span class="line"><span class="number">2013</span>-<span class="number">10</span>-<span class="number">08</span> <span class="number">20</span>:<span class="number">58</span>:<span class="number">29</span> 星期二</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>.将yyyy改成yy，年份只显示后两位。注意：M表示Month，指月份；m表示minute，指分钟；两者不可混淆。</span><br><span class="line">[dateFormatter <span class="built_in">set</span>DateFormat:@<span class="string">"yy-MM-dd HH:mm:ss EEEE"</span>];</span><br><span class="line"><span class="number">13</span>-<span class="number">10</span>-<span class="number">08</span> <span class="number">21</span>:<span class="number">01</span>:<span class="number">48</span> 星期二</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>.将MM改成M，dd改成d，如果月份和日期前面有<span class="number">0</span>，将会消失。</span><br><span class="line">[dateFormatter <span class="built_in">set</span>DateFormat:@<span class="string">"yyyy-M-d HH:mm:ss EEEE"</span>];</span><br><span class="line"><span class="number">2013</span>-<span class="number">10</span>-<span class="number">8</span> <span class="number">21</span>:<span class="number">03</span>:<span class="number">49</span> 星期二</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>.将dd改成DD，则显示今天是今年的第几天。</span><br><span class="line">[dateFormatter <span class="built_in">set</span>DateFormat:@<span class="string">"yyyy-MM-DD HH:mm:ss EEEE"</span>];</span><br><span class="line"><span class="number">2013</span>-<span class="number">10</span>-<span class="number">281</span> <span class="number">21</span>:<span class="number">11</span>:<span class="number">07</span> 星期二</span><br><span class="line"></span><br><span class="line"><span class="number">5</span>.将HH改成H，mm改成m，ss改成s，则时分秒前面的<span class="number">0</span>将会消失。</span><br><span class="line">[dateFormatter <span class="built_in">set</span>DateFormat:@<span class="string">"yyyy-MM-dd H:m:s EEEE"</span>];</span><br><span class="line"><span class="number">2013</span>-<span class="number">10</span>-<span class="number">08</span> <span class="number">21</span>:<span class="number">7</span>:<span class="number">19</span> 星期二</span><br><span class="line"></span><br><span class="line"><span class="number">6</span>.若将HH改成hh，则时间由<span class="number">24</span>小时制变成<span class="number">12</span>小时制。</span><br><span class="line">[dateFormatter <span class="built_in">set</span>DateFormat:@<span class="string">"yyyy-MM-dd hh:mm:ss EEEE"</span>];</span><br><span class="line"><span class="number">2013</span>-<span class="number">10</span>-<span class="number">08</span> <span class="number">09</span>:<span class="number">08</span>:<span class="number">40</span> 星期二</span><br><span class="line"></span><br><span class="line"><span class="number">7</span>.为区分<span class="number">12</span>小时制的上下午，可以在中间加个a</span><br><span class="line">[dateFormatter <span class="built_in">set</span>DateFormat:@<span class="string">"yyyy-MM-dd a hh:mm:ss EEEE"</span>];</span><br><span class="line"><span class="number">2013</span>-<span class="number">10</span>-<span class="number">08</span> 下午 <span class="number">09</span>:<span class="number">17</span>:<span class="number">43</span> 星期二</span><br><span class="line"></span><br><span class="line"><span class="number">8</span>.将EEEE改成EE，则星期二变成周二</span><br><span class="line">[dateFormatter <span class="built_in">set</span>DateFormat:@<span class="string">"yyyy-MM-dd HH:mm:ss EE"</span>];</span><br><span class="line"><span class="number">2013</span>-<span class="number">10</span>-<span class="number">08</span> <span class="number">21</span>:<span class="number">15</span>:<span class="number">04</span> 周二</span><br><span class="line"></span><br><span class="line"><span class="number">9</span>.当然，也可以把年月日中间的-改成/</span><br><span class="line">a[dateFormatter <span class="built_in">set</span>DateFormat:@<span class="string">"yyyy/MM/dd a hh:mm:ss EE"</span>];</span><br><span class="line"><span class="number">2013</span>/<span class="number">10</span>/<span class="number">08</span> 下午 <span class="number">09</span>:<span class="number">19</span>:<span class="number">03</span> 周二</span><br></pre></td></tr></table></figure>	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2015/09/18/iOS-Reset-Label-line-Space-Head-Index/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
