@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-09-21T03:12:56.000Z</updated>
+  <updated>2015-09-22T05:57:55.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -13,6 +13,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[横跨大平洋]]></title>
+    <link href="http://lecason.com/2015/09/22/Cross-The-River/"/>
+    <id>http://lecason.com/2015/09/22/Cross-The-River/</id>
+    <published>2015-09-22T04:59:36.000Z</published>
+    <updated>2015-09-22T05:57:55.000Z</updated>
+    <content type="html"><![CDATA[<p>想要横跨太平洋，首先要安装 </p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install build-essential autoconf libtool libssl-dev wget zip unzip openssl-devel</span><br></pre></td></tr></table></figure>
+<p>然后下载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://codeload.github.com/lecason/shadowsocks-libev/zip/master</span><br></pre></td></tr></table></figure>
+<p>解压进入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">unzip master</span><br><span class="line"><span class="built_in">cd</span> shadowsocks-libev-master</span><br></pre></td></tr></table></figure>
+<p>编译安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash ./configure</span><br></pre></td></tr></table></figure>
+<p>出现下面输出表示configure成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">configure: creating ./config.status</span><br><span class="line">config.status: creating Makefile</span><br><span class="line">config.status: creating dist-build/Makefile</span><br><span class="line">config.status: creating msvc-scripts/Makefile</span><br><span class="line">config.status: creating src/Makefile</span><br><span class="line">config.status: creating src/libsodium/Makefile</span><br><span class="line">config.status: creating src/libsodium/include/Makefile</span><br><span class="line">config.status: creating src/libsodium/include/sodium/version.h</span><br><span class="line">config.status: executing depfiles commands</span><br><span class="line">config.status: executing libtool commands</span><br></pre></td></tr></table></figure>
+<p>然后make</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>窗口里开船</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/ss-server <span class="operator">-s</span> <span class="number">0.0</span>.<span class="number">0.0</span> -p <span class="number">8888</span> -k lecason -m aes-<span class="number">256</span>-cfb</span><br></pre></td></tr></table></figure>
+<p>后台开船</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /usr/<span class="built_in">local</span>/bin/ss-server <span class="operator">-s</span> IP地址 -p 端口 -k 密码 -m 加密方式 &amp;</span><br></pre></td></tr></table></figure>
+<p>开机就开船</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"nohup /usr/local/bin/ss-server -s IP地址 -p 端口 -k 密码 -m 加密方式 &amp;"</span> &gt;&gt; /etc/rc.local</span><br></pre></td></tr></table></figure>
+<p>找船 <code>ps</code> 会看到 <code>20829 pts/0    00:00:00 ss-server</code> 再Kill <code>kill 20829</code></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>想要横跨太平洋，首先要安装 </p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[iOS 日期加一天]]></title>
@@ -641,27 +674,6 @@
       <category term="PHP" scheme="http://lecason.com/tags/PHP/"/>
     
       <category term="PHP" scheme="http://lecason.com/categories/PHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[iOS 原生 API 请求数据的方式]]></title>
-    <link href="http://lecason.com/2015/08/29/iOS-jsonRequest/"/>
-    <id>http://lecason.com/2015/08/29/iOS-jsonRequest/</id>
-    <published>2015-08-29T00:45:39.000Z</published>
-    <updated>2015-09-05T08:59:34.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="Post_用_NSString_组建">Post 用 NSString 组建</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//请求URL</span></span><br><span class="line"><span class="built_in">NSString</span> *urlStr = <span class="string">@"http://www.sinaapp.com/interface.php"</span>;</span><br><span class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlStr];</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求方法</span></span><br><span class="line"><span class="built_in">NSMutableURLRequest</span> *request = [<span class="built_in">NSMutableURLRequest</span> requestWithURL:url];</span><br><span class="line">request<span class="variable">.HTTPMethod</span> = <span class="string">@"POST"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求参数</span></span><br><span class="line"><span class="built_in">NSString</span> *str = <span class="string">@"request=&#123;\"cmd\":\"login\",\"account\": \"18688889999\",\"password\": \"0ca175b9c0f726a831d895e269332461\"&#125;"</span>;</span><br><span class="line"><span class="built_in">NSData</span> *data = [str dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//发送请求</span></span><br><span class="line">[request setHTTPBody:data];</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印请求</span></span><br><span class="line"><span class="built_in">NSData</span> *received = [<span class="built_in">NSURLConnection</span> sendSynchronousRequest:request returningResponse:<span class="literal">nil</span> error:<span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSString</span> *returnStr = [[<span class="built_in">NSString</span> alloc]initWithData:received encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,returnStr);</span><br></pre></td></tr></table></figure>
-<p>这时候请求的数据是这样子的：<br><img src="/img/nsmutableurlrequest1.jpg" alt=""></p>
-<h2 id="Post_用NSDictionary组建">Post 用NSDictionary组建</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//请求URL</span></span><br><span class="line"><span class="built_in">NSString</span> *urlStr = <span class="string">@"http://www.sinaapp.com/interface.php"</span>;</span><br><span class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:urlStr];</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求方法</span></span><br><span class="line"><span class="built_in">NSMutableURLRequest</span> *request = [<span class="built_in">NSMutableURLRequest</span> requestWithURL:url];</span><br><span class="line">request<span class="variable">.HTTPMethod</span> = <span class="string">@"POST"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSDictionary</span> *jsonDic = [<span class="built_in">NSDictionary</span> dictionaryWithObjectsAndKeys:<span class="string">@"login"</span>,<span class="string">@"cmd"</span>,<span class="string">@"18688889999"</span>,<span class="string">@"account"</span>,<span class="string">@"0ca175b9c0f726a831d895e269332461"</span>,<span class="string">@"password"</span> ,<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ([<span class="built_in">NSJSONSerialization</span> isValidJSONObject:jsonDic])</span><br><span class="line">    </span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSError</span> *error;</span><br><span class="line">    <span class="built_in">NSData</span> *jsonData = [<span class="built_in">NSJSONSerialization</span> dataWithJSONObject:jsonDic options:<span class="built_in">NSJSONWritingPrettyPrinted</span> error:&amp;error];</span><br><span class="line">    <span class="built_in">NSString</span> *json =[[<span class="built_in">NSString</span> alloc] initWithData:jsonData encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"请求的Json数据 :%@"</span>,json);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//发送请求</span></span><br><span class="line">    [request setHTTPBody:jsonData];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印请求</span></span><br><span class="line"><span class="built_in">NSData</span> *received = [<span class="built_in">NSURLConnection</span> sendSynchronousRequest:request returningResponse:<span class="literal">nil</span> error:<span class="literal">nil</span>];</span><br><span class="line"><span class="built_in">NSString</span> *returnStr = [[<span class="built_in">NSString</span> alloc]initWithData:received encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"接收的Json数据 :%@"</span>,returnStr);</span><br></pre></td></tr></table></figure>
-<p>这时候请求的数据是这样子的：<br><img src="/img/nsmutableurlrequest2.jpg" alt=""></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="Post_用_NSString_组建">Post 用 NSString 组建</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line]]>
-    </summary>
-    
-      <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
-    
-      <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
     
   </entry>
   
