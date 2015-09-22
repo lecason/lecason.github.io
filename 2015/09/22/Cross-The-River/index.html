@@ -7,9 +7,9 @@
   <meta name="author" content="Lecason">
   
   <meta name="description" content="想要横跨太平洋，首先要安装 
- 1yum install build-essential autoconf libtool libssl-dev wget zip unzip openssl-devel
+ 1yum install build-essential autoconf libtool libssl-dev wget zip unzip openssl-devel gcc
 然后下载
-1wget https://codeload.github.com/lecason/s">
+1wget https://codeload.github.com/lecas">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -75,7 +75,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 	  <!-- content -->
 	  <p>想要横跨太平洋，首先要安装 </p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install build-essential autoconf libtool libssl-dev wget zip unzip openssl-devel</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install build-essential autoconf libtool libssl-dev wget zip unzip openssl-devel gcc</span><br></pre></td></tr></table></figure>
 <p>然后下载</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://codeload.github.com/lecason/shadowsocks-libev/zip/master</span><br></pre></td></tr></table></figure>
 <p>解压进入</p>
@@ -94,7 +94,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"nohup /usr/local/bin/ss-server -s IP地址 -p 端口 -k 密码 -m 加密方式 &amp;"</span> &gt;&gt; /etc/rc.local</span><br></pre></td></tr></table></figure>
 <p>找船 </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps</span><br></pre></td></tr></table></figure>
-<p>会看到 <code>20829 pts/0    00:00:00 ss-server</code></p>
+<p>会看到 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">20829</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> ss-server</span><br></pre></td></tr></table></figure>
 <p>再Kill </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> <span class="number">20829</span></span><br></pre></td></tr></table></figure>
 	  

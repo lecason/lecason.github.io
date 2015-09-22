@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-09-22T06:03:09.000Z</updated>
+  <updated>2015-09-22T06:17:35.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -19,9 +19,9 @@
     <link href="http://lecason.com/2015/09/22/Cross-The-River/"/>
     <id>http://lecason.com/2015/09/22/Cross-The-River/</id>
     <published>2015-09-22T04:59:36.000Z</published>
-    <updated>2015-09-22T06:03:09.000Z</updated>
+    <updated>2015-09-22T06:17:35.000Z</updated>
     <content type="html"><![CDATA[<p>想要横跨太平洋，首先要安装 </p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install build-essential autoconf libtool libssl-dev wget zip unzip openssl-devel</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install build-essential autoconf libtool libssl-dev wget zip unzip openssl-devel gcc</span><br></pre></td></tr></table></figure>
 <p>然后下载</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://codeload.github.com/lecason/shadowsocks-libev/zip/master</span><br></pre></td></tr></table></figure>
 <p>解压进入</p>
@@ -40,7 +40,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"nohup /usr/local/bin/ss-server -s IP地址 -p 端口 -k 密码 -m 加密方式 &amp;"</span> &gt;&gt; /etc/rc.local</span><br></pre></td></tr></table></figure>
 <p>找船 </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps</span><br></pre></td></tr></table></figure>
-<p>会看到 <code>20829 pts/0    00:00:00 ss-server</code></p>
+<p>会看到 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">20829</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> ss-server</span><br></pre></td></tr></table></figure>
 <p>再Kill </p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> <span class="number">20829</span></span><br></pre></td></tr></table></figure>
 ]]></content>
