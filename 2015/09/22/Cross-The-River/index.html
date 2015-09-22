@@ -92,7 +92,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /usr/<span class="built_in">local</span>/bin/ss-server <span class="operator">-s</span> IP地址 -p 端口 -k 密码 -m 加密方式 &amp;</span><br></pre></td></tr></table></figure>
 <p>开机就开船</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"nohup /usr/local/bin/ss-server -s IP地址 -p 端口 -k 密码 -m 加密方式 &amp;"</span> &gt;&gt; /etc/rc.local</span><br></pre></td></tr></table></figure>
-<p>找船 <code>ps</code> 会看到 <code>20829 pts/0    00:00:00 ss-server</code> 再Kill <code>kill 20829</code></p>
+<p>找船 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps</span><br></pre></td></tr></table></figure>
+<p>会看到 <code>20829 pts/0    00:00:00 ss-server</code></p>
+<p>再Kill </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> <span class="number">20829</span></span><br></pre></td></tr></table></figure>
 	  
 
 	  <div>
