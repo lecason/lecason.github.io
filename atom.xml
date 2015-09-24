@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-09-24T09:32:38.000Z</updated>
+  <updated>2015-09-24T09:38:04.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -19,10 +19,10 @@
     <link href="http://lecason.com/2015/09/24/debug-uipageviewcontroller-and-uipagecontrol/"/>
     <id>http://lecason.com/2015/09/24/debug-uipageviewcontroller-and-uipagecontrol/</id>
     <published>2015-09-24T09:17:21.000Z</published>
-    <updated>2015-09-24T09:32:38.000Z</updated>
+    <updated>2015-09-24T09:38:04.000Z</updated>
     <content type="html"><![CDATA[<p>从<code>AppCoda</code>上看到的UIPageController的Demo,里面PageViewController Delegate里面有一条：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="built_in">NSInteger</span>)presentationIndexForPageViewController:(<span class="built_in">UIPageViewController</span> *)pageViewController</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>发现如果这样子用的话，如果你在UIPageControl里面向左滑，但在主图片上面向右滑，会发生<code>Indicator</code>错乱，如下图，点在中间，但图片已经是最后的图片，已经不能向右滑。</p>
+<p>发现如果这样子用的话，如果你在UIPageControl里面向左滑，但在主图片上面向右滑，会发生<code>Indicator</code>错乱，如下图，点在第2的位置，但图片已经是最后的图片，已经不能再向左滑。</p>
 <p><img src="/img/pagecontolbug1.png" alt=""></p>
 <p>这时候改成下面就可以了：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="built_in">NSInteger</span>)presentationIndexForPageViewController:(<span class="built_in">UIPageViewController</span> *)pageViewController</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [(PageContentViewController *)[pageViewController<span class="variable">.viewControllers</span> firstObject] pageIndex];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
