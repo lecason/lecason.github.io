@@ -6,8 +6,8 @@
   <title>iOS 关于导航栏和UIAppearance类 | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="为了统一设置导航栏的背景颜色,在UIAppearance这个协议里面找到了一些方法：
-123456789@protocol UIAppearance &amp;lt;NSObject&amp;gt;// 为自定义类的所有实例的外观，将相关的外观修改消息发送给该类的外观代理。// 例如，修改所有UINavigatio">
+  <meta name="description" content="统一设置导航栏颜色为了统一设置导航栏的背景颜色,在UIAppearance这个协议里面找到了一些方法：
+123456789@protocol UIAppearance &amp;lt;NSObject&amp;gt;// 为自定义类的所有实例的外观，将相关的外观修改消息发送给该类的外观代理。// 例如，修改所有UI">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -72,11 +72,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <p>为了统一设置导航栏的背景颜色,在UIAppearance这个协议里面找到了一些方法：</p>
+	  <h2 id="统一设置导航栏颜色">统一设置导航栏颜色</h2><p>为了统一设置导航栏的背景颜色,在UIAppearance这个协议里面找到了一些方法：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UIAppearance</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 为自定义类的所有实例的外观，将相关的外观修改消息发送给该类的外观代理。</span></span><br><span class="line"><span class="comment">// 例如，修改所有UINavigationBar、实例的颜色：</span></span><br><span class="line"><span class="comment">// [[UINavigationBar appearance] setBarTintColor:myColor];</span></span><br><span class="line"></span><br><span class="line">+ (instancetype)appearance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 <p>Swift 使用方法：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">UINavigationBar</span>.appearance().backgroundColor = <span class="type">UIColor</span>.greenColor()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Objective-C 也可以设置包括在某表父类里面才设置背景颜色：</p>
+<h2 id="设置导航栏在某个类下的颜色">设置导航栏在某个类下的颜色</h2><p>Objective-C 也可以设置包括在某表父类里面才设置背景颜色：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">UINavigationBar</span> appearanceWhenContainedIn:[<span class="built_in">UITabBarController</span> class], [<span class="built_in">UISplitViewController</span> class], <span class="literal">nil</span>] setBarTintColor:myTabbedNavBarColor];</span><br></pre></td></tr></table></figure>
 <p>Swift iOS9 使用方法</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UINavigationBar</span>.appearanceWhenContainedInInstancesOfClasses([<span class="type">MyViewController</span>.<span class="keyword">self</span>]).backgroundColor = <span class="type">UIColor</span>.greenColor()</span><br></pre></td></tr></table></figure>
@@ -88,12 +88,10 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UITextField</span>.my_appearanceWhenContainedIn(<span class="type">MyViewController</span>.<span class="keyword">self</span>).keyboardAppearance = .<span class="type">Light</span></span><br></pre></td></tr></table></figure>
 <p>这时候的效果是这样子的：</p>
 <p><img src="/img/aboutnavigation1.png" alt=""></p>
-<p>如果想去掉navigationBar的磨砂效果：</p>
+<h2 id="去掉导航栏磨砂效果">去掉导航栏磨砂效果</h2><p>如果想去掉navigationBar的磨砂效果：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">UINavigationBar</span>.appearance().backgroundColor = <span class="type">UIColor</span>.greenColor()</span><br><span class="line">    <span class="type">UINavigationBar</span>.appearance().setBackgroundImage(<span class="type">UIImage</span>.<span class="keyword">new</span>(), forBarMetrics: <span class="type">UIBarMetrics</span>.<span class="type">Default</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这时候的效果是这样子的：</p>
 <p><img src="/img/aboutnavigation2.png" alt=""></p>
-<p>在Stackoverflow里面找到的一张图：</p>
-<p><img src="/img/aboutnavigation3.png" alt=""></p>
 	  
 
 	  <div>
