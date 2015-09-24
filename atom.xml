@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-09-23T15:31:59.000Z</updated>
+  <updated>2015-09-24T08:13:58.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -13,6 +13,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[iOS 关于导航栏和UIAppearance类]]></title>
+    <link href="http://lecason.com/2015/09/24/about-navigation/"/>
+    <id>http://lecason.com/2015/09/24/about-navigation/</id>
+    <published>2015-09-24T07:03:05.000Z</published>
+    <updated>2015-09-24T08:13:58.000Z</updated>
+    <content type="html"><![CDATA[<p>为了统一设置导航栏的背景颜色,在UIAppearance这个协议里面找到了一些方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">UIAppearance</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 为自定义类的所有实例的外观，将相关的外观修改消息发送给该类的外观代理。</span></span><br><span class="line"><span class="comment">// 例如，修改所有UINavigationBar、实例的颜色：</span></span><br><span class="line"><span class="comment">// [[UINavigationBar appearance] setBarTintColor:myColor];</span></span><br><span class="line"></span><br><span class="line">+ (instancetype)appearance;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>Swift 使用方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">UINavigationBar</span>.appearance().backgroundColor = <span class="type">UIColor</span>.greenColor()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Objective-C 也可以设置包括在某表父类里面才设置背景颜色：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="built_in">UINavigationBar</span> appearanceWhenContainedIn:[<span class="built_in">UITabBarController</span> class], [<span class="built_in">UISplitViewController</span> class], <span class="literal">nil</span>] setBarTintColor:myTabbedNavBarColor];</span><br></pre></td></tr></table></figure>
+<p>Swift iOS9 使用方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UINavigationBar</span>.appearanceWhenContainedInInstancesOfClasses([<span class="type">MyViewController</span>.<span class="keyword">self</span>]).backgroundColor = <span class="type">UIColor</span>.greenColor()</span><br></pre></td></tr></table></figure>
+<p>Swift iOS 7 - 8 使用方法</p>
+<p>这个方法在7 - 8  里面不可以用，只能自已创建一个类别，下面是UIView的一个例子：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UIAppearance+Swift.h</span></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UIView</span> (<span class="title">UIViewAppearance_Swift</span>)</span></span><br><span class="line"><span class="comment">// appearanceWhenContainedIn: is not available in Swift. This fixes that.</span></span><br><span class="line">+ (instancetype)my_appearanceWhenContainedIn:(Class&lt;<span class="built_in">UIAppearanceContainer</span>&gt;)containerClass;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">—</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UIAppearance+Swift.m</span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIView</span> (<span class="title">UIViewAppearance_Swift</span>)</span></span><br><span class="line">+ (instancetype)my_appearanceWhenContainedIn:(Class&lt;<span class="built_in">UIAppearanceContainer</span>&gt;)containerClass &#123;</span><br><span class="line"><span class="keyword">return</span> [<span class="keyword">self</span> appearanceWhenContainedIn:containerClass, <span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>在Swift桥文件里面引入 <code>#import &quot;UIAppearance+Swift.h&quot;</code> 然后就可以使用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UITextField</span>.my_appearanceWhenContainedIn(<span class="type">MyViewController</span>.<span class="keyword">self</span>).keyboardAppearance = .<span class="type">Light</span></span><br></pre></td></tr></table></figure>
+<p>这时候的效果是这样子的：</p>
+<p><img src="/img/aboutnavigation1.png" alt=""></p>
+<p>如果想去掉navigationBar的磨砂效果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">UINavigationBar</span>.appearance().backgroundColor = <span class="type">UIColor</span>.greenColor()</span><br><span class="line">    <span class="type">UINavigationBar</span>.appearance().setBackgroundImage(<span class="type">UIImage</span>.<span class="keyword">new</span>(), forBarMetrics: <span class="type">UIBarMetrics</span>.<span class="type">Default</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这时候的效果是这样子的：</p>
+<p><img src="/img/aboutnavigation2.png" alt=""></p>
+<p>在Stackoverflow里面找到的一张图：</p>
+<p><img src="/img/aboutnavigation3.png" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>为了统一设置导航栏的背景颜色,在UIAppearance这个协议里面找到了一些方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line"]]>
+    </summary>
+    
+      <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
+    
+      <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Xcode 6 创建空的项目模版]]></title>
@@ -613,24 +653,6 @@
       <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
     
       <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Objective-C NSDictionary 与 JsonString 之间的转换]]></title>
-    <link href="http://lecason.com/2015/08/31/Objective-C-Dictonary-To-JsonString-And-Back/"/>
-    <id>http://lecason.com/2015/08/31/Objective-C-Dictonary-To-JsonString-And-Back/</id>
-    <published>2015-08-31T05:11:43.000Z</published>
-    <updated>2015-09-05T09:20:15.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="NSDictionary_转_JsonString">NSDictionary 转 JsonString</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSDictionary</span> *dic = @&#123;<span class="string">@"cmd"</span>:<span class="string">@"login"</span>,<span class="string">@"account"</span>:<span class="string">@"18688889999"</span>,<span class="string">@"password"</span>:<span class="string">@"0ca175b9c0f726a831d895e269332461"</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSData</span> *jsonData = [<span class="built_in">NSJSONSerialization</span></span><br><span class="line">                        dataWithJSONObject:dic options:<span class="built_in">NSJSONWritingPrettyPrinted</span> error:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSString</span> *jsonString = [[<span class="built_in">NSString</span> alloc] initWithData:jsonData encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"jsonStirng %@"</span>,jsonString);</span><br></pre></td></tr></table></figure>
-<h2 id="JsonString_转_NSDicionary">JsonString 转 NSDicionary</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *jsonString = <span class="string">@"&#123;\"cmd\":\"login\",\"account\": \"18688889999\",\"password\": \"0ca175b9c0f726a831d895e269332461\"&#125;"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSData</span> *jsonData = [jsonString dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">   </span><br><span class="line"><span class="built_in">NSDictionary</span> *jsonDic = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:data options:<span class="built_in">NSJSONReadingMutableLeaves</span> error:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"jsonDic %@"</span>, jsonDic);</span><br></pre></td></tr></table></figure>]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="NSDictionary_转_JsonString">NSDictionary 转 JsonString</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><sp]]>
-    </summary>
-    
-      <category term="Objective-C" scheme="http://lecason.com/tags/Objective-C/"/>
-    
-      <category term="Objective-C" scheme="http://lecason.com/categories/Objective-C/"/>
     
   </entry>
   
