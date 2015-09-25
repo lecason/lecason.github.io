@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-09-24T09:38:04.000Z</updated>
+  <updated>2015-09-25T02:57:06.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -13,6 +13,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[iOS 限定UIPageViewController滑动手势识别区域]]></title>
+    <link href="http://lecason.com/2015/09/25/restrict-uipageview-panning-area/"/>
+    <id>http://lecason.com/2015/09/25/restrict-uipageview-panning-area/</id>
+    <published>2015-09-25T02:16:19.000Z</published>
+    <updated>2015-09-25T02:57:06.000Z</updated>
+    <content type="html"><![CDATA[<p>做项目的时候有个需求，中间部份要显示图表，图表是可以手势识别点击放大缩小的，和UIPageViewController的手势冲突了。这时候就要限定PageViewController的识别区域了。</p>
+<h2 id="子类化UIPageViewController的方法">子类化UIPageViewController的方法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">UIKit</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HWPageViewController</span>: <span class="title">UIPageViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建手势并遵守协议</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">UIKit</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> scrollViewPanGestureRecognzier: <span class="type">UIPanGestureRecognizer</span>!</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HWPageViewController</span>: <span class="title">UIPageViewController</span>,<span class="title">UIGestureRecognizerDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>加入代理 </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> view <span class="keyword">in</span> <span class="keyword">self</span>.view.subviews &#123;</span><br><span class="line">        <span class="keyword">if</span> view.isKindOfClass(<span class="type">UIScrollView</span>.<span class="keyword">self</span>) &#123;</span><br><span class="line">                <span class="keyword">var</span> scrollView: <span class="type">UIScrollView</span> = view <span class="keyword">as</span>! <span class="type">UIScrollView</span></span><br><span class="line">                scrollViewPanGestureRecognzier = <span class="type">UIPanGestureRecognizer</span>()</span><br><span class="line">                scrollViewPanGestureRecognzier.delegate = <span class="keyword">self</span></span><br><span class="line">                scrollView.addGestureRecognizer(scrollViewPanGestureRecognzier)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现代理添加识别区域</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">gestureRecognizer</span><span class="params">(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">gestureRecognizerShouldBegin</span><span class="params">(gestureRecognizer: UIGestureRecognizer)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">if</span> gestureRecognizer == scrollViewPanGestureRecognzier &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> restrictValue:<span class="type">CGFloat</span> = <span class="number">100</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 标识不可滑动区域</span></span><br><span class="line">    <span class="keyword">var</span> recognizerView: <span class="type">UIView</span> = <span class="type">UIView</span>(frame: <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">100</span>, <span class="keyword">self</span>.view.frame.width, <span class="keyword">self</span>.view.frame.height - <span class="number">100</span>))</span><br><span class="line">    recognizerView.backgroundColor = <span class="type">UIColor</span>.darkGrayColor()</span><br><span class="line">    <span class="keyword">self</span>.view.addSubview(recognizerView)</span><br><span class="line">    <span class="comment">// 标识</span></span><br><span class="line">    <span class="keyword">var</span> lb: <span class="type">UILabel</span> = <span class="type">UILabel</span>(frame: <span class="type">CGRectMake</span>(<span class="number">90</span>,<span class="number">180</span>, <span class="number">200</span>, <span class="number">50</span>))</span><br><span class="line">    lb.text = <span class="string">"不可以滚动的区域"</span></span><br><span class="line">    lb.textColor = <span class="type">UIColor</span>.whiteColor()</span><br><span class="line">    recognizerView.addSubview(lb)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> locationInView: <span class="type">CGPoint</span> = gestureRecognizer.locationInView(<span class="keyword">self</span>.view)</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">if</span>  locationInView.y &gt; restrictValue &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果:</p>
+<p><img src="/img/restrictpageviewcontrollerarea1.png" alt=""></p>
+<h2 id="不用子类化UIPageViewController的方法">不用子类化UIPageViewController的方法</h2><p>只要在实现UIPageViewControllerDataSource的类里面的Controller里面加上方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HWRootViewController</span>: <span class="title">UIViewController</span>,<span class="title">UIPageViewControllerDataSource</span>,<span class="title">UIGestureRecognizerDelegate</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>只要加上下面代码就可以了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> gestureView = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x:<span class="number">0</span>, y:<span class="keyword">self</span>.view.frame.height - <span class="number">180</span>, width:<span class="keyword">self</span>.view.frame.width, height:<span class="number">180</span>))</span><br><span class="line">    gestureView.backgroundColor = <span class="type">UIColor</span>(red: <span class="number">255</span>, green: <span class="number">255</span>, blue: <span class="number">255</span>, alpha: <span class="number">0.1</span>)</span><br><span class="line">    <span class="keyword">self</span>.view.addSubview(gestureView)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="keyword">self</span>.pageVC!.view.subviews &#123;</span><br><span class="line">        <span class="keyword">if</span> x <span class="keyword">is</span> <span class="type">UIScrollView</span> &#123;</span><br><span class="line">            gestureView.addGestureRecognizer(x.panGestureRecognizer)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只有下面浅白色那层才能滑动翻页，效果：</p>
+<p><img src="/img/restrictpageviewcontrollerarea2.png" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>做项目的时候有个需求，中间部份要显示图表，图表是可以手势识别点击放大缩小的，和UIPageViewController的手势冲突了。这时候就要限定PageViewController的识别区域了。</p>
+<h2 id="子类化UIPageViewController的方法]]>
+    </summary>
+    
+      <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
+    
+      <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Debug PageControl 错乱问题]]></title>
@@ -603,49 +637,6 @@
       <category term="Swift" scheme="http://lecason.com/tags/Swift/"/>
     
       <category term="Swift" scheme="http://lecason.com/categories/Swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[iOS 应用程序本地化]]></title>
-    <link href="http://lecason.com/2015/09/02/iOS-Localizaion/"/>
-    <id>http://lecason.com/2015/09/02/iOS-Localizaion/</id>
-    <published>2015-09-02T08:39:24.000Z</published>
-    <updated>2015-09-16T08:22:55.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="程序名称本地化">程序名称本地化</h2><p>新建一个文件<code>InfoPlist.strings</code></p>
-<p><img src="/img/localizion1.png" alt=""></p>
-<p> 然后在文件里点击 <code>InfoPlist.strings</code>,点击右侧<code>localization</code>添加English</p>
-<p><img src="/img/localizion3.png" alt=""></p>
-<p>点击<code>项目</code> &gt; <code>PROJECT</code> &gt; <code>Info</code> &gt; <code>Localizations</code> - <code>+</code> - <code>Chinese(Simplified)(zh-Hans)</code></p>
-<p><img src="/img/localizion4.png" alt=""><br><img src="/img/localizion2.png" alt=""></p>
-<p>在项目里点击<code>InfoPlist.strings</code>文件</p>
-<p>在InfoPlist.strings(English)添加</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CFBundleDisplayName</span>=<span class="string">"China"</span>;</span><br></pre></td></tr></table></figure>
-<p>在InfoPlist.strings(Chinese(Simplified))添加</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CFBundleDisplayName</span>=<span class="string">"中国"</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="程序内容本地化">程序内容本地化</h2><p>新建一个文件 <code>Localizable.strings</code></p>
-<p>在Localizable.strings(English)添加<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"key"</span> = <span class="string">"english value"</span>;</span><br></pre></td></tr></table></figure></p>
-<p>在Localizable.strings(Chinese(Simplified))添加</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"key"</span> = <span class="string">"中文内容"</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="使用方法_Objective-C">使用方法 Objective-C</h2><blockquote>
-<p>XCode Version 6.4 (6E35b)<br>iOS Deployment Target 8.2<br>Language Objective-C</p>
-</blockquote>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="built_in">UILabel</span> *label = [[<span class="built_in">UILabel</span> alloc] init];</span><br><span class="line">    label<span class="variable">.frame</span> = <span class="built_in">CGRectMake</span>(<span class="number">20</span>, <span class="number">40</span>, <span class="number">250</span>, <span class="number">60</span>);</span><br><span class="line">    label<span class="variable">.text</span> = <span class="built_in">NSLocalizedString</span>(<span class="string">@"key"</span>, <span class="string">@"这里是注释"</span>);</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:label];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="使用方法_Swift_版本">使用方法 Swift 版本</h2><blockquote>
-<p>XCode Version 6.4 (6E35b)<br>iOS Deployment Target 8.2<br>Language Swift</p>
-</blockquote>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> label: <span class="type">UILabel</span> = <span class="type">UILabel</span>(frame: <span class="type">CGRectMake</span>(<span class="number">20</span>, <span class="number">100</span>, <span class="number">200</span>, <span class="number">50</span>))</span><br><span class="line">        label.text = <span class="type">NSLocalizedString</span>(<span class="string">"key"</span>,comment:<span class="string">"comment"</span>)</span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(label)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="程序名称本地化">程序名称本地化</h2><p>新建一个文件<code>InfoPlist.strings</code></p>
-<p><img src="/img/localizion1.png" alt=""></p>
-<p> 然后在文件里点击 <code>I]]>
-    </summary>
-    
-      <category term="Localizaion" scheme="http://lecason.com/tags/Localizaion/"/>
-    
-      <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
-    
-      <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
     
   </entry>
   
