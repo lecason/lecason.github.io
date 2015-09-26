@@ -3,16 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Debug 导入自定义库提示 Library not loaded | LECASON</title>
+  <title>Xcode 使用Github托管代码 | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="导入自定义的库的时候，提示错误
-12345dyld: Library not loaded: /System/Library/Frameworks/Chart.framework/SocialReferenced from: /var/mobile/Applications/00D3E0A7-4FF">
+  <meta name="description" content="Xcode Push 项目到 GitHub
+Mac 10.10.5 (14F27)Xcode Version 7.1 beta (7B60)
+
+创建Repositories在Github上创建Repositories
+
+在Xcode中新建项目，勾选 Create Git repositories o">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Debug 导入自定义库提示 Library not loaded"/>
+  <meta property="og:title" content="Xcode 使用Github托管代码"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -59,7 +63,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Debug 导入自定义库提示 Library not loaded</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-14</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Xcode 使用Github托管代码</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-27</span></h1>
 </div>		
 
 <div class="row page">
@@ -72,13 +76,29 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <p>导入自定义的库的时候，提示错误</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">dyld:</span> Library not <span class="string">loaded:</span> <span class="regexp">/System/</span>Library<span class="regexp">/Frameworks/</span>Chart.framework/Social</span><br><span class="line">Referenced <span class="string">from:</span> <span class="regexp">/var/</span>mobile<span class="regexp">/Applications/</span><span class="number">00</span>D3E0A7-<span class="number">4</span>FF6-<span class="number">451</span>E-B11C-<span class="number">87</span>D7A189F425<span class="regexp">/sample.app/</span>sample</span><br><span class="line"><span class="string">dyld:</span> Library not <span class="string">loaded:</span> <span class="regexp">/System/</span>Library<span class="regexp">/Frameworks/</span>Chart.framework/Social</span><br><span class="line">Referenced <span class="string">from:</span> <span class="regexp">/var/</span>mobile<span class="regexp">/Applications/</span><span class="number">00</span>D3E0A7-<span class="number">4</span>FF6-<span class="number">451</span>E-B11C-<span class="number">87</span>D7A189F425<span class="regexp">/sample.app/</span>sample</span><br><span class="line"><span class="string">Reason:</span> image not found</span><br></pre></td></tr></table></figure>
-<p>这时候如图点击<code>+</code> - <code>New Headers Phase</code></p>
-<p><img src="/img/imagenotfound1.png" alt=""></p>
-<p>再在 <code>Copy Files (0 item)</code> Destination里面选择 <code>Frameworks</code>，<code>+</code>号里面选择<code>自定义的库</code></p>
-<p><img src="/img/imagenotfound2.png" alt=""></p>
-<p>如果还不行可以尝试把<code>Build Phases</code> - <code>Link Binary With Libraries</code> 里<code>Chart.framework</code>后边的选项修改成为<code>Optional</code></p>
+	  <h1 id="Xcode_Push_项目到_GitHub">Xcode Push 项目到 GitHub</h1><blockquote>
+<p>Mac 10.10.5 (14F27)<br>Xcode Version 7.1 beta (7B60)</p>
+</blockquote>
+<h2 id="创建Repositories">创建Repositories</h2><p>在<code>Github</code>上创建Repositories</p>
+<p><img src="/img/xcodegithub1.png" alt=""></p>
+<p>在<code>Xcode</code>中新建项目，勾选 <code>Create Git repositories on My Mac</code></p>
+<p><img src="/img/xcodegithub3.png" alt=""></p>
+<p>如果已经新建了的项目但没勾选<code>Create Git repositories on My Mac</code>的可以在<code>Xcode</code> - <code>Source Control</code> 中选择 <code>Create Working Copy</code></p>
+<p><img src="/img/xcodegithub2.png" alt=""></p>
+<p>选择 <code>Xcode</code> - <code>Source Control</code> - <code>Project Name Master</code> - <code>Configure Project Name</code> - <code>Remotes</code> - <code>+</code> - <code>Add Remote</code> </p>
+<p><img src="/img/xcodegithub4.png" alt=""></p>
+<p>然后再在Source Control里面Push就可上传到Github上面去了</p>
+<p><img src="/img/xcodegithub5.png" alt=""></p>
+<p>这时候Github上就可以看到已经Push上去的文件了</p>
+<p><img src="/img/xcodegithub6.png" alt=""></p>
+<h2 id="提交Commint">提交Commint</h2><p>Commint的意思是先把代码保存在本地，如果要更新到服务器的话，就Push上去，我们在viewDidLoad里面print(“Hello”)然后再 <code>Xcoode</code> - <code>Source Control</code> - <code>Commint</code> ，这样子代码就保存好在本地，然后再点<code>Xcoode</code> - <code>Source Control</code> - <code>Push</code>,这时候代码就会上传到服务器。效果：</p>
+<p><img src="/img/xcodegithub7.png" alt=""></p>
+<h2 id="更新项目Pull">更新项目Pull</h2><p>如果其他人修改了服务器上的文件，那么我们要得到服务器上最新的文件我们就要Pull回来，比如说我们直接在服务器上编辑ViewController.swift,在print(“Hello”)里面加上一个World。然后保存Commint Changes：</p>
+<p><img src="/img/xcodegithub8.png" alt=""></p>
+<p>这时候我们在<code>Xcode</code> - <code>Source Control</code> - <code>Pull</code>,我们就能得到服务器上更新的代码：</p>
+<p><img src="/img/xcodegithub9.png" alt=""></p>
+<h1 id="从_GitHub_下载项目到本地">从 GitHub 下载项目到本地</h1><p>从<code>Xcode</code> - <code>Source Control</code> 里面选择 <code>Check Out</code> ，输入Github上的地址后再保存到本地</p>
+<p><img src="/img/xcodegithub10.png" alt=""></p>
 	  
 
 	  <div>
@@ -91,9 +111,20 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 		
+			
+			
+		
 	
 		
 	
+		
+	
+		
+	
+		
+			
+			
+			
 		
 			
 		
@@ -111,66 +142,57 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
 			
 		
 	
-		
 	
-		
-	
-		
-			
-			
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-	
-		<li class="prev"><a href="/2015/09/17/Debug-linker-command-failed/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
 	
 	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
 	
-		<li class="next disabled"><a>next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		<li class="next"><a href="/2015/09/23/xcode6-single-view-application-to-empty-application/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
 	
 </ul>
 </div>

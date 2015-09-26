@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-09-25T02:57:06.000Z</updated>
+  <updated>2015-09-26T17:59:38.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -13,6 +13,44 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Xcode 使用Github托管代码]]></title>
+    <link href="http://lecason.com/2015/09/27/xcode-about-git/"/>
+    <id>http://lecason.com/2015/09/27/xcode-about-git/</id>
+    <published>2015-09-26T17:08:29.000Z</published>
+    <updated>2015-09-26T17:59:38.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="Xcode_Push_项目到_GitHub">Xcode Push 项目到 GitHub</h1><blockquote>
+<p>Mac 10.10.5 (14F27)<br>Xcode Version 7.1 beta (7B60)</p>
+</blockquote>
+<h2 id="创建Repositories">创建Repositories</h2><p>在<code>Github</code>上创建Repositories</p>
+<p><img src="/img/xcodegithub1.png" alt=""></p>
+<p>在<code>Xcode</code>中新建项目，勾选 <code>Create Git repositories on My Mac</code></p>
+<p><img src="/img/xcodegithub3.png" alt=""></p>
+<p>如果已经新建了的项目但没勾选<code>Create Git repositories on My Mac</code>的可以在<code>Xcode</code> - <code>Source Control</code> 中选择 <code>Create Working Copy</code></p>
+<p><img src="/img/xcodegithub2.png" alt=""></p>
+<p>选择 <code>Xcode</code> - <code>Source Control</code> - <code>Project Name Master</code> - <code>Configure Project Name</code> - <code>Remotes</code> - <code>+</code> - <code>Add Remote</code> </p>
+<p><img src="/img/xcodegithub4.png" alt=""></p>
+<p>然后再在Source Control里面Push就可上传到Github上面去了</p>
+<p><img src="/img/xcodegithub5.png" alt=""></p>
+<p>这时候Github上就可以看到已经Push上去的文件了</p>
+<p><img src="/img/xcodegithub6.png" alt=""></p>
+<h2 id="提交Commint">提交Commint</h2><p>Commint的意思是先把代码保存在本地，如果要更新到服务器的话，就Push上去，我们在viewDidLoad里面print(“Hello”)然后再 <code>Xcoode</code> - <code>Source Control</code> - <code>Commint</code> ，这样子代码就保存好在本地，然后再点<code>Xcoode</code> - <code>Source Control</code> - <code>Push</code>,这时候代码就会上传到服务器。效果：</p>
+<p><img src="/img/xcodegithub7.png" alt=""></p>
+<h2 id="更新项目Pull">更新项目Pull</h2><p>如果其他人修改了服务器上的文件，那么我们要得到服务器上最新的文件我们就要Pull回来，比如说我们直接在服务器上编辑ViewController.swift,在print(“Hello”)里面加上一个World。然后保存Commint Changes：</p>
+<p><img src="/img/xcodegithub8.png" alt=""></p>
+<p>这时候我们在<code>Xcode</code> - <code>Source Control</code> - <code>Pull</code>,我们就能得到服务器上更新的代码：</p>
+<p><img src="/img/xcodegithub9.png" alt=""></p>
+<h1 id="从_GitHub_下载项目到本地">从 GitHub 下载项目到本地</h1><p>从<code>Xcode</code> - <code>Source Control</code> 里面选择 <code>Check Out</code> ，输入Github上的地址后再保存到本地</p>
+<p><img src="/img/xcodegithub10.png" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="Xcode_Push_项目到_GitHub">Xcode Push 项目到 GitHub</h1><blockquote>
+<p>Mac 10.10.5 (14F27)<br>Xcode Version 7.1 beta (7B60)</p>
+</blockquo]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[iOS 限定UIPageViewController滑动手势识别区域]]></title>
@@ -616,27 +654,6 @@
     </summary>
     
       <category term="Objective-C" scheme="http://lecason.com/categories/Objective-C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Swift 怎么使用sizeof]]></title>
-    <link href="http://lecason.com/2015/09/06/Swift-Sizeof/"/>
-    <id>http://lecason.com/2015/09/06/Swift-Sizeof/</id>
-    <published>2015-09-06T05:18:18.000Z</published>
-    <updated>2015-09-06T14:48:47.000Z</updated>
-    <content type="html"><![CDATA[<p>以前用Objective-C 的时候,可以很方便的用<code>sizeof()</code>来查看字节的长度</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSMutableData</span> *data = [[<span class="built_in">NSMutableData</span> alloc] init];</span><br><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">[data appendBytes:&amp;i length:<span class="keyword">sizeof</span>(i)];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"data:%@ size:%lu"</span>,data,<span class="keyword">sizeof</span>(i));</span><br></pre></td></tr></table></figure>
-<p>但在Swift里要这样子来查看<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data:<span class="type">NSMutableData</span> = <span class="type">NSMutableData</span>()</span><br><span class="line"><span class="keyword">var</span> i:<span class="type">Int</span> = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> size:<span class="type">Int</span> = <span class="built_in">sizeof</span>(i.<span class="keyword">dynamicType</span>)</span><br><span class="line">data.appendBytes(&amp;i, length:size)</span><br><span class="line"><span class="built_in">println</span>(<span class="string">"data:<span class="subst">\(data)</span> size:<span class="subst">\(size)</span>"</span>)</span><br></pre></td></tr></table></figure></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>以前用Objective-C 的时候,可以很方便的用<code>sizeof()</code>来查看字节的长度</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span]]>
-    </summary>
-    
-      <category term="Swift" scheme="http://lecason.com/tags/Swift/"/>
-    
-      <category term="Swift" scheme="http://lecason.com/categories/Swift/"/>
     
   </entry>
   
