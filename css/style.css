@@ -177,6 +177,7 @@ img, video {
   margin: 15px, auto;
   display: block;
   height: auto;
+  border: 1px solid #aaa;
 }
 
 /* =============================================================================
