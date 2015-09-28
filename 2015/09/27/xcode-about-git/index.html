@@ -99,6 +99,10 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p><img src="/img/xcodegithub9.png" alt=""></p>
 <h1 id="从_GitHub_下载项目到本地">从 GitHub 下载项目到本地</h1><p>从<code>Xcode</code> - <code>Source Control</code> 里面选择 <code>Check Out</code> ，输入Github上的地址后再保存到本地</p>
 <p><img src="/img/xcodegithub10.png" alt=""></p>
+<h1 id="常见错误">常见错误</h1><p>如果出现下面，那可能是Xcode 7的一个Bug</p>
+<p><img src="/img/xcodegithub11.png" alt=""></p>
+<p>切换到工作目录输入,注意<code>--local</code>参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> my/project/directory  </span><br><span class="line">git config --local user.email <span class="string">"lecason@me.com"</span>  </span><br><span class="line">git config --local user.name <span class="string">"lecason"</span></span><br></pre></td></tr></table></figure>
 	  
 
 	  <div>
