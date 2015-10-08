@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 自动布局AutoLayout | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="用代码来写自动布局，要先把 [view setTranslatesAutoresizingMaskIntoConstraints:NO]; 设置成 NO,不然自动布局将不生效，会按以前的AutoresizingMask来进行设置。
+设置View的大小为100 x 100,然后在Controller.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS 自动布局AutoLayout"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 自动布局AutoLayout</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-10-08</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p>用代码来写自动布局，要先把 <code>[view setTranslatesAutoresizingMaskIntoConstraints:NO];</code> 设置成 <code>NO</code>,不然自动布局将不生效，会按以前的AutoresizingMask来进行设置。</p>
+<h2 id="设置View的大小为100_x_100,然后在Controller-view中居中">设置View的大小为100 x 100,然后在Controller.view中居中</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加View</span></span><br><span class="line">    <span class="built_in">UIView</span> *view = [[<span class="built_in">UIView</span> alloc] init];</span><br><span class="line">    view<span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    [view setTranslatesAutoresizingMaskIntoConstraints:<span class="literal">NO</span>];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:view];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置水平居中</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *centerX = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeCenterX</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeCenterX</span> multiplier:<span class="number">1</span> constant:<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置垂直居中</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *centerY = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeCenterY</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeCenterY</span> multiplier:<span class="number">1</span> constant:<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置宽度</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *width = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeWidth</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="literal">nil</span> attribute:<span class="built_in">NSLayoutAttributeNotAnAttribute</span> multiplier:<span class="number">1</span> constant:<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置高度</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *height = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeHeight</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="literal">nil</span> attribute:<span class="built_in">NSLayoutAttributeNotAnAttribute</span> multiplier:<span class="number">1</span> constant:<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 激活布局</span></span><br><span class="line">    centerX<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    centerY<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    width<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    height<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="/img/iosautolayout1.png" alt=""></p>
+<h2 id="设置View上下左右的边距为20">设置View上下左右的边距为20</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加View</span></span><br><span class="line">    <span class="built_in">UIView</span> *view = [[<span class="built_in">UIView</span> alloc] init];</span><br><span class="line">    view<span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    [view setTranslatesAutoresizingMaskIntoConstraints:<span class="literal">NO</span>];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:view];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 设置距离</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *left = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeLeft</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeLeft</span> multiplier:<span class="number">1</span> constant:<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *right = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeRight</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeRight</span> multiplier:<span class="number">1</span> constant:-<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *top = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeTop</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeTop</span> multiplier:<span class="number">1</span> constant:<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *bottom = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeBottom</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeBottom</span> multiplier:<span class="number">1</span> constant:-<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 激活布局</span></span><br><span class="line">    left<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    right<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    top<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    bottom<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="/img/iosautolayout2.png" alt=""></p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+	
+		
+			
+			
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2015/09/27/iOS-Observer-Design-Mode/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

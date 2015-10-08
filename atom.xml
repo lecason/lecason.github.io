@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-09-29T14:40:44.000Z</updated>
+  <updated>2015-10-08T03:44:47.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -13,6 +13,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[iOS 自动布局AutoLayout]]></title>
+    <link href="http://lecason.com/2015/10/08/iOS-AutoLayout/"/>
+    <id>http://lecason.com/2015/10/08/iOS-AutoLayout/</id>
+    <published>2015-10-08T03:31:50.000Z</published>
+    <updated>2015-10-08T03:44:47.000Z</updated>
+    <content type="html"><![CDATA[<p>用代码来写自动布局，要先把 <code>[view setTranslatesAutoresizingMaskIntoConstraints:NO];</code> 设置成 <code>NO</code>,不然自动布局将不生效，会按以前的AutoresizingMask来进行设置。</p>
+<h2 id="设置View的大小为100_x_100,然后在Controller-view中居中">设置View的大小为100 x 100,然后在Controller.view中居中</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加View</span></span><br><span class="line">    <span class="built_in">UIView</span> *view = [[<span class="built_in">UIView</span> alloc] init];</span><br><span class="line">    view<span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    [view setTranslatesAutoresizingMaskIntoConstraints:<span class="literal">NO</span>];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:view];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置水平居中</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *centerX = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeCenterX</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeCenterX</span> multiplier:<span class="number">1</span> constant:<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置垂直居中</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *centerY = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeCenterY</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeCenterY</span> multiplier:<span class="number">1</span> constant:<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置宽度</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *width = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeWidth</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="literal">nil</span> attribute:<span class="built_in">NSLayoutAttributeNotAnAttribute</span> multiplier:<span class="number">1</span> constant:<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置高度</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *height = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeHeight</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="literal">nil</span> attribute:<span class="built_in">NSLayoutAttributeNotAnAttribute</span> multiplier:<span class="number">1</span> constant:<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 激活布局</span></span><br><span class="line">    centerX<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    centerY<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    width<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    height<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="/img/iosautolayout1.png" alt=""></p>
+<h2 id="设置View上下左右的边距为20">设置View上下左右的边距为20</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加View</span></span><br><span class="line">    <span class="built_in">UIView</span> *view = [[<span class="built_in">UIView</span> alloc] init];</span><br><span class="line">    view<span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    [view setTranslatesAutoresizingMaskIntoConstraints:<span class="literal">NO</span>];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.view</span> addSubview:view];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 设置距离</span></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *left = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeLeft</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeLeft</span> multiplier:<span class="number">1</span> constant:<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *right = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeRight</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeRight</span> multiplier:<span class="number">1</span> constant:-<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *top = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeTop</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeTop</span> multiplier:<span class="number">1</span> constant:<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLayoutConstraint</span> *bottom = [<span class="built_in">NSLayoutConstraint</span> constraintWithItem:view attribute:<span class="built_in">NSLayoutAttributeBottom</span> relatedBy:<span class="built_in">NSLayoutRelationEqual</span> toItem:<span class="keyword">self</span><span class="variable">.view</span> attribute:<span class="built_in">NSLayoutAttributeBottom</span> multiplier:<span class="number">1</span> constant:-<span class="number">20</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 激活布局</span></span><br><span class="line">    left<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    right<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    top<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">    bottom<span class="variable">.active</span> = <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="/img/iosautolayout2.png" alt=""></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>用代码来写自动布局，要先把 <code>[view setTranslatesAutoresizingMaskIntoConstraints:NO];</code> 设置成 <code>NO</code>,不然自动布局将不生效，会按以前的AutoresizingMask来进]]>
+    </summary>
+    
+      <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
+    
+      <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Map 高德地图开发]]></title>
@@ -675,43 +699,6 @@
       <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
     
       <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[CoAP Linux服务器上安装以及使用]]></title>
-    <link href="http://lecason.com/2015/09/09/CoAP-Linux-Server-Install/"/>
-    <id>http://lecason.com/2015/09/09/CoAP-Linux-Server-Install/</id>
-    <published>2015-09-09T01:22:56.000Z</published>
-    <updated>2015-09-17T02:28:03.000Z</updated>
-    <content type="html"><![CDATA[<p>要求软件版本 <code>autoconf &gt; 2.65</code> <code>gcc</code><br>FireFox <code>Copper</code>插件地址 <code>https://addons.mozilla.org/en-US/firefox/addon/copper-270430/</code></p>
-<h2 id="获得libCoAP">获得libCoAP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/lecason/libCoAP/archive/master.zip</span><br></pre></td></tr></table></figure>
-<h2 id="编译安装libCoAP">编译安装libCoAP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> libCoAP-master</span><br><span class="line">autoconf</span><br><span class="line">./configure</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<p>如果提示<code>has modification time 2.5e+08 s in the future</code>，是机器时间设置的问题,重新设置下机器时间就搞定了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ntp</span><br><span class="line">ntpdate time.nist.gov</span><br></pre></td></tr></table></figure>
-<h2 id="libCoAP使用">libCoAP使用</h2><p>开启服务端</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> examples/</span><br><span class="line">./coap-server</span><br></pre></td></tr></table></figure>
-<p>这时候就可以在安装好了<code>Copper</code>插件的FireFox上打开服务器所在地址，注意防火墙开端口，测试的话直接关了。点击<code>GET</code>就可以看到返回信息了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This is a <span class="built_in">test</span> server made with libcoap (see http://libcoap.sf.net)</span><br><span class="line">Copyright (C) <span class="number">2010</span>--<span class="number">2013</span> Olaf Bergmann &lt;bergmann@tzi.org&gt;</span><br></pre></td></tr></table></figure></p>
-<p><img src="/img/coap1.png" alt=""></p>
-<p>客户端测试</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./coap-client -m put get coap://<span class="number">10.172</span>.<span class="number">1.199</span></span><br></pre></td></tr></table></figure>
-<p>返回</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v:<span class="number">1</span> t:<span class="number">0</span> tkl:<span class="number">0</span> c:<span class="number">3</span> id:<span class="number">54574</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>【v】表示coap的版本编号，此时的coap的版本编号为1。</li>
-<li>【t】表示报文类型为CON，</li>
-<li>【tkl】表示token区域的长度，此时的token区域的长度为0。</li>
-<li>【c】表示访问方法（该处还需要分析）</li>
-<li>【id】表示message id</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>要求软件版本 <code>autoconf &gt; 2.65</code> <code>gcc</code><br>FireFox <code>Copper</code>插件地址 <code>https://addons.mozilla.org/en-US/firefox]]>
-    </summary>
-    
-      <category term="CoAP" scheme="http://lecason.com/tags/CoAP/"/>
-    
-      <category term="CoAP" scheme="http://lecason.com/categories/CoAP/"/>
     
   </entry>
   
