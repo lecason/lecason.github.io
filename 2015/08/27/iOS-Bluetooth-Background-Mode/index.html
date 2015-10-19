@@ -91,6 +91,14 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </ul>
 <h2 id="方法二_在项目设置里面设置">方法二 在项目设置里面设置</h2><p>点击左侧蓝色项目 &gt; Targets &gt; Capabilities</p>
 <p><img src="/img/bluetoothBackgroundMode.png" alt=""></p>
+<h2 id="关于蓝牙在后台扫描">关于蓝牙在后台扫描</h2><p>蓝牙在后台扫描是有条件的，在<a href="http://stackoverflow.com/questions/20427230/core-bluetooth-advertise-and-scan-in-the-background" target="_blank" rel="external">Stackoverflow</a>里面看到：</p>
+<ul>
+<li>在中心模式的时候，蓝牙在前台扫描的时候可以扫描所有的设备，在后台扫描只能扫描指定UUID的设备。</li>
+<li><p>在外设模式的时候，手机工作和普通的BLE外设一样，在后台运行的时候，它会隐藏自己的UUID，以及停止广播，只有当处于前台的iPhone向它发送一个命令它才会唤醒和显示 它自己的UUID。</p>
+</li>
+<li><p>iPhone处于中心模式，在连接电源的时候，会以15秒左右的时间扫描指定设备，在断开电源的时候，一段时候后，蓝牙就会在后台停止扫描。</p>
+</li>
+</ul>
 	  
 
 	  <div>
