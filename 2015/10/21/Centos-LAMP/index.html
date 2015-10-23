@@ -3,20 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Xcode 使用Github托管代码 | LECASON</title>
+  <title>CentOS LAMP 环境安装 | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="Xcode Push 项目到 GitHub
-Mac 10.10.5 (14F27)Xcode Version 7.1 beta (7B60)
+  <meta name="description" content="中文问题
+Apache支持中文
 
-创建Repositories在Github上创建Repositories
+1# vi /etc/httpd/conf/httpd.conf
+在里面把 AddDefaultCharset UTF-8 改成
+1# AddDefaultCharset GB2312
 
-在Xcode中新建项目，勾选 Create Git repositories o">
+PHP支持中文
+
+1# vi /etc/php.ini
+在里面把 ;defau">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Xcode 使用Github托管代码"/>
+  <meta property="og:title" content="CentOS LAMP 环境安装"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -63,7 +68,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Xcode 使用Github托管代码</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-27</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">CentOS LAMP 环境安装</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-10-21</span></h1>
 </div>		
 
 <div class="row page">
@@ -76,33 +81,24 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <h1 id="Xcode_Push_项目到_GitHub">Xcode Push 项目到 GitHub</h1><blockquote>
-<p>Mac 10.10.5 (14F27)<br>Xcode Version 7.1 beta (7B60)</p>
-</blockquote>
-<h2 id="创建Repositories">创建Repositories</h2><p>在<code>Github</code>上创建Repositories</p>
-<p><img src="/img/xcodegithub1.png" alt=""></p>
-<p>在<code>Xcode</code>中新建项目，勾选 <code>Create Git repositories on My Mac</code></p>
-<p><img src="/img/xcodegithub3.png" alt=""></p>
-<p>如果已经新建了的项目但没勾选<code>Create Git repositories on My Mac</code>的可以在<code>Xcode</code> - <code>Source Control</code> 中选择 <code>Create Working Copy</code></p>
-<p><img src="/img/xcodegithub2.png" alt=""></p>
-<p>选择 <code>Xcode</code> - <code>Source Control</code> - <code>Project Name Master</code> - <code>Configure Project Name</code> - <code>Remotes</code> - <code>+</code> - <code>Add Remote</code> </p>
-<p><img src="/img/xcodegithub4.png" alt=""></p>
-<p>然后再在Source Control里面Push就可上传到Github上面去了</p>
-<p><img src="/img/xcodegithub5.png" alt=""></p>
-<p>这时候Github上就可以看到已经Push上去的文件了</p>
-<p><img src="/img/xcodegithub6.png" alt=""></p>
-<h2 id="提交Commint">提交Commint</h2><p>Commint的意思是先把代码保存在本地，如果要更新到服务器的话，就Push上去，我们在viewDidLoad里面print(“Hello”)然后再 <code>Xcoode</code> - <code>Source Control</code> - <code>Commint</code> ，这样子代码就保存好在本地，然后再点<code>Xcoode</code> - <code>Source Control</code> - <code>Push</code>,这时候代码就会上传到服务器。效果：</p>
-<p><img src="/img/xcodegithub7.png" alt=""></p>
-<h2 id="更新项目Pull">更新项目Pull</h2><p>如果其他人修改了服务器上的文件，那么我们要得到服务器上最新的文件我们就要Pull回来，比如说我们直接在服务器上编辑ViewController.swift,在print(“Hello”)里面加上一个World。然后保存Commint Changes：</p>
-<p><img src="/img/xcodegithub8.png" alt=""></p>
-<p>这时候我们在<code>Xcode</code> - <code>Source Control</code> - <code>Pull</code>,我们就能得到服务器上更新的代码：</p>
-<p><img src="/img/xcodegithub9.png" alt=""></p>
-<h1 id="从_GitHub_下载项目到本地">从 GitHub 下载项目到本地</h1><p>从<code>Xcode</code> - <code>Source Control</code> 里面选择 <code>Check Out</code> ，输入Github上的地址后再保存到本地</p>
-<p><img src="/img/xcodegithub10.png" alt=""></p>
-<h1 id="常见错误">常见错误</h1><p>如果出现下面，那可能是Xcode 7的一个Bug</p>
-<p><img src="/img/xcodegithub11.png" alt=""></p>
-<p>切换到工作目录输入,注意<code>--local</code>参数：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> my/project/directory  </span><br><span class="line">git config --local user.email <span class="string">"lecason@me.com"</span>  </span><br><span class="line">git config --local user.name <span class="string">"lecason"</span></span><br></pre></td></tr></table></figure>
+	  <h1 id="中文问题">中文问题</h1><ul>
+<li>Apache支持中文</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/httpd/conf/httpd.conf</span></span><br></pre></td></tr></table></figure>
+<p>在里面把 AddDefaultCharset UTF-8 改成</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># AddDefaultCharset GB2312</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>PHP支持中文</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/php.ini</span></span><br></pre></td></tr></table></figure>
+<p>在里面把 ;default_charset = “iso-8859-1”改成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># default_charset = GB2312</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>MySQL支持中文</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/my.cnf</span></span><br></pre></td></tr></table></figure>
+<p>在里面加上</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">character-set-server=utf8</span><br><span class="line">collation-server=utf8_general_ci</span><br><span class="line">[client]</span><br><span class="line">default-character-set=utf8</span><br></pre></td></tr></table></figure>
 	  
 
 	  <div>
@@ -116,23 +112,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 		
 			
-		
-	
-		
-	
-		
-	
-		
 			
-		
-	
-		
-	
-		
-			
-			
-		
-	
 		
 	
 		
@@ -144,55 +124,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 			
 			
 		
+	
+		
 			
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
 		
 	
 		
@@ -205,12 +139,74 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 			
 		
 	
+		
+			
+		
 	
-		<li class="prev"><a href="/2015/09/29/Gaode-Map/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
 	
 	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
 	
-		<li class="next"><a href="/2015/09/23/xcode6-single-view-application-to-empty-application/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		<li class="next"><a href="/2015/09/29/Gaode-Map/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
 	
 </ul>
 </div>
