@@ -3,16 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Debug 导入自定义库提示 Library not loaded | LECASON</title>
+  <title>iOS 基于 CSR8670 蓝牙芯片的蓝牙耳机开发 | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="导入自定义的库的时候，提示错误
-12345dyld: Library not loaded: /System/Library/Frameworks/Chart.framework/SocialReferenced from: /var/mobile/Applications/00D3E0A7-4FF">
+  <meta name="description" content="CSR8670 蓝牙芯片的基本参数基于CSR8670 4.0双模蓝牙模块，包含了A2DP（音乐播放），AVRCP（流媒体控制及音乐封面传输），HFP（免提通话），SPP（数据传输），PBAPC（电话本同步），HID（鼠标），BLEDataTrans（低功耗模式下的小数据传输）等协议。模块上的VREG">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Debug 导入自定义库提示 Library not loaded"/>
+  <meta property="og:title" content="iOS 基于 CSR8670 蓝牙芯片的蓝牙耳机开发"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -59,7 +58,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Debug 导入自定义库提示 Library not loaded</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-14</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 基于 CSR8670 蓝牙芯片的蓝牙耳机开发</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-10-23</span></h1>
 </div>		
 
 <div class="row page">
@@ -72,13 +71,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <p>导入自定义的库的时候，提示错误</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">dyld:</span> Library not <span class="string">loaded:</span> <span class="regexp">/System/</span>Library<span class="regexp">/Frameworks/</span>Chart.framework/Social</span><br><span class="line">Referenced <span class="string">from:</span> <span class="regexp">/var/</span>mobile<span class="regexp">/Applications/</span><span class="number">00</span>D3E0A7-<span class="number">4</span>FF6-<span class="number">451</span>E-B11C-<span class="number">87</span>D7A189F425<span class="regexp">/sample.app/</span>sample</span><br><span class="line"><span class="string">dyld:</span> Library not <span class="string">loaded:</span> <span class="regexp">/System/</span>Library<span class="regexp">/Frameworks/</span>Chart.framework/Social</span><br><span class="line">Referenced <span class="string">from:</span> <span class="regexp">/var/</span>mobile<span class="regexp">/Applications/</span><span class="number">00</span>D3E0A7-<span class="number">4</span>FF6-<span class="number">451</span>E-B11C-<span class="number">87</span>D7A189F425<span class="regexp">/sample.app/</span>sample</span><br><span class="line"><span class="string">Reason:</span> image not found</span><br></pre></td></tr></table></figure>
-<p>这时候如图点击<code>+</code> - <code>New Headers Phase</code></p>
-<p><img src="/img/imagenotfound1.png" alt=""></p>
-<p>再在 <code>Copy Files (0 item)</code> Destination里面选择 <code>Frameworks</code>，<code>+</code>号里面选择<code>自定义的库</code></p>
-<p><img src="/img/imagenotfound2.png" alt=""></p>
-<p>如果还不行可以尝试把<code>Build Phases</code> - <code>Link Binary With Libraries</code> 里<code>Chart.framework</code>后边的选项修改成为<code>Optional</code></p>
+	  <h2 id="CSR8670_蓝牙芯片的基本参数">CSR8670 蓝牙芯片的基本参数</h2><p>基于CSR8670 4.0双模蓝牙模块，包含了A2DP（音乐播放），AVRCP（流媒体控制及音乐封面<br>传输），HFP（免提通话），SPP（数据传输），PBAPC（电话本同步），HID（鼠标），BLE<br>DataTrans（低功耗模式下的小数据传输）等协议。模块上的VREG高电平开机、低电平关机，开<br>机后自动连接最近连接的手机。蓝牙模块与MCU执行UART 通信，使用AT指令实现连接、断开、<br>拨打电话、音乐播放及远程控制、下载电话本、数据传输等功能。方案因采用4.0双模式，无需<br>MFI认证可以兼容安卓、苹果和微软等平台的数据通信。</p>
 	  
 
 	  <div>
@@ -91,7 +84,52 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 		
+			
+		
 	
+		
+			
+			
+		
+	
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
 		
 	
 		
@@ -101,9 +139,17 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
+			
+		
 	
 		
 	
+		
+			
+		
+	
+		
+			
 		
 	
 		
@@ -121,6 +167,20 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
 	
 		
 	
@@ -134,57 +194,22 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 		
 			
+		
+	
+		
+	
+		
 			
 		
 	
 		
 	
-		
 	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-	
-		<li class="prev"><a href="/2015/09/17/Debug-linker-command-failed/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+		<li class="prev"><a href="/2015/10/24/Force-audio-output-to-speakers-while-headphones-are-plugged-in/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
 	
 	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
 	
-		<li class="next disabled"><a>next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		<li class="next"><a href="/2015/10/21/detecting-the-call-events-in-ios/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
 	
 </ul>
 </div>
