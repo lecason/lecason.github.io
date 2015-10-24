@@ -594,7 +594,7 @@
     <link href="http://lecason.com/2015/09/15/iOS-Remote-Notificaton/"/>
     <id>http://lecason.com/2015/09/15/iOS-Remote-Notificaton/</id>
     <published>2015-09-15T02:27:45.000Z</published>
-    <updated>2015-09-15T07:57:15.000Z</updated>
+    <updated>2015-10-24T10:28:29.000Z</updated>
     <content type="html"><![CDATA[<h2 id="注册推送证书">注册推送证书</h2><p>我们的客户端与苹果服务器之间和我们自己的服务器与苹果服务器之间都需要证书来进行链接。下面我们来开始进入证书的制作过程。</p>
 <h3 id="生成CSR文件">生成CSR文件</h3><p>打开<code>MAC</code> - <code>钥匙串访问</code> - <code>菜单</code> - <code>证书助理</code> - <code>从证书颁发机构请求证书</code> - <code>存储到磁盘</code></p>
 <p><img src="/img/remotenotification1.png" alt=""></p>
@@ -632,7 +632,7 @@
 <p><img src="/img/remotenotification15.png" alt=""></p>
 <p>下载保存，并双击配置文件</p>
 <p><img src="/img/remotenotification16.png" alt=""></p>
-<p>如果不双击导入，会出现下面的错误</p>
+<p>如果不双击导入，会出现下面的错误，还要保证<code>General</code> - <code>Identity</code> - <code>Team</code> 这个Team是创建这个推送证书的Team。</p>
 <p><img src="/img/remotenotification20.png" alt=""></p>
 <h3 id="导出密钥">导出密钥</h3><p><code>Mac</code> - <code>钥匙串访问</code> - <code>找到我们双击导入的证书</code></p>
 <p><img src="/img/remotenotification17.png" alt=""></p>
