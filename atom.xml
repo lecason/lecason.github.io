@@ -50,11 +50,11 @@
     <link href="http://lecason.com/2015/10/23/iOS-CSR8670-Bluetooth-Headset-Development/"/>
     <id>http://lecason.com/2015/10/23/iOS-CSR8670-Bluetooth-Headset-Development/</id>
     <published>2015-10-23T07:33:39.000Z</published>
-    <updated>2015-10-23T07:35:32.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="CSR8670_蓝牙芯片的基本参数">CSR8670 蓝牙芯片的基本参数</h2><p>基于CSR8670 4.0双模蓝牙模块，包含了A2DP（音乐播放），AVRCP（流媒体控制及音乐封面<br>传输），HFP（免提通话），SPP（数据传输），PBAPC（电话本同步），HID（鼠标），BLE<br>DataTrans（低功耗模式下的小数据传输）等协议。模块上的VREG高电平开机、低电平关机，开<br>机后自动连接最近连接的手机。蓝牙模块与MCU执行UART 通信，使用AT指令实现连接、断开、<br>拨打电话、音乐播放及远程控制、下载电话本、数据传输等功能。方案因采用4.0双模式，无需<br>MFI认证可以兼容安卓、苹果和微软等平台的数据通信。</p>
+    <updated>2015-10-24T03:09:53.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="CSR8670_蓝牙芯片的基本参数">CSR8670 蓝牙芯片的基本参数</h2><p>基于CSR8670 4.0双模蓝牙模块，包含了A2DP（音乐播放），AVRCP（流媒体控制及音乐封面传输），HFP（免提通话)SPP（数据传输），PBAPC（电话本同步），HID（鼠标），BLE DataTrans（低功耗模式下的小数据传输）等协议。模块上的VREG高电平开机、低电平关机，开机后自动连接最近连接的手机。蓝牙模块与MCU执行UART 通信，使用AT指令实现连接、断开、拨打电话、音乐播放及远程控制、下载电话本、数据传输等功能。方案因采用4.0双模式，无需MFI认证可以兼容安卓、苹果和微软等平台的数据通信。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h2 id="CSR8670_蓝牙芯片的基本参数">CSR8670 蓝牙芯片的基本参数</h2><p>基于CSR8670 4.0双模蓝牙模块，包含了A2DP（音乐播放），AVRCP（流媒体控制及音乐封面<br>传输），HFP（免提通话），SPP（数据传输），PBAPC（电话本同]]>
+    <![CDATA[<h2 id="CSR8670_蓝牙芯片的基本参数">CSR8670 蓝牙芯片的基本参数</h2><p>基于CSR8670 4.0双模蓝牙模块，包含了A2DP（音乐播放），AVRCP（流媒体控制及音乐封面传输），HFP（免提通话)SPP（数据传输），PBAPC（电话本同步），HI]]>
     </summary>
     
       <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
