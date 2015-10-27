@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-10-24T03:08:54.000Z</updated>
+  <updated>2015-10-27T05:39:13.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -13,6 +13,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Swift 使用Sqlite3数据库]]></title>
+    <link href="http://lecason.com/2015/10/27/Swift-use-sqlite/"/>
+    <id>http://lecason.com/2015/10/27/Swift-use-sqlite/</id>
+    <published>2015-10-27T05:33:43.000Z</published>
+    <updated>2015-10-27T05:39:13.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="创建桥文件">创建桥文件</h2><p>新建一个<code>ProjectName-Bridging-Header.h</code>的桥接文件，然后在文件里引入<code>sqlite3.h</code>头文件。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#<span class="keyword">import</span> &lt;sqlite3.h&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="引入库">引入库</h2><p><img src="/img/sqlite1.png" alt=""></p>
+<h2 id="使用">使用</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">initDataBase</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建数据库</span></span><br><span class="line">    <span class="keyword">let</span> documents = try! <span class="type">NSFileManager</span>.defaultManager().<span class="type">URLForDirectory</span>(.<span class="type">DocumentDirectory</span>, inDomain: .<span class="type">UserDomainMask</span>, appropriateForURL: <span class="literal">nil</span>, create: <span class="literal">false</span>)</span><br><span class="line">    <span class="keyword">let</span> fileURL = documents.<span class="type">URLByAppendingPathComponent</span>(<span class="string">"db.sqlite"</span>)</span><br><span class="line">    <span class="built_in">print</span>(fileURL)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打开数据库</span></span><br><span class="line">    <span class="keyword">var</span> db: <span class="type">COpaquePointer</span> = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">if</span> sqlite3_open(fileURL.path!, &amp;db) != <span class="type">SQLITE_OK</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"error opening database"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建数据表</span></span><br><span class="line">    <span class="keyword">if</span> sqlite3_exec(db, <span class="string">"create table if not exists devices (id integer primary key autoincrement, name text,identifier test)"</span>, <span class="literal">nil</span>, <span class="literal">nil</span>, <span class="literal">nil</span>) != <span class="type">SQLITE_OK</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> errmsg = <span class="type">String</span>.fromCString(sqlite3_errmsg(db))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"error creating table: <span class="subst">\(errmsg)</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="创建桥文件">创建桥文件</h2><p>新建一个<code>ProjectName-Bridging-Header.h</code>的桥接文件，然后在文件里引入<code>sqlite3.h</code>头文件。</p>
+<figure class="highli]]>
+    </summary>
+    
+      <category term="Swift" scheme="http://lecason.com/tags/Swift/"/>
+    
+      <category term="Swift" scheme="http://lecason.com/categories/Swift/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[iOS 插入耳机的时候强制通过手机自带扬声器来播放声音]]></title>
@@ -687,31 +708,6 @@
       <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
     
       <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Debug 导入自定义库提示 Library not loaded]]></title>
-    <link href="http://lecason.com/2015/09/14/Debug-Libray-not-loaded/"/>
-    <id>http://lecason.com/2015/09/14/Debug-Libray-not-loaded/</id>
-    <published>2015-09-14T04:57:02.000Z</published>
-    <updated>2015-09-14T05:14:10.000Z</updated>
-    <content type="html"><![CDATA[<p>导入自定义的库的时候，提示错误</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">dyld:</span> Library not <span class="string">loaded:</span> <span class="regexp">/System/</span>Library<span class="regexp">/Frameworks/</span>Chart.framework/Social</span><br><span class="line">Referenced <span class="string">from:</span> <span class="regexp">/var/</span>mobile<span class="regexp">/Applications/</span><span class="number">00</span>D3E0A7-<span class="number">4</span>FF6-<span class="number">451</span>E-B11C-<span class="number">87</span>D7A189F425<span class="regexp">/sample.app/</span>sample</span><br><span class="line"><span class="string">dyld:</span> Library not <span class="string">loaded:</span> <span class="regexp">/System/</span>Library<span class="regexp">/Frameworks/</span>Chart.framework/Social</span><br><span class="line">Referenced <span class="string">from:</span> <span class="regexp">/var/</span>mobile<span class="regexp">/Applications/</span><span class="number">00</span>D3E0A7-<span class="number">4</span>FF6-<span class="number">451</span>E-B11C-<span class="number">87</span>D7A189F425<span class="regexp">/sample.app/</span>sample</span><br><span class="line"><span class="string">Reason:</span> image not found</span><br></pre></td></tr></table></figure>
-<p>这时候如图点击<code>+</code> - <code>New Headers Phase</code></p>
-<p><img src="/img/imagenotfound1.png" alt=""></p>
-<p>再在 <code>Copy Files (0 item)</code> Destination里面选择 <code>Frameworks</code>，<code>+</code>号里面选择<code>自定义的库</code></p>
-<p><img src="/img/imagenotfound2.png" alt=""></p>
-<p>如果还不行可以尝试把<code>Build Phases</code> - <code>Link Binary With Libraries</code> 里<code>Chart.framework</code>后边的选项修改成为<code>Optional</code></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>导入自定义的库的时候，提示错误</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line"]]>
-    </summary>
-    
-      <category term="Debug" scheme="http://lecason.com/tags/Debug/"/>
-    
-      <category term="Debug" scheme="http://lecason.com/categories/Debug/"/>
     
   </entry>
   

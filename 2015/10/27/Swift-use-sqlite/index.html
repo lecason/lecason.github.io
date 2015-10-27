@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>CoAP Linux服务器上安装以及使用 | LECASON</title>
+  <title>Swift 使用Sqlite3数据库 | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="要求软件版本 autoconf &amp;gt; 2.65 gccFireFox Copper插件地址 https://addons.mozilla.org/en-US/firefox/addon/copper-270430/
-获得libCoAP1wget https://github.com/lecaso">
+  <meta name="description" content="创建桥文件新建一个ProjectName-Bridging-Header.h的桥接文件，然后在文件里引入sqlite3.h头文件。
+1#import &amp;lt;sqlite3.h&amp;gt;
+引入库
+使用12345678910111213141516171819func initDataBase() &amp;#">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="CoAP Linux服务器上安装以及使用"/>
+  <meta property="og:title" content="Swift 使用Sqlite3数据库"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -59,7 +61,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">CoAP Linux服务器上安装以及使用</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-09</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Swift 使用Sqlite3数据库</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-10-27</span></h1>
 </div>		
 
 <div class="row page">
@@ -72,27 +74,10 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <p>要求软件版本 <code>autoconf &gt; 2.65</code> <code>gcc</code><br>FireFox <code>Copper</code>插件地址 <code>https://addons.mozilla.org/en-US/firefox/addon/copper-270430/</code></p>
-<h2 id="获得libCoAP">获得libCoAP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/lecason/libCoAP/archive/master.zip</span><br></pre></td></tr></table></figure>
-<h2 id="编译安装libCoAP">编译安装libCoAP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> libCoAP-master</span><br><span class="line">autoconf</span><br><span class="line">./configure</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<p>如果提示<code>has modification time 2.5e+08 s in the future</code>，是机器时间设置的问题,重新设置下机器时间就搞定了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ntp</span><br><span class="line">ntpdate time.nist.gov</span><br></pre></td></tr></table></figure>
-<h2 id="libCoAP使用">libCoAP使用</h2><p>开启服务端</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> examples/</span><br><span class="line">./coap-server</span><br></pre></td></tr></table></figure>
-<p>这时候就可以在安装好了<code>Copper</code>插件的FireFox上打开服务器所在地址，注意防火墙开端口，测试的话直接关了。点击<code>GET</code>就可以看到返回信息了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This is a <span class="built_in">test</span> server made with libcoap (see http://libcoap.sf.net)</span><br><span class="line">Copyright (C) <span class="number">2010</span>--<span class="number">2013</span> Olaf Bergmann &lt;bergmann@tzi.org&gt;</span><br></pre></td></tr></table></figure></p>
-<p><img src="/img/coap1.png" alt=""></p>
-<p>客户端测试</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./coap-client -m put get coap://<span class="number">10.172</span>.<span class="number">1.199</span></span><br></pre></td></tr></table></figure>
-<p>返回</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v:<span class="number">1</span> t:<span class="number">0</span> tkl:<span class="number">0</span> c:<span class="number">3</span> id:<span class="number">54574</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>【v】表示coap的版本编号，此时的coap的版本编号为1。</li>
-<li>【t】表示报文类型为CON，</li>
-<li>【tkl】表示token区域的长度，此时的token区域的长度为0。</li>
-<li>【c】表示访问方法（该处还需要分析）</li>
-<li>【id】表示message id</li>
-</ul>
-	  
+	  <h2 id="创建桥文件">创建桥文件</h2><p>新建一个<code>ProjectName-Bridging-Header.h</code>的桥接文件，然后在文件里引入<code>sqlite3.h</code>头文件。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#<span class="keyword">import</span> &lt;sqlite3.h&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="引入库">引入库</h2><p><img src="/img/sqlite1.png" alt=""></p>
+<h2 id="使用">使用</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">initDataBase</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建数据库</span></span><br><span class="line">    <span class="keyword">let</span> documents = try! <span class="type">NSFileManager</span>.defaultManager().<span class="type">URLForDirectory</span>(.<span class="type">DocumentDirectory</span>, inDomain: .<span class="type">UserDomainMask</span>, appropriateForURL: <span class="literal">nil</span>, create: <span class="literal">false</span>)</span><br><span class="line">    <span class="keyword">let</span> fileURL = documents.<span class="type">URLByAppendingPathComponent</span>(<span class="string">"db.sqlite"</span>)</span><br><span class="line">    <span class="built_in">print</span>(fileURL)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 打开数据库</span></span><br><span class="line">    <span class="keyword">var</span> db: <span class="type">COpaquePointer</span> = <span class="literal">nil</span></span><br><span class="line">    <span class="keyword">if</span> sqlite3_open(fileURL.path!, &amp;db) != <span class="type">SQLITE_OK</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"error opening database"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建数据表</span></span><br><span class="line">    <span class="keyword">if</span> sqlite3_exec(db, <span class="string">"create table if not exists devices (id integer primary key autoincrement, name text,identifier test)"</span>, <span class="literal">nil</span>, <span class="literal">nil</span>, <span class="literal">nil</span>) != <span class="type">SQLITE_OK</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> errmsg = <span class="type">String</span>.fromCString(sqlite3_errmsg(db))</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"error creating table: <span class="subst">\(errmsg)</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>	  
 
 	  <div>
   		<center>
@@ -104,19 +89,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
+			
+			
 		
 	
 		
@@ -156,12 +130,31 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 			
 			
+			
 		
 	
 		
 	
 		
 	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
 		
 	
 		
@@ -195,7 +188,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
 	
-		<li class="next disabled"><a>next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		<li class="next"><a href="/2015/09/16/Swift-use-Objective-and-link-dotA-Lib/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
 	
 </ul>
 </div>
