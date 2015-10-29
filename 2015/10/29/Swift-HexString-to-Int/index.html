@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOS 基于 CSR8670 蓝牙芯片的蓝牙耳机开发 | LECASON</title>
+  <title>Swift 十六进制字符串转成 Int | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="CSR8670 蓝牙芯片的基本参数基于CSR8670 4.0双模蓝牙模块，包含了A2DP（音乐播放），AVRCP（流媒体控制及音乐封面传输），HFP（免提通话)SPP（数据传输），PBAPC（电话本同步），HID（鼠标），BLE DataTrans（低功耗模式下的小数据传输）等协议。模块上的VREG">
+  <meta name="description" content="使用NSScanner()方法123456let str = &quot;0x10&quot;let scanner = NSScanner(string: str)var result : UInt32 = 0if scanner.scanHexInt(&amp;amp;result) &amp;#123;    print(res">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="iOS 基于 CSR8670 蓝牙芯片的蓝牙耳机开发"/>
+  <meta property="og:title" content="Swift 十六进制字符串转成 Int"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -58,7 +58,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 基于 CSR8670 蓝牙芯片的蓝牙耳机开发</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-10-23</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Swift 十六进制字符串转成 Int</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-10-29</span></h1>
 </div>		
 
 <div class="row page">
@@ -71,7 +71,20 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <h2 id="CSR8670_蓝牙芯片的基本参数">CSR8670 蓝牙芯片的基本参数</h2><p>基于CSR8670 4.0双模蓝牙模块，包含了A2DP（音乐播放），AVRCP（流媒体控制及音乐封面传输），HFP（免提通话)SPP（数据传输），PBAPC（电话本同步），HID（鼠标），BLE DataTrans（低功耗模式下的小数据传输）等协议。模块上的VREG高电平开机、低电平关机，开机后自动连接最近连接的手机。蓝牙模块与MCU执行UART 通信，使用AT指令实现连接、断开、拨打电话、音乐播放及远程控制、下载电话本、数据传输等功能。方案因采用4.0双模式，无需MFI认证可以兼容安卓、苹果和微软等平台的数据通信。</p>
+	  <h2 id="使用NSScanner()方法">使用NSScanner()方法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">"0x10"</span></span><br><span class="line"><span class="keyword">let</span> scanner = <span class="type">NSScanner</span>(string: str)</span><br><span class="line"><span class="keyword">var</span> result : <span class="type">UInt32</span> = <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span> scanner.scanHexInt(&amp;result) &#123;</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">16</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用BSD_library_function_的_strtoul()_方法">使用BSD library function 的 strtoul() 方法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = strtoul(str, <span class="literal">nil</span>, <span class="number">16</span>)</span><br><span class="line"><span class="built_in">print</span>(num)</span><br></pre></td></tr></table></figure>
+<p>打印结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">16</span></span><br></pre></td></tr></table></figure>
+<h2 id="Swift_2_(_Xcode_7_)_Int的构造方法就包括了转换">Swift 2 ( Xcode 7 ) Int的构造方法就包括了转换</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">init</span>?(<span class="number">_</span> text: <span class="type">String</span>, radix: <span class="type">Int</span> = <span class="keyword">default</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="type">Int</span>(str, radix: <span class="number">16</span>)</span><br><span class="line"><span class="built_in">print</span>(num)</span><br></pre></td></tr></table></figure>
+<p>打印结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">16</span></span><br></pre></td></tr></table></figure>
+<p>关于<code>radix</code></p>
+<blockquote>
+<p>String 被解析字符串 radix 要解析的字符串的基数。该值介于 2 ~ 36 之间。如果省略该参数或其值为 0，则数字将以 10 为基础来解析。如果它以 “0x” 或 “0X” 开头，将以 16 为基数。</p>
+</blockquote>
 	  
 
 	  <div>
@@ -84,18 +97,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 		
-	
-		
-			
-		
-	
-		
-	
-		
-			
-		
-	
-		
 			
 			
 		
@@ -107,25 +108,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 			
 			
 		
-			
-		
 	
 		
 	
 		
-			
-		
 	
-		
-	
-		
-			
-		
-	
-		
-	
-		
-			
 		
 	
 		
@@ -133,11 +120,19 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-			
+	
 		
 	
 		
-			
+	
+		
+	
+		
+	
+		
+	
+		
+	
 		
 	
 		
@@ -153,29 +148,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-			
-		
-	
-		
-			
-		
 	
 		
 	
-		
-			
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-			
 		
 	
 		
@@ -203,21 +178,31 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-			
-		
 	
-		
-			
 		
 	
 		
 	
+		
 	
-		<li class="prev"><a href="/2015/10/24/Force-audio-output-to-speakers-while-headphones-are-plugged-in/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
 	
 	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
 	
-		<li class="next"><a href="/2015/10/21/detecting-the-call-events-in-ios/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		<li class="next"><a href="/2015/10/27/Swift-use-sqlite/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
 	
 </ul>
 </div>

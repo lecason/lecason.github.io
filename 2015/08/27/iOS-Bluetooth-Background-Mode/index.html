@@ -3,24 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOS Bluetooth 设置后台运行 | LECASON</title>
+  <title>iOS Bluetooth 关于苹果BLE蓝牙开发 | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="方法一 在 info.plist 设置在info.plist里面添加一条
-
-UIBackgroundModes
-
-并设置两个条目
-
-App communicates using CoreBluetooth
-App shares data using CoreBluetooth
-
-方法二 在项目设置里">
+  <meta name="description" content="向蓝牙读写数据写数据，读数据前，要先保存好读和写的特征，以及设备peripheral
+12// 写数据public func writeValue(data: NSData, forCharacteristic characteristic: CBCharacteristic, type: CBCh">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="iOS Bluetooth 设置后台运行"/>
+  <meta property="og:title" content="iOS Bluetooth 关于苹果BLE蓝牙开发"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -67,7 +59,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS Bluetooth 设置后台运行</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-27</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS Bluetooth 关于苹果BLE蓝牙开发</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-27</span></h1>
 </div>		
 
 <div class="row page">
@@ -80,7 +72,14 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <h2 id="方法一_在_info-plist_设置">方法一 在 info.plist 设置</h2><p>在<code>info.plist里面</code>添加一条</p>
+	  <h2 id="向蓝牙读写数据">向蓝牙读写数据</h2><p>写数据，读数据前，要先保存好读和写的特征，以及设备peripheral</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写数据</span></span><br><span class="line">public <span class="func"><span class="keyword">func</span> <span class="title">writeValue</span><span class="params">(data: NSData, forCharacteristic characteristic: CBCharacteristic, type: CBCharacteristicWriteType)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 读数据</span></span><br><span class="line">public <span class="func"><span class="keyword">func</span> <span class="title">readValueForCharacteristic</span><span class="params">(characteristic: CBCharacteristic)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">peripheral</span><span class="params">(peripheral: CBPeripheral, didUpdateValueForCharacteristic characteristic: CBCharacteristic, error: NSError?)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 当特征数据改变的时候</span></span><br><span class="line">    <span class="keyword">if</span> error != <span class="literal">nil</span> &#123; <span class="built_in">print</span>(<span class="string">"Receriveing Data from characteristic error"</span>); <span class="keyword">return</span> &#125;</span><br><span class="line">    <span class="comment">// 收到的数据</span></span><br><span class="line">    <span class="built_in">print</span>(characteristic.value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="关于保存蓝牙设备">关于保存蓝牙设备</h2><p>由于CBPeripheral不遵从NSCoding协议，所以不能序列化保存。在发现蓝牙设备的回调方法里面，新建一个Set,下次再扫描到的时候就可以识别蓝牙的连接状态,如果不保存下来，又连接上了设备，此时就不能再扫描到设备。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> peripheralSet: <span class="type">NSMutableSet</span>! = <span class="type">NSMutableSet</span>()</span><br><span class="line"></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">centralManager</span><span class="params">(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Discover Peripheral <span class="subst">\(peripheral)</span> RSSI: <span class="subst">\(RSSI)</span>"</span>)</span><br><span class="line">    </span><br><span class="line">    peripheralSet.addObject(peripheral)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/img/bluetooth1.png" alt=""></p>
+<h2 id="设置后台运行">设置后台运行</h2><h3 id="方法一_在_info-plist_设置">方法一 在 info.plist 设置</h3><p>在<code>info.plist里面</code>添加一条</p>
 <ul>
 <li><code>UIBackgroundModes</code></li>
 </ul>
@@ -89,15 +88,45 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <li><code>App communicates using CoreBluetooth</code></li>
 <li><code>App shares data using CoreBluetooth</code></li>
 </ul>
-<h2 id="方法二_在项目设置里面设置">方法二 在项目设置里面设置</h2><p>点击左侧蓝色项目 &gt; Targets &gt; Capabilities</p>
+<h3 id="方法二_在项目设置里面设置">方法二 在项目设置里面设置</h3><p>点击左侧蓝色项目 &gt; Targets &gt; Capabilities</p>
 <p><img src="/img/bluetoothBackgroundMode.png" alt=""></p>
 <h2 id="关于蓝牙在后台扫描">关于蓝牙在后台扫描</h2><p>蓝牙在后台扫描是有条件的，在<a href="http://stackoverflow.com/questions/20427230/core-bluetooth-advertise-and-scan-in-the-background" target="_blank" rel="external">Stackoverflow</a>里面看到：</p>
 <ul>
 <li>在中心模式的时候，蓝牙在前台扫描的时候可以扫描所有的设备，在后台扫描只能扫描指定UUID的设备。</li>
-<li><p>在外设模式的时候，手机工作和普通的BLE外设一样，在后台运行的时候，它会隐藏自己的UUID，以及停止广播，只有当处于前台的iPhone向它发送一个命令它才会唤醒和显示 它自己的UUID。</p>
-</li>
-<li><p>iPhone处于中心模式，在连接电源的时候，会以15秒左右的时间扫描指定设备，在断开电源的时候，一段时候后，蓝牙就会在后台停止扫描。</p>
-</li>
+<li>在外设模式的时候，手机工作和普通的BLE外设一样，在后台运行的时候，它会隐藏自己的UUID，以及停止广播，只有当处于前台的iPhone向它发送一个命令它才会唤醒和显示 它自己的UUID。</li>
+</ul>
+<p>自己测试发现，iPhone处于中心模式，在连接电源的时候，会以15秒左右的时间扫描指定设备，（在断开电源的时候及电源电量低的时候，一段时候后，蓝牙就会在后台停止扫描。不确定）</p>
+<h2 id="关于系统自动连接的蓝牙">关于系统自动连接的蓝牙</h2><p>有些蓝牙设备，当你在APP里面连接上了，这时候它会在<code>设置</code> - <code>蓝牙</code>里面能看到，如果这时候关闭蓝牙设备，你再把APP关闭，这时候再打开蓝牙设备，这时间iOS系统就会自己连接上这个蓝牙设备，这时候你再打开APP就会扫描不到这个蓝牙设备，因为它已经在系统里面连接上了，不再于广播模式。</p>
+<h2 id="关于列出iPhone已经连接上的设备">关于列出iPhone已经连接上的设备</h2><ul>
+<li>BLE设备可以通过下面方法来找回系统已经连接的设备，一个是要知道serviceUUIDs,也就是服务的UUID，经测试是可以成功的。</li>
+</ul>
+<p>苹果的描述是：取回服务包括在serviceUUIDs里面的，所有系统连接上的蓝牙设备。这个设备也可以是其它APP连接的设备。这只能localy的连接。通过 {@link connectPeripheral:options:} 查看详细连接选项。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@available(iOS <span class="number">7.0</span>, *)</span><br><span class="line">public <span class="func"><span class="keyword">func</span> <span class="title">retrieveConnectedPeripheralsWithServices</span><span class="params">(serviceUUIDs: [CBUUID])</span></span> -&gt; [<span class="type">CBPeripheral</span>]</span><br></pre></td></tr></table></figure>
+<p>测试，打开APP的时候，系统已经自己连接上了蓝牙设备：</p>
+<p><img src="/img/bluetooth5.png" alt=""></p>
+<p>这时候点击<code>RetrieveConnected</code>按钮，就打印出来了已经连接上的设备。这时候再连接上这个设备，<code>state = disconnected</code> 就可显示成 <code>state = connected</code> 。</p>
+<p><img src="/img/bluetooth4.png" alt=""></p>
+<ul>
+<li>另一个是要知道Identifiers,也就是设置标识，未经测试。</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@available(iOS <span class="number">7.0</span>, *)</span><br><span class="line">public <span class="func"><span class="keyword">func</span> <span class="title">retrievePeripheralsWithIdentifiers</span><span class="params">(identifiers: [NSUUID])</span></span> -&gt; [<span class="type">CBPeripheral</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>Headsets/Speakers</code> 类型的设备可以通过 <code>AVFoundation</code> 查找出来。</li>
+</ul>
+<h2 id="关于设置了指定UUID但搜索不到设备">关于设置了指定UUID但搜索不到设备</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public <span class="func"><span class="keyword">func</span> <span class="title">scanForPeripheralsWithServices</span><span class="params">(serviceUUIDs: [CBUUID]?, options: [String : AnyObject]?)</span></span></span><br></pre></td></tr></table></figure>
+<p>在网上找不到资料，经过自己测试发现，serviceUUIDs，不是服务的UUID，也不是特征的UUID，而是设备广播的UUID，可以在LightBlue里面查看。</p>
+<p><img src="/img/bluetooth2.png" alt=""></p>
+<p>如果此时你用下面的方法，创建CBUUID是会崩溃的。因为它只支持16进制字符串字符。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deviceUUIDs: [<span class="type">CBUUID</span>]!  = [<span class="type">CBUUID</span>(string: <span class="string">"MI1A"</span>)]</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deviceUUIDs: [<span class="type">CBUUID</span>]!  = [<span class="type">CBUUID</span>(string: <span class="string">"Battery"</span>)]</span><br></pre></td></tr></table></figure>
+<p>这时候像<code>Battery</code>这种标准类型的广播可以在蓝牙标准<a href="https://developer.bluetooth.org/gatt/services/Pages/ServicesHome.aspx" target="_blank" rel="external">Bluetooth Developer Portal</a>里面找到对应的16进制代表字符</p>
+<p><img src="/img/bluetooth3.png" alt=""></p>
+<p>可以看到<code>Battery Service</code>是<code>0x180F</code>这时候就可以用下面方法创建，来搜索指定的设备</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deviceUUIDs: [<span class="type">CBUUID</span>]!  = [<span class="type">CBUUID</span>(string: <span class="string">"0x180F"</span>)]</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料">参考资料</h2><ul>
+<li><a href="http://stackoverflow.com/questions/30768433/ios-bluetooth-list-of-devices-already-connected" target="_blank" rel="external">iOS Bluetooth list of devices already connected?</a></li>
+<li><a href="http://stackoverflow.com/questions/20427230/core-bluetooth-advertise-and-scan-in-the-background" target="_blank" rel="external">Core Bluetooth advertise and scan in the background</a></li>
+<li><a href="http://stackoverflow.com/questions/23489071/corebluetooth-cbmutablecharacteristic-or-cbmutableservice-with-meaningful-uuid" target="_blank" rel="external">CoreBluetooth - CBMutableCharacteristic or CBMutableService with meaningful UUID</a></li>
 </ul>
 	  
 
@@ -111,14 +140,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 		
-			
-		
-	
-		
-	
-		
-			
-		
 	
 		
 			
@@ -128,46 +149,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 		
 			
-		
-	
-		
-			
-		
-	
-		
-	
-		
-			
-		
-	
-		
-	
-		
-			
-		
-	
-		
-	
-		
-			
-		
-	
-		
-	
-		
-	
-		
-			
-		
-	
-		
-			
-		
-	
-		
-	
-		
-	
 		
 	
 		
@@ -193,6 +174,56 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
 	
 		
 	
@@ -226,11 +257,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-			
-			
-			
-		
 	
+		
+			
+			
+			
 		
 			
 		

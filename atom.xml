@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-10-28T10:08:08.000Z</updated>
+  <updated>2015-10-29T06:44:16.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -13,6 +13,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Swift 十六进制字符串转成 Int]]></title>
+    <link href="http://lecason.com/2015/10/29/Swift-HexString-to-Int/"/>
+    <id>http://lecason.com/2015/10/29/Swift-HexString-to-Int/</id>
+    <published>2015-10-29T06:27:25.000Z</published>
+    <updated>2015-10-29T06:44:16.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="使用NSScanner()方法">使用NSScanner()方法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">"0x10"</span></span><br><span class="line"><span class="keyword">let</span> scanner = <span class="type">NSScanner</span>(string: str)</span><br><span class="line"><span class="keyword">var</span> result : <span class="type">UInt32</span> = <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span> scanner.scanHexInt(&amp;result) &#123;</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">16</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用BSD_library_function_的_strtoul()_方法">使用BSD library function 的 strtoul() 方法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = strtoul(str, <span class="literal">nil</span>, <span class="number">16</span>)</span><br><span class="line"><span class="built_in">print</span>(num)</span><br></pre></td></tr></table></figure>
+<p>打印结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">16</span></span><br></pre></td></tr></table></figure>
+<h2 id="Swift_2_(_Xcode_7_)_Int的构造方法就包括了转换">Swift 2 ( Xcode 7 ) Int的构造方法就包括了转换</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public <span class="keyword">init</span>?(<span class="number">_</span> text: <span class="type">String</span>, radix: <span class="type">Int</span> = <span class="keyword">default</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="type">Int</span>(str, radix: <span class="number">16</span>)</span><br><span class="line"><span class="built_in">print</span>(num)</span><br></pre></td></tr></table></figure>
+<p>打印结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">16</span></span><br></pre></td></tr></table></figure>
+<p>关于<code>radix</code></p>
+<blockquote>
+<p>String 被解析字符串 radix 要解析的字符串的基数。该值介于 2 ~ 36 之间。如果省略该参数或其值为 0，则数字将以 10 为基础来解析。如果它以 “0x” 或 “0X” 开头，将以 16 为基数。</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="使用NSScanner()方法">使用NSScanner()方法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><]]>
+    </summary>
+    
+      <category term="Swift" scheme="http://lecason.com/tags/Swift/"/>
+    
+      <category term="Swift" scheme="http://lecason.com/categories/Swift/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[iOS 本地通知的实现]]></title>
@@ -607,35 +638,6 @@
       <category term="Debug" scheme="http://lecason.com/tags/Debug/"/>
     
       <category term="Debug" scheme="http://lecason.com/categories/Debug/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Swift 调用OC .a静态库及使用C语言编程]]></title>
-    <link href="http://lecason.com/2015/09/16/Swift-use-Objective-and-link-dotA-Lib/"/>
-    <id>http://lecason.com/2015/09/16/Swift-use-Objective-and-link-dotA-Lib/</id>
-    <published>2015-09-16T05:36:27.000Z</published>
-    <updated>2015-09-16T05:57:40.000Z</updated>
-    <content type="html"><![CDATA[<p>新项目用的Swift写，但要引用一个.a的静态库，还要用C语言调用.a的方法，所以就直接通过OC来中转。</p>
-<p>新建一个中转的OC类 </p>
-<p><img src="/img/swiftusec.png" alt=""></p>
-<p>新建 <code>工程名 + “-Bridging-Header.h</code> 文件,再导入 <code>CoAPService.h</code></p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  CoAP Swift Demo-Bridging-Header.h</span></span><br><span class="line"><span class="comment">//  CoAP Swift Demo</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by Lecason on 15/9/16.</span></span><br><span class="line"><span class="comment">//  Copyright (c) 2015年 Shenzhen Lecason Technology Co.,LTD. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#ifndef CoAP_Swift_Demo_CoAP_Swift_Demo_Bridging_Header_h</span></span><br><span class="line"><span class="preprocessor">#define CoAP_Swift_Demo_CoAP_Swift_Demo_Bridging_Header_h</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#endif</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#import <span class="title">"CoAPService.h"</span></span></span><br></pre></td></tr></table></figure>
-<p>再把静态库和<code>libcoap.a</code>和静态库的头文件<code>coap.h</code>导入项目中，然后在中转文件中导入<code>coap.h</code></p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"CoAPService.h"</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"coap.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">CoAPService</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)connectCoAPServer &#123;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">2048</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> s = coap_connect(<span class="string">"8.8.8.8"</span>, <span class="number">5683</span>);</span><br><span class="line">    coap_send(s, <span class="string">"PUT"</span>, <span class="string">"/interface"</span>, <span class="string">"hello world!"</span>, <span class="number">16</span>);</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">0</span> == ret)</span><br><span class="line">    &#123;</span><br><span class="line">    ret = coap_recv(s, buf, <span class="number">2048</span>);</span><br><span class="line">    sleep(<span class="number">5000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    coap_close(s);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
-<p>然后在<code>ViewController.swift</code>就可以调用</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> coap: <span class="type">CoAPService</span> = <span class="type">CoAPService</span>()</span><br><span class="line">        coap.connectCoAPServer()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>新项目用的Swift写，但要引用一个.a的静态库，还要用C语言调用.a的方法，所以就直接通过OC来中转。</p>
-<p>新建一个中转的OC类 </p>
-<p><img src="/img/swiftusec.png" alt=""></p>
-<p>新建 <code>工程名 ]]>
-    </summary>
-    
-      <category term="Swift" scheme="http://lecason.com/tags/Swift/"/>
-    
-      <category term="Swift" scheme="http://lecason.com/categories/Swift/"/>
     
   </entry>
   

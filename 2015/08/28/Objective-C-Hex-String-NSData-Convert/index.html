@@ -79,7 +79,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p>使用方法</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *hexStr = <span class="string">@"808080"</span>;</span><br><span class="line"><span class="built_in">NSData</span> *data = hexStr<span class="variable">.hexToBytes</span>;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,data);</span><br></pre></td></tr></table></figure>
 <h2 id="Int_转换成_NSdata">Int 转换成 NSdata</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">NSData</span> *data = [<span class="built_in">NSData</span> dataWithBytes: &amp;i length: <span class="keyword">sizeof</span>(i)];</span><br></pre></td></tr></table></figure>
-<h2 id="NSdata_转换成_Int">NSdata 转换成 Int</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i;</span><br><span class="line">[data getBytes: &amp;i length: <span class="keyword">sizeof</span>(i)];</span><br></pre></td></tr></table></figure>
+<h2 id="NSdata_转换成_Int">NSdata 转换成 Int</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">0</span>; <span class="comment">// 注意要赋值0</span></span><br><span class="line">[data getBytes: &amp;i length: <span class="keyword">sizeof</span>(i)];</span><br></pre></td></tr></table></figure>
 <h2 id="Int_数据转_Hex_十六进制_字符串">Int 数据转 Hex 十六进制 字符串</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">i = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSMutableString</span> *str = [[<span class="built_in">NSMutableString</span> alloc]initWithFormat:<span class="string">@"%02x"</span>,i ];</span><br></pre></td></tr></table></figure>
 	  
 
@@ -149,14 +149,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-			
-		
-	
-		
-	
-		
-	
-		
 	
 		
 			
@@ -167,6 +159,16 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
 			
 			
 		
@@ -182,9 +184,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-	
-		
 			
+		
+	
 		
 	
 		
