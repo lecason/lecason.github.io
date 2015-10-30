@@ -107,14 +107,16 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p>这时候点击<code>RetrieveConnected</code>按钮，就打印出来了已经连接上的设备。这时候再连接上这个设备，<code>state = disconnected</code> 就可显示成 <code>state = connected</code> 。</p>
 <p><img src="/img/bluetooth4.png" alt=""></p>
 <ul>
-<li>另一个是要知道Identifiers,也就是设置标识，未经测试。</li>
+<li>另一个是要知道Identifiers,也就是设置标识，返回的也是一个CBPeripheral的数组。</li>
 </ul>
+<p><img src="/img/bluetooth6.png" alt=""></p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@available(iOS <span class="number">7.0</span>, *)</span><br><span class="line">public <span class="func"><span class="keyword">func</span> <span class="title">retrievePeripheralsWithIdentifiers</span><span class="params">(identifiers: [NSUUID])</span></span> -&gt; [<span class="type">CBPeripheral</span>]</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>Headsets/Speakers</code> 类型的设备可以通过 <code>AVFoundation</code> 查找出来。</li>
 </ul>
 <h2 id="关于设置了指定UUID但搜索不到设备">关于设置了指定UUID但搜索不到设备</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public <span class="func"><span class="keyword">func</span> <span class="title">scanForPeripheralsWithServices</span><span class="params">(serviceUUIDs: [CBUUID]?, options: [String : AnyObject]?)</span></span></span><br></pre></td></tr></table></figure>
-<p>在网上找不到资料，经过自己测试发现，serviceUUIDs，不是服务的UUID，也不是特征的UUID，而是设备广播的UUID，可以在LightBlue里面查看。</p>
+<p>在网上找不到资料，经过自己测试发现，serviceUUIDs，不是服务的UUID，也不是特征的UUID，而是设备广播的UUID，可以在LightBlue里面查看。也可以在发现设备的时候的回调<code>func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber)</code>把advertisementData打印出来：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdvertisementData: [<span class="string">"kCBAdvDataTxPowerLevel"</span>: -<span class="number">4</span>, <span class="string">"kCBAdvDataIsConnectable"</span>: <span class="number">1</span>, <span class="string">"kCBAdvDataLocalName"</span>: O-Band, <span class="string">"kCBAdvDataManufacturerData"</span>: &lt;f9db4243 <span class="number">1</span>c54&gt;]</span><br></pre></td></tr></table></figure>
 <p><img src="/img/bluetooth2.png" alt=""></p>
 <p>如果此时你用下面的方法，创建CBUUID是会崩溃的。因为它只支持16进制字符串字符。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deviceUUIDs: [<span class="type">CBUUID</span>]!  = [<span class="type">CBUUID</span>(string: <span class="string">"MI1A"</span>)]</span><br></pre></td></tr></table></figure>
@@ -123,10 +125,12 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p><img src="/img/bluetooth3.png" alt=""></p>
 <p>可以看到<code>Battery Service</code>是<code>0x180F</code>这时候就可以用下面方法创建，来搜索指定的设备</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deviceUUIDs: [<span class="type">CBUUID</span>]!  = [<span class="type">CBUUID</span>(string: <span class="string">"0x180F"</span>)]</span><br></pre></td></tr></table></figure>
+<h2 id="关于APP被关闭后，蓝牙设备连接在系统继续运行">关于APP被关闭后，蓝牙设备连接在系统继续运行</h2><p>首先要先设置APP蓝牙能在后台运行，</p>
 <h2 id="参考资料">参考资料</h2><ul>
 <li><a href="http://stackoverflow.com/questions/30768433/ios-bluetooth-list-of-devices-already-connected" target="_blank" rel="external">iOS Bluetooth list of devices already connected?</a></li>
 <li><a href="http://stackoverflow.com/questions/20427230/core-bluetooth-advertise-and-scan-in-the-background" target="_blank" rel="external">Core Bluetooth advertise and scan in the background</a></li>
 <li><a href="http://stackoverflow.com/questions/23489071/corebluetooth-cbmutablecharacteristic-or-cbmutableservice-with-meaningful-uuid" target="_blank" rel="external">CoreBluetooth - CBMutableCharacteristic or CBMutableService with meaningful UUID</a></li>
+<li><a href="http://stackoverflow.com/questions/20529685/core-bluetooth-state-preservation-and-restoration-not-working-cant-relaunch-ap/22244674#22244674" target="_blank" rel="external">Core Bluetooth State Preservation and Restoration Not Working, Can’t relaunch app into background</a></li>
 </ul>
 	  
 
