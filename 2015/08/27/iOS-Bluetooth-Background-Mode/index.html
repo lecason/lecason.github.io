@@ -125,7 +125,18 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p><img src="/img/bluetooth3.png" alt=""></p>
 <p>可以看到<code>Battery Service</code>是<code>0x180F</code>这时候就可以用下面方法创建，来搜索指定的设备</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> deviceUUIDs: [<span class="type">CBUUID</span>]!  = [<span class="type">CBUUID</span>(string: <span class="string">"0x180F"</span>)]</span><br></pre></td></tr></table></figure>
-<h2 id="关于APP被关闭后，蓝牙设备连接在系统继续运行">关于APP被关闭后，蓝牙设备连接在系统继续运行</h2><p>首先要先设置APP蓝牙能在后台运行，</p>
+<h2 id="关于iOS8以后读取RSSI的值">关于iOS8以后读取RSSI的值</h2><ul>
+<li>没连接上的设备</li>
+</ul>
+<p>没连接上的设备可以直接在：<code>func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber)</code> 里面打印出 RSSI。</p>
+<ul>
+<li>已经连接上的设备</li>
+</ul>
+<p>在连接上的时候设置好代理<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">centralManager</span><span class="params">(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral)</span></span> &#123;</span><br><span class="line">    peripheral.delegate = <span class="keyword">self</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>遵守代理协议</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">peripheral</span><span class="params">(peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: NSError?)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="type">RSSI</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在想得到RSSI的时候</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">@IBAction</span> <span class="func"><span class="keyword">func</span> <span class="title">readRSSI</span><span class="params">(sender: UIButton)</span></span> &#123;</span><br><span class="line">    bluetoothCenter.discoveredPeripheral.readRSSI()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="参考资料">参考资料</h2><ul>
 <li><a href="http://stackoverflow.com/questions/30768433/ios-bluetooth-list-of-devices-already-connected" target="_blank" rel="external">iOS Bluetooth list of devices already connected?</a></li>
 <li><a href="http://stackoverflow.com/questions/20427230/core-bluetooth-advertise-and-scan-in-the-background" target="_blank" rel="external">Core Bluetooth advertise and scan in the background</a></li>
@@ -144,24 +155,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 		
-	
-		
-			
-		
-	
-		
-	
-		
-			
-		
-	
-		
-			
-		
-	
-		
-	
-		
 			
 		
 	
@@ -179,30 +172,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 		
 			
-		
-	
-		
-	
-		
-			
-		
-	
-		
-	
-		
-	
-		
-			
-		
-	
-		
-			
-		
-	
-		
-	
-		
-	
 		
 	
 		
@@ -228,6 +197,56 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
 	
 		
 	
@@ -259,13 +278,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-	
+			
+			
+			
 		
 	
 		
-			
-			
-			
+	
 		
 			
 		
