@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 关于后台运行 | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="从 Project - Capabilities - Background Modes 可以看到后台支持运行的类型：
+
+经测试，在打开连接上蓝牙，并在下面设置好申请后台运行的时候，连着Xcode,后台打印了20+分钟还在运行。
+申请代码写在AppDelegate里面。
+1UIApplication.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS 关于后台运行"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 关于后台运行</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-11-04</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p>从 <code>Project</code> - <code>Capabilities</code> - <code>Background Modes</code> 可以看到后台支持运行的类型：</p>
+<p><img src="/img/background1.png" alt=""></p>
+<p>经测试，在打开连接上蓝牙，并在下面设置好申请后台运行的时候，连着Xcode,后台打印了20+分钟还在运行。</p>
+<p>申请代码写在<code>AppDelegate</code>里面。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIApplication</span>.sharedApplication().beginBackgroundTaskWithExpirationHandler &#123; () -&gt; <span class="type">Void</span> <span class="keyword">in</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>打印代码写在<code>RootViewController</code>里面。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">    <span class="keyword">var</span> <span class="number">_</span> = <span class="type">NSTimer</span>.scheduledTimerWithTimeInterval(<span class="number">1</span>, target: <span class="keyword">self</span>, selector: <span class="string">"update"</span>, userInfo: <span class="literal">nil</span>, repeats: <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">update</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="type">NSDate</span>(timeIntervalSinceNow: <span class="number">0</span>))</span><br><span class="line">    <span class="built_in">print</span>(<span class="type">UIApplication</span>.sharedApplication().backgroundTimeRemaining)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打印结果，可以看到backgroundTimeRemaining为零后，还是一直在运行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">34</span>:<span class="number">37</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">0.0</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">34</span>:<span class="number">38</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">0.0</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">34</span>:<span class="number">39</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">0.0</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">34</span>:<span class="number">40</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">0.0</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">34</span>:<span class="number">41</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">0.0</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">34</span>:<span class="number">42</span> +<span class="number">0000</span></span><br></pre></td></tr></table></figure>
+<p>然后打开一下APP，backgroundTimeRemaining值一直为最大值。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">13</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">1.79769313486232</span>e+<span class="number">308</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">14</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">1.79769313486232</span>e+<span class="number">308</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">15</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">1.79769313486232</span>e+<span class="number">308</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">16</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">1.79769313486232</span>e+<span class="number">308</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">17</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">1.79769313486232</span>e+<span class="number">308</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">18</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">1.79769313486232</span>e+<span class="number">308</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">19</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">1.79769313486232</span>e+<span class="number">308</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">36</span>:<span class="number">20</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">1.79769313486232</span>e+<span class="number">308</span></span><br></pre></td></tr></table></figure>
+<p>再次进入后台,backgroundTimeRemaining又开始减少。而且减到为0的时候还一直运行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">178.412293791669</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">38</span>:<span class="number">13</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">177.412459875006</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">38</span>:<span class="number">14</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">176.389769500005</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">38</span>:<span class="number">15</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">175.412042124997</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">38</span>:<span class="number">16</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">174.411314750003</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">38</span>:<span class="number">17</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">173.389816499999</span></span><br><span class="line"><span class="number">2015</span>-<span class="number">11</span>-<span class="number">04</span> <span class="number">09</span>:<span class="number">38</span>:<span class="number">18</span> +<span class="number">0000</span></span><br><span class="line"><span class="number">172.410836958341</span></span><br></pre></td></tr></table></figure>	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2015/11/03/iOS-baidu-ring-development/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

@@ -137,11 +137,15 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">peripheral</span><span class="params">(peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: NSError?)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="type">RSSI</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在想得到RSSI的时候</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">@IBAction</span> <span class="func"><span class="keyword">func</span> <span class="title">readRSSI</span><span class="params">(sender: UIButton)</span></span> &#123;</span><br><span class="line">    bluetoothCenter.discoveredPeripheral.readRSSI()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意:如果断开与设备的连接再重新连接上，将有可能不会再能调用到<code>func peripheral(peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: NSError?)</code>方法，只能关闭蓝牙再打开！</p>
+</blockquote>
 <h2 id="参考资料">参考资料</h2><ul>
 <li><a href="http://stackoverflow.com/questions/30768433/ios-bluetooth-list-of-devices-already-connected" target="_blank" rel="external">iOS Bluetooth list of devices already connected?</a></li>
 <li><a href="http://stackoverflow.com/questions/20427230/core-bluetooth-advertise-and-scan-in-the-background" target="_blank" rel="external">Core Bluetooth advertise and scan in the background</a></li>
 <li><a href="http://stackoverflow.com/questions/23489071/corebluetooth-cbmutablecharacteristic-or-cbmutableservice-with-meaningful-uuid" target="_blank" rel="external">CoreBluetooth - CBMutableCharacteristic or CBMutableService with meaningful UUID</a></li>
 <li><a href="http://stackoverflow.com/questions/20529685/core-bluetooth-state-preservation-and-restoration-not-working-cant-relaunch-ap/22244674#22244674" target="_blank" rel="external">Core Bluetooth State Preservation and Restoration Not Working, Can’t relaunch app into background</a></li>
+<li><a href="http://stackoverflow.com/questions/26061359/readrssi-doesnt-call-the-delegate-method" target="_blank" rel="external">ReadRSSI doesn’t call the delegate method</a></li>
 </ul>
 	  
 
@@ -163,28 +167,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-	
-		
-			
-		
-	
-		
-	
-		
-			
-		
-	
-		
-			
-		
-	
-		
-	
-		
-			
-		
-	
-		
 			
 		
 	
@@ -198,30 +180,6 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 		
 			
-		
-	
-		
-	
-		
-			
-		
-	
-		
-	
-		
-	
-		
-			
-		
-	
-		
-			
-		
-	
-		
-	
-		
-	
 		
 	
 		
@@ -247,6 +205,56 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
 	
 		
 	
@@ -278,11 +286,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-			
-			
-			
-		
 	
+		
+			
+			
+			
 		
 	
 		
