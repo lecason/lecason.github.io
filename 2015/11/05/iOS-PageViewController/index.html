@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 创建UIPageViewController | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="在 HPDRootViewController 里面设置数据源和代理并且设置全局变量123456class HPDRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDel">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS 创建UIPageViewController"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 创建UIPageViewController</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-11-05</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <h2 id="在_HPDRootViewController_里面设置数据源和代理并且设置全局变量">在 HPDRootViewController 里面设置数据源和代理并且设置全局变量</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HPDRootViewController</span>: <span class="title">UIViewController</span>, <span class="title">UIPageViewControllerDataSource</span>, <span class="title">UIPageViewControllerDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> pageVC: <span class="type">UIPageViewController</span>! </span><br><span class="line">    <span class="keyword">var</span> pageTitles: <span class="type">NSArray</span>!</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="初使化_PageViewController">初使化 PageViewController</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">    <span class="keyword">self</span>.view.backgroundColor = <span class="type">UIColor</span>.whiteColor()</span><br><span class="line">    <span class="keyword">self</span>.initPageVC()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 初使化UIPageViewController</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">initPageVC</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 初使化设置</span></span><br><span class="line">    pageTitles = [<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>]</span><br><span class="line">    pageVC = <span class="type">UIPageViewController</span>(transitionStyle: <span class="type">UIPageViewControllerTransitionStyle</span>.<span class="type">Scroll</span>, navigationOrientation: <span class="type">UIPageViewControllerNavigationOrientation</span>.<span class="type">Horizontal</span>, options: <span class="literal">nil</span>)</span><br><span class="line">    pageVC.dataSource = <span class="keyword">self</span></span><br><span class="line">    pageVC.delegate = <span class="keyword">self</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 页面设置</span></span><br><span class="line">    <span class="keyword">let</span> startViewController: <span class="type">HPDContentViewController</span> = <span class="keyword">self</span>.viewControllerAtIndex(<span class="number">0</span>)!</span><br><span class="line">    <span class="keyword">let</span> viewControllers: <span class="type">NSArray</span> = [startViewController]</span><br><span class="line">    pageVC.setViewControllers(viewControllers <span class="keyword">as</span>? [<span class="type">UIViewController</span>], direction: <span class="type">UIPageViewControllerNavigationDirection</span>.<span class="type">Forward</span>, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    pageVC.view.frame =  <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">self</span>.view.frame.size.width, <span class="keyword">self</span>.view.frame.size.height)</span><br><span class="line">    <span class="keyword">self</span>.addChildViewController(pageVC)</span><br><span class="line">    <span class="keyword">self</span>.view.addSubview(pageVC.view)</span><br><span class="line">    pageVC.didMoveToParentViewController(<span class="keyword">self</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="创建_HPDContentViewController">创建 HPDContentViewController</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HPDContentViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> pageIndex: <span class="type">Int</span>!</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="keyword">let</span> lb: <span class="type">UILabel</span> = <span class="type">UILabel</span>(frame: <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">200</span>, <span class="number">50</span>))</span><br><span class="line">        lb.center = <span class="keyword">self</span>.view.center</span><br><span class="line">        lb.textAlignment = <span class="type">NSTextAlignment</span>.<span class="type">Center</span></span><br><span class="line">        lb.textColor = <span class="type">UIColor</span>.redColor()</span><br><span class="line">        lb.text = <span class="string">"<span class="subst">\(pageIndex)</span>"</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(lb)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="在_HPDRootViewController_实现代理和数据源">在 HPDRootViewController 实现代理和数据源</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MARK: UIPageViewControllerDataSource</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 前将显示页面</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">pageViewController</span><span class="params">(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController)</span></span> -&gt; <span class="type">UIViewController</span>? &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> indexPage: <span class="type">Int</span> = (viewController <span class="keyword">as</span>! <span class="type">HPDContentViewController</span>).pageIndex</span><br><span class="line">    <span class="keyword">if</span> indexPage == <span class="number">0</span> || indexPage == <span class="type">NSNotFound</span> &#123; <span class="keyword">return</span> <span class="literal">nil</span> &#125;</span><br><span class="line">    indexPage--</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.viewControllerAtIndex(indexPage)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后一个页面</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">pageViewController</span><span class="params">(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController)</span></span> -&gt; <span class="type">UIViewController</span>? &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> indexPage: <span class="type">Int</span> = (viewController <span class="keyword">as</span>! <span class="type">HPDContentViewController</span>).pageIndex</span><br><span class="line">    <span class="keyword">if</span> indexPage == <span class="type">NSNotFound</span> &#123; <span class="keyword">return</span> <span class="literal">nil</span> &#125;</span><br><span class="line">    <span class="keyword">if</span> indexPage == <span class="keyword">self</span>.pageTitles.<span class="built_in">count</span> &#123; <span class="keyword">return</span> <span class="literal">nil</span> &#125;</span><br><span class="line">    indexPage++</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.viewControllerAtIndex(indexPage)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回要显示多少页面</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">presentationCountForPageViewController</span><span class="params">(pageViewController: UIPageViewController)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.pageTitles.<span class="built_in">count</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回默认显示页面</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">presentationIndexForPageViewController</span><span class="params">(pageViewController: UIPageViewController)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (pageVC.viewControllers!.first <span class="keyword">as</span>! <span class="type">HPDContentViewController</span>).pageIndex</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回要显示的页面</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">viewControllerAtIndex</span> <span class="params">(index:Int )</span></span> -&gt; <span class="type">HPDContentViewController</span>? &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.pageTitles.<span class="built_in">count</span> == <span class="number">0</span> || index &gt;= <span class="keyword">self</span>.pageTitles.<span class="built_in">count</span> &#123; <span class="keyword">return</span> <span class="literal">nil</span> &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> pageContentVC: <span class="type">HPDContentViewController</span> = <span class="type">HPDContentViewController</span>()</span><br><span class="line">    pageContentVC.title = pageTitles[index] <span class="keyword">as</span>? <span class="type">String</span></span><br><span class="line">    pageContentVC.pageIndex = index</span><br><span class="line">    <span class="keyword">return</span> pageContentVC</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2015/11/04/iOS-About-Background-Mode/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
