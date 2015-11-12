@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Objective-C 定时器 NSTimer 使用 | LECASON</title>
+  <title>iOS 关于重复执行函数 | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="NSTimer 有一个属性叫 fireDate ，意思就是开始时间。所以我们设置一个超远的时间就是暂停，设置当前时间就是开始。
-创建1_timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(t">
+  <meta name="description" content="Swift 后台和函数内部执行重复任务：
+12345678910111213141516171819202122override func viewDidLoad() &amp;#123;    super.viewDidLoad()    var timer: dispatch_source_t!    ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Objective-C 定时器 NSTimer 使用"/>
+  <meta property="og:title" content="iOS 关于重复执行函数"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -59,7 +59,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Objective-C 定时器 NSTimer 使用</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-08-26</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 关于重复执行函数</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-11-12</span></h1>
 </div>		
 
 <div class="row page">
@@ -72,12 +72,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <p>NSTimer 有一个属性叫 fireDate ，意思就是开始时间。所以我们设置一个超远的时间就是暂停，设置当前时间就是开始。</p>
-<h2 id="创建">创建</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_timer = [<span class="built_in">NSTimer</span> scheduledTimerWithTimeInterval:<span class="number">1</span> target:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(testTimer) userInfo:<span class="literal">nil</span> repeats:<span class="literal">YES</span>];</span><br></pre></td></tr></table></figure>
-<h2 id="暂停">暂停</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_timer setFireDate:[<span class="built_in">NSDate</span> distantFuture]];</span><br></pre></td></tr></table></figure>
-<h2 id="继续">继续</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_timer setFireDate:[<span class="built_in">NSDate</span> date]];</span><br></pre></td></tr></table></figure>
-<h2 id="停止">停止</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[_time invalidate];</span><br></pre></td></tr></table></figure>
-	  
+	  <p>Swift 后台和函数内部执行重复任务：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> timer: dispatch_source_t! </span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">startTimer</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> queue = dispatch_queue_create(<span class="string">"com.lecason.app.timer"</span>, <span class="literal">nil</span>)</span><br><span class="line">    timer = dispatch_source_create(<span class="type">DISPATCH_SOURCE_TYPE_TIMER</span>, <span class="number">0</span>, <span class="number">0</span>, queue)</span><br><span class="line">    dispatch_source_set_timer(timer, <span class="type">DISPATCH_TIME_NOW</span>, <span class="number">3</span> * <span class="type">NSEC_PER_SEC</span>, <span class="number">1</span> * <span class="type">NSEC_PER_SEC</span>)</span><br><span class="line">    <span class="comment">// 每隔3秒执行，1秒的误差</span></span><br><span class="line">        dispatch_source_set_event_handler(timer) &#123;</span><br><span class="line">            <span class="comment">// 要执行的任务</span></span><br><span class="line">        &#125;</span><br><span class="line">        dispatch_resume(timer)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">stopTimer</span><span class="params">()</span></span> &#123;</span><br><span class="line">        dispatch_source_cancel(timer)</span><br><span class="line">        timer = <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>	  
 
 	  <div>
   		<center>
@@ -89,7 +85,108 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 		
+			
+			
+		
 	
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
 		
 	
 		
@@ -101,7 +198,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
+			
+		
 	
+		
+			
 		
 	
 		
@@ -109,51 +210,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
-		
-	
+			
 		
 	
 		
@@ -173,40 +230,17 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-	
-		
-	
-		
 			
 		
 	
 		
 	
-		
-			
-			
-		
 	
-		
-			
-			
-			
-		
-			
-		
-	
-		
-	
-		
-	
-		
-	
-	
-		<li class="prev"><a href="/2015/08/28/Objective-C-Hex-String-NSData-Convert/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
 	
 	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
 	
-		<li class="next"><a href="/2015/08/19/Objective-C-Find-Conbine/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+		<li class="next"><a href="/2015/11/05/iOS-PageViewController/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
 	
 </ul>
 </div>

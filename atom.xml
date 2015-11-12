@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://lecason.com/"/>
-  <updated>2015-11-06T08:14:30.000Z</updated>
+  <updated>2015-11-12T02:06:14.000Z</updated>
   <id>http://lecason.com/</id>
   
   <author>
@@ -15,11 +15,30 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[iOS 关于重复执行函数]]></title>
+    <link href="http://lecason.com/2015/11/12/iOS-Repeat-Functions/"/>
+    <id>http://lecason.com/2015/11/12/iOS-Repeat-Functions/</id>
+    <published>2015-11-12T01:59:08.000Z</published>
+    <updated>2015-11-12T02:06:14.000Z</updated>
+    <content type="html"><![CDATA[<p>Swift 后台和函数内部执行重复任务：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> timer: dispatch_source_t! </span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">startTimer</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> queue = dispatch_queue_create(<span class="string">"com.lecason.app.timer"</span>, <span class="literal">nil</span>)</span><br><span class="line">    timer = dispatch_source_create(<span class="type">DISPATCH_SOURCE_TYPE_TIMER</span>, <span class="number">0</span>, <span class="number">0</span>, queue)</span><br><span class="line">    dispatch_source_set_timer(timer, <span class="type">DISPATCH_TIME_NOW</span>, <span class="number">3</span> * <span class="type">NSEC_PER_SEC</span>, <span class="number">1</span> * <span class="type">NSEC_PER_SEC</span>)</span><br><span class="line">    <span class="comment">// 每隔3秒执行，1秒的误差</span></span><br><span class="line">        dispatch_source_set_event_handler(timer) &#123;</span><br><span class="line">            <span class="comment">// 要执行的任务</span></span><br><span class="line">        &#125;</span><br><span class="line">        dispatch_resume(timer)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">stopTimer</span><span class="params">()</span></span> &#123;</span><br><span class="line">        dispatch_source_cancel(timer)</span><br><span class="line">        timer = <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <summary type="html">
+    <![CDATA[<p>Swift 后台和函数内部执行重复任务：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="l]]>
+    </summary>
+    
+      <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
+    
+      <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Swift 创建可选代理]]></title>
     <link href="http://lecason.com/2015/11/06/Swift-Optional-Delegate/"/>
     <id>http://lecason.com/2015/11/06/Swift-Optional-Delegate/</id>
     <published>2015-11-06T08:07:54.000Z</published>
-    <updated>2015-11-06T08:14:30.000Z</updated>
+    <updated>2015-11-06T08:14:32.000Z</updated>
     <content type="html"><![CDATA[<p>先创建好代理：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">@objc</span> <span class="class"><span class="keyword">protocol</span> <span class="title">MyProtocol</span> : <span class="title">NSObjectProtocol</span> </span>&#123;</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">requiredMethod</span><span class="params">()</span></span></span><br><span class="line">    optional <span class="func"><span class="keyword">func</span> <span class="title">optionalMethod</span><span class="params">()</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> delegate:<span class="type">MyProtocol</span>?</span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">callDelegate</span><span class="params">()</span></span></span><br><span class="line">    &#123;</span><br><span class="line">        delegate?.requiredMethod()</span><br><span class="line">        delegate?.optionalMethod?()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -95,7 +114,7 @@
     <link href="http://lecason.com/2015/11/03/iOS-baidu-ring-development/"/>
     <id>http://lecason.com/2015/11/03/iOS-baidu-ring-development/</id>
     <published>2015-11-03T01:47:08.000Z</published>
-    <updated>2015-11-03T03:08:00.000Z</updated>
+    <updated>2015-11-11T07:44:05.000Z</updated>
     <content type="html"><![CDATA[<p><a href="http://store.baidu.com/product/open" target="_blank" rel="external">百度硬件开源</a>也真是坑，说是开源，APP端的源码都没有给，核心的算法和与蓝牙硬件的交互都要自己摸索。</p>
 <h2 id="记录一些文档不清楚的地方">记录一些文档不清楚的地方</h2><ul>
 <li><p>要发送的数据包是 L1 + L2</p>
@@ -106,6 +125,7 @@
 </li>
 </ul>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">计算CRC16的值</span><br><span class="line"></span><br><span class="line">- parameter calData: 要计算的值，是个[UInt8]数组</span><br><span class="line"></span><br><span class="line">- returns: 大端模式的数据包</span><br><span class="line">*/</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">calculateCRC16</span><span class="params">(calData:[UInt8])</span></span> -&gt; <span class="type">NSData</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> cal: <span class="type">CRC</span> = <span class="type">CRC</span>()</span><br><span class="line">    <span class="keyword">var</span> crcResult = cal.crc16(calData)</span><br><span class="line">    <span class="keyword">let</span> crcData: <span class="type">NSMutableData</span> = <span class="type">NSMutableData</span>()</span><br><span class="line">    <span class="keyword">if</span> crcResult &lt;= <span class="number">0xFF</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> zero: <span class="type">UInt8</span> = <span class="number">0x0</span></span><br><span class="line">        crcData.appendBytes(&amp;zero, length: <span class="number">1</span>)</span><br><span class="line">        crcData.appendBytes(&amp;crcResult, length: <span class="number">1</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> front = (crcResult &amp; <span class="number">0xFF00</span>) &gt;&gt; <span class="number">8</span></span><br><span class="line">        crcData.appendBytes(&amp;front, length: <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">var</span> back = (crcResult &amp; <span class="number">0xFF</span>)</span><br><span class="line">        crcData.appendBytes(&amp;back, length: <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"CRC16 Result : <span class="subst">\(crcData)</span>"</span>)</span><br><span class="line">    <span class="keyword">return</span> crcData</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2015/11/11 17:11 摸索成功连接和测试命令。</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p><a href="http://store.baidu.com/product/open" target="_blank" rel="external">百度硬件开源</a>也真是坑，说是开源，APP端的源码都没有给，核心的算法和与蓝牙硬件的交互都要自己摸索。</p>
@@ -594,35 +614,6 @@
       <category term="iOS" scheme="http://lecason.com/tags/iOS/"/>
     
       <category term="iOS" scheme="http://lecason.com/categories/iOS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Xcode 6 创建空的项目模版]]></title>
-    <link href="http://lecason.com/2015/09/23/xcode6-single-view-application-to-empty-application/"/>
-    <id>http://lecason.com/2015/09/23/xcode6-single-view-application-to-empty-application/</id>
-    <published>2015-09-23T14:12:46.000Z</published>
-    <updated>2015-09-23T15:31:59.000Z</updated>
-    <content type="html"><![CDATA[<p>运行Xcode 6，创建一个Single View Application工程。</p>
-<p><code>Xcode</code> - <code>Shift + Command + N</code> - <code>Single View Applicaton</code></p>
-<p>创建好后，把工程目录下的Main.storyboard和LaunchScreen.xib删除，扔进废纸篓。</p>
-<p><code>Delete</code> - <code>Main.storyboard</code> + <code>LaunchScreen.xib</code></p>
-<p>打开Info.plist，把Launch screen interface file base name，以及Main storyboard file base name两项，删除（点击旁边的减号即可）。</p>
-<p><code>Delete</code> - <code>Launch screen interface file base name</code> + <code>Main storyboard file base name</code></p>
-<p>打开工程项目属性文件，点击Target下面的第一项，再选择General选项卡，向下找到Use Asset Catalog按钮。点击它。</p>
-<p><code>Project</code> - <code>TARGETS</code> - <code>Genera</code> - <code>App Icons and Launch Images</code> - <code>Use Asset Catelog</code></p>
-<p>最后，在AppDelegate的第一个方法里面，“return”语句之前，添加必要代码。<br>代码只有3句，相当于分3步走。1.创建window；2.设置window背景；3.使window可见。</p>
-<p>Objective-C</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span><span class="variable">.window</span> = [[<span class="built_in">UIWindow</span> alloc] initWithFrame:[[<span class="built_in">UIScreen</span> mainScreen] bounds]];</span><br><span class="line"><span class="keyword">self</span><span class="variable">.window</span><span class="variable">.backgroundColor</span> = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">[<span class="keyword">self</span><span class="variable">.window</span> makeKeyAndVisible];</span><br></pre></td></tr></table></figure>
-<p>Swift</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.window = <span class="type">UIWindow</span>(frame: <span class="type">UIScreen</span>.mainScreen().bounds)</span><br><span class="line"><span class="keyword">self</span>.window?.backgroundColor = <span class="type">UIColor</span>.whiteColor()</span><br><span class="line"><span class="keyword">self</span>.window?.makeKeyAndVisible()</span><br></pre></td></tr></table></figure>
-<p>Swift 创建 Navigation Controller 和 Tab Bar Controller Programmatically</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> first: <span class="type">UIViewController</span> = <span class="type">UIViewController</span>()</span><br><span class="line">    <span class="keyword">var</span> second: <span class="type">UIViewController</span> = <span class="type">UIViewController</span>()</span><br><span class="line">    <span class="keyword">var</span> firstNav: <span class="type">UINavigationController</span> = <span class="type">UINavigationController</span>(rootViewController: first)</span><br><span class="line">    first.title = <span class="string">"First"</span></span><br><span class="line">    <span class="keyword">var</span> secondNav: <span class="type">UINavigationController</span> = <span class="type">UINavigationController</span>(rootViewController: second)</span><br><span class="line">    second.title = <span class="string">"Second"</span></span><br><span class="line">    <span class="keyword">var</span> tab: <span class="type">UITabBarController</span> = <span class="type">UITabBarController</span>()</span><br><span class="line">    tab.viewControllers = [firstNav,secondNav]</span><br><span class="line">    <span class="keyword">self</span>.window = <span class="type">UIWindow</span>(frame: <span class="type">UIScreen</span>.mainScreen().bounds)</span><br><span class="line">    <span class="keyword">self</span>.window?.backgroundColor = <span class="type">UIColor</span>.whiteColor()</span><br><span class="line">    <span class="keyword">self</span>.window?.rootViewController = tab</span><br><span class="line">    <span class="keyword">self</span>.window?.makeKeyAndVisible()</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>运行Xcode 6，创建一个Single View Application工程。</p>
-<p><code>Xcode</code> - <code>Shift + Command + N</code> - <code>Single View Applicaton</cod]]>
-    </summary>
     
   </entry>
   

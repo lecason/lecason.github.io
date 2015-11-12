@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>iOS 自定义导航栏标题 | LECASON</title>
+  <title>iOS 自定义导航栏设置导航栏的返回按钮标题 | LECASON</title>
   <meta name="author" content="Lecason">
   
   <meta name="description" content="在OC的时候很容易就设置导航栏的返回按钮标题
@@ -12,7 +12,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="iOS 自定义导航栏标题"/>
+  <meta property="og:title" content="iOS 自定义导航栏设置导航栏的返回按钮标题"/>
   <meta property="og:site_name" content="LECASON"/>
 
   
@@ -59,7 +59,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
   <div class="container" id="container">
 	<div class="content">
 	  <div class="page-header">		
-  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 自定义导航栏标题</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-11</span></h1>
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 自定义导航栏设置导航栏的返回按钮标题</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-09-11</span></h1>
 </div>		
 
 <div class="row page">
@@ -81,7 +81,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <p>最后只能在pushViewController前设置NavigationBar自身的Title为空</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">presentShareViewController</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> shareVC: <span class="type">HWShareViewController</span> = <span class="type">HWShareViewController</span>()</span><br><span class="line">    title = <span class="string">""</span></span><br><span class="line">    <span class="keyword">self</span>.navigationController?.pushViewController(shareVC, animated: <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>后面发现，Back这个按钮是属于<code>上一个</code>ViewController,而不是当前屏幕的Controller。所以要在Push前设置好按钮:</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)</span></span> &#123;</span><br><span class="line">    tableView.deselectRowAtIndexPath(indexPath, animated: <span class="literal">true</span>)</span><br><span class="line">    <span class="keyword">let</span> detailTableView: <span class="type">BHDetailViewController</span> = <span class="type">UIStoryboard</span>(name: <span class="string">"Main"</span>, bundle: <span class="type">NSBundle</span>.mainBundle()).instantiateViewControllerWithIdentifier(<span class="string">"detail"</span>) <span class="keyword">as</span>! <span class="type">BHDetailViewController</span></span><br><span class="line">    <span class="keyword">let</span> backItem = <span class="type">UIBarButtonItem</span>()</span><br><span class="line">    backItem.title = <span class="string">"Something Else"</span></span><br><span class="line">    navigationItem.backBarButtonItem = backItem</span><br><span class="line">    <span class="keyword">self</span>.navigationController?.pushViewController(detailTableView, animated: <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>	  
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)</span></span> &#123;</span><br><span class="line">    tableView.deselectRowAtIndexPath(indexPath, animated: <span class="literal">true</span>)</span><br><span class="line">    <span class="keyword">let</span> detailTableView: <span class="type">BHDetailViewController</span> = <span class="type">UIStoryboard</span>(name: <span class="string">"Main"</span>, bundle: <span class="type">NSBundle</span>.mainBundle()).instantiateViewControllerWithIdentifier(<span class="string">"detail"</span>) <span class="keyword">as</span>! <span class="type">BHDetailViewController</span></span><br><span class="line">    <span class="keyword">let</span> backItem = <span class="type">UIBarButtonItem</span>()</span><br><span class="line">    backItem.title = <span class="string">"Something Else"</span></span><br><span class="line">    navigationItem.backBarButtonItem = backItem</span><br><span class="line">    <span class="keyword">self</span>.navigationController?.pushViewController(detailTableView, animated: <span class="literal">true</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果在StoryBoard里面，直接把BarButton拖到想要改变的NavigationBar里面就可以了。</p>
+</blockquote>
+	  
 
 	  <div>
   		<center>
@@ -91,6 +95,10 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 	
+	
+		
+			
+		
 	
 		
 	
