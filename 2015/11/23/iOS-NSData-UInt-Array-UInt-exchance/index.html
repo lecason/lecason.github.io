@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS NSData [UInt] UInt 之间的转换 | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="扩展1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556// [UInt] 数组转化成 NSDateextension Array &amp;#123; ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS NSData [UInt] UInt 之间的转换"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS NSData [UInt] UInt 之间的转换</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-11-23</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <h2 id="扩展">扩展</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// [UInt] 数组转化成 NSDate</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">toData</span><span class="params">()</span></span> -&gt; <span class="type">NSData</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> commandData: <span class="type">NSMutableData</span> = <span class="type">NSMutableData</span>()</span><br><span class="line">    <span class="keyword">for</span> <span class="keyword">var</span> subCommand <span class="keyword">in</span> <span class="keyword">self</span> &#123;</span><br><span class="line">        commandData.appendBytes(&amp;subCommand, length: <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">        <span class="keyword">return</span> commandData</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 大端模式的[UInt]数组转换成UInt</span></span><br><span class="line"><span class="comment">// 大端模式 [0x01,0x02] 转化成 Binary = [0b00000001, 0b00000010] 转化成 Hex 应该是 0x0102</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">NSData</span> </span>&#123;</span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">toBigendInt</span><span class="params">()</span></span> -&gt; <span class="type">UInt</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.length &gt; <span class="number">8</span> &#123; <span class="built_in">print</span>(<span class="string">"\n【toBigendInt overflow max big-end 8 byte maybe get the wrong value】\n"</span>) &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> intMutableArray = <span class="type">NSMutableData</span>()</span><br><span class="line">    <span class="keyword">var</span> subData = <span class="type">NSData</span>()</span><br><span class="line">    <span class="keyword">for</span> <span class="keyword">var</span> i = <span class="keyword">self</span>.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>;  --i &#123;</span><br><span class="line">        subData = <span class="keyword">self</span>.subdataWithRange(<span class="type">NSMakeRange</span>(i, <span class="number">1</span>))</span><br><span class="line">        intMutableArray.appendData(subData)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> commandInt:<span class="type">UInt</span> = <span class="number">0</span></span><br><span class="line">    intMutableArray.getBytes(&amp;commandInt, length: <span class="built_in">sizeof</span>(<span class="keyword">self</span>.<span class="keyword">dynamicType</span>))</span><br><span class="line">    <span class="keyword">return</span> commandInt</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 小端模式的[UInt]数组转换成UInt</span></span><br><span class="line"><span class="comment">// 小端模式 [0x01,0x02] 会转成 Binary = [0b00000010, 0b00000001] 转化成 Hex 应该是 0x0201</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">NSData</span> </span>&#123;</span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">toSmallendInt</span><span class="params">()</span></span> -&gt; <span class="type">UInt</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.length &gt; <span class="number">8</span> &#123; <span class="built_in">print</span>(<span class="string">"\n【toSmallendInt overflow max big-end 8 byte maybe get the wrong value】\n"</span>) &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> commandInt:<span class="type">UInt</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">self</span>.getBytes(&amp;commandInt, length: <span class="built_in">sizeof</span>(<span class="keyword">self</span>.<span class="keyword">dynamicType</span>))</span><br><span class="line">    <span class="keyword">return</span> commandInt</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// NSData 转化成UInt 数组</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">NSData</span> </span>&#123;</span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">toUIntArray</span><span class="params">()</span></span> -&gt; [<span class="type">UInt8</span>] &#123;</span><br><span class="line">    <span class="keyword">var</span> uintArray = [<span class="type">UInt8</span>]()</span><br><span class="line">    <span class="keyword">var</span> subData: <span class="type">NSData</span>!</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="keyword">self</span>.length &#123;</span><br><span class="line">        subData = <span class="keyword">self</span>.subdataWithRange(<span class="type">NSMakeRange</span>(i, <span class="number">1</span>))</span><br><span class="line">        uintArray.append(<span class="type">UInt8</span>(subData.toSmallendInt()))</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> uintArray</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用">使用</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">    <span class="keyword">let</span> intArray = [<span class="number">0x01</span>,<span class="number">0x02</span>,<span class="number">0x03</span>,<span class="number">0x04</span>,<span class="number">0x05</span>,<span class="number">0x06</span>,<span class="number">0x07</span>,<span class="number">0x08</span>]</span><br><span class="line">    <span class="keyword">let</span> intData = intArray.toData()</span><br><span class="line">    <span class="keyword">let</span> small = intData.toSmallendInt()</span><br><span class="line">    <span class="keyword">let</span> big = intData.toBigendInt()</span><br><span class="line">    <span class="keyword">let</span> uintArray = intData.toUIntArray()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"intArray: <span class="subst">\(intArray)</span>\nintData: <span class="subst">\(intData)</span>\nsmall: <span class="subst">\(small)</span>\nbig: <span class="subst">\(big)</span>\nuintArray: <span class="subst">\(uintArray)</span>\n"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="结果">结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">intArray: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]</span><br><span class="line">intData: &lt;<span class="number">01020304</span> <span class="number">05060708</span>&gt;</span><br><span class="line">small: <span class="number">578437695752307201</span></span><br><span class="line">big: <span class="number">72623859790382856</span></span><br><span class="line">uintArray: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]</span><br></pre></td></tr></table></figure>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2015/11/12/iOS-Repeat-Functions/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
