@@ -103,6 +103,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </li>
 <li><p>断开的时候，要登录回去才能发送数据实时同步设置命令，和设置命令。</p>
 </li>
+<li><p>闹钟设置年月日全为0</p>
+</li>
 </ul>
 <h2 id="关于回应_ACK">关于回应 ACK</h2><p>向手环发送命令的时候，手环如果收到命令，会回复一条ACK <code>&lt;ab100000 0000xxxx&gt;</code> ACK的后4位是 SequenceID,APP每向手环发一条命令，SequenceID都+1。收到第一个字节是ab,第二字节是10或者30就表示是手环回复收到命令的ACK，这时候APP不用发送数据回手环回应这个ACK。只有收到命令的时候，判断接收命令无错的时候再回复ACK。</p>
 <p>关于回复ACK，先判断是0xab开头，再接收完整命令，再根据命令的不同作不同的处理。下面是第一个版本的ACK，如果收到最后一个字节结果的数据由于数组越界是会崩溃的。</p>
@@ -123,6 +125,14 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 	
+	
+		
+			
+		
+	
+		
+			
+		
 	
 		
 			

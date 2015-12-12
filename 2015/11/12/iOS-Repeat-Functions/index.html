@@ -6,8 +6,8 @@
   <title>iOS 关于重复执行函数 | LECASON</title>
   <meta name="author" content="Lecason">
   
-  <meta name="description" content="Swift 后台和函数内部执行重复任务：
-12345678910111213141516171819202122override func viewDidLoad() &amp;#123;    super.viewDidLoad()    var timer: dispatch_source_t!    ">
+  <meta name="description" content="dispatch_source_set_timer 后台和函数内部执行重复任务：
+12345678910111213141516171819202122override func viewDidLoad() &amp;#123;    super.viewDidLoad()    var timer: di">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -72,8 +72,11 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  
 
 	  <!-- content -->
-	  <p>Swift 后台和函数内部执行重复任务：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> timer: dispatch_source_t! </span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">startTimer</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> queue = dispatch_queue_create(<span class="string">"com.lecason.app.timer"</span>, <span class="literal">nil</span>)</span><br><span class="line">    timer = dispatch_source_create(<span class="type">DISPATCH_SOURCE_TYPE_TIMER</span>, <span class="number">0</span>, <span class="number">0</span>, queue)</span><br><span class="line">    dispatch_source_set_timer(timer, <span class="type">DISPATCH_TIME_NOW</span>, <span class="number">3</span> * <span class="type">NSEC_PER_SEC</span>, <span class="number">1</span> * <span class="type">NSEC_PER_SEC</span>)</span><br><span class="line">    <span class="comment">// 每隔3秒执行，1秒的误差</span></span><br><span class="line">        dispatch_source_set_event_handler(timer) &#123;</span><br><span class="line">            <span class="comment">// 要执行的任务</span></span><br><span class="line">        &#125;</span><br><span class="line">        dispatch_resume(timer)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">stopTimer</span><span class="params">()</span></span> &#123;</span><br><span class="line">        dispatch_source_cancel(timer)</span><br><span class="line">        timer = <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>	  
+	  <p>dispatch_source_set_timer 后台和函数内部执行重复任务：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> timer: dispatch_source_t! </span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">startTimer</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> queue = dispatch_queue_create(<span class="string">"com.lecason.app.timer"</span>, <span class="literal">nil</span>)</span><br><span class="line">    timer = dispatch_source_create(<span class="type">DISPATCH_SOURCE_TYPE_TIMER</span>, <span class="number">0</span>, <span class="number">0</span>, queue)</span><br><span class="line">    dispatch_source_set_timer(timer, <span class="type">DISPATCH_TIME_NOW</span>, <span class="number">3</span> * <span class="type">NSEC_PER_SEC</span>, <span class="number">1</span> * <span class="type">NSEC_PER_SEC</span>)</span><br><span class="line">    <span class="comment">// 每隔3秒执行，1秒的误差</span></span><br><span class="line">        dispatch_source_set_event_handler(timer) &#123;</span><br><span class="line">            <span class="comment">// 要执行的任务</span></span><br><span class="line">        &#125;</span><br><span class="line">        dispatch_resume(timer)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">stopTimer</span><span class="params">()</span></span> &#123;</span><br><span class="line">        dispatch_source_cancel(timer)</span><br><span class="line">        timer = <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>dispatch_time 延时一定时间后执行</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> delay = <span class="number">4.5</span> * <span class="type">Double</span>(<span class="type">NSEC_PER_SEC</span>)</span><br><span class="line"><span class="keyword">let</span> time = dispatch_time(<span class="type">DISPATCH_TIME_NOW</span>, <span class="type">Int64</span>(delay))</span><br><span class="line">dispatch_after(time, dispatch_get_main_queue(), &#123;</span><br><span class="line">    <span class="comment">// 4.5秒后要执行的任务</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+	  
 
 	  <div>
   		<center>
@@ -83,6 +86,14 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 	
+	
+		
+			
+		
+	
+		
+			
+		
 	
 		
 			

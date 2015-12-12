@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS UIView 随着手势滑动左右切换 | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="定义一个枚举
+1234enum HPDViewTransitionDrection &amp;#123;    case Left    case Right&amp;#125;
+创建Label，和左右滑动手势
+12345678910111213141516func initSomething() &amp;#123;  ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS UIView 随着手势滑动左右切换"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS UIView 随着手势滑动左右切换</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-12-12</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p>定义一个枚举</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">HPDViewTransitionDrection</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Left</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">Right</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建Label，和左右滑动手势</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">initSomething</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> lb = <span class="type">UILabel</span>()</span><br><span class="line">    lb.frame.size = <span class="type">CGSizeMake</span>(<span class="number">200</span>, <span class="number">30</span>)</span><br><span class="line">    lb.text = <span class="string">"LECASON"</span></span><br><span class="line">    lb.sizeToFit()</span><br><span class="line">    lb.center = <span class="keyword">self</span>.view.center</span><br><span class="line">    <span class="keyword">self</span>.view.addSubview(lb)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> leftSwipe = <span class="type">UISwipeGestureRecognizer</span>(target: <span class="keyword">self</span>, action: <span class="string">"handleSwipeFrom:"</span>)</span><br><span class="line">    leftSwipe.direction = <span class="type">UISwipeGestureRecognizerDirection</span>.<span class="type">Left</span></span><br><span class="line">    <span class="keyword">self</span>.view.addGestureRecognizer(leftSwipe)</span><br><span class="line">    <span class="keyword">let</span> rightSwipe = <span class="type">UISwipeGestureRecognizer</span>(target: <span class="keyword">self</span>, action: <span class="string">"handleSwipeFrom:"</span>)</span><br><span class="line">    rightSwipe.direction = <span class="type">UISwipeGestureRecognizerDirection</span>.<span class="type">Right</span></span><br><span class="line">    <span class="keyword">self</span>.view.addGestureRecognizer(rightSwipe)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>添加识别手势的方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">handleSwipeFrom</span><span class="params">(recognizer: UISwipeGestureRecognizer)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> recognizer.direction == <span class="type">UISwipeGestureRecognizerDirection</span>.<span class="type">Left</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"swipe left"</span>)</span><br><span class="line">        <span class="keyword">self</span>.transitionView(<span class="type">HPDViewTransitionDrection</span>.<span class="type">Left</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> recognizer.direction == <span class="type">UISwipeGestureRecognizerDirection</span>.<span class="type">Right</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"swipe right"</span>)</span><br><span class="line">        <span class="keyword">self</span>.transitionView(<span class="type">HPDViewTransitionDrection</span>.<span class="type">Right</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>处理转换方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">transitionView</span><span class="params">(derection: HPDViewTransitionDrection)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> duration = <span class="number">0.5</span></span><br><span class="line">    <span class="keyword">let</span> curve = <span class="type">UIViewAnimationCurve</span>.<span class="type">EaseInOut</span></span><br><span class="line">    <span class="keyword">var</span> transition = <span class="type">UIViewAnimationTransition</span>.<span class="type">FlipFromLeft</span></span><br><span class="line">    <span class="keyword">let</span> transview = <span class="keyword">self</span>.view</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> derection == <span class="type">HPDViewTransitionDrection</span>.<span class="type">Left</span> &#123;</span><br><span class="line">        transition = <span class="type">UIViewAnimationTransition</span>.<span class="type">FlipFromLeft</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> derection == <span class="type">HPDViewTransitionDrection</span>.<span class="type">Right</span> &#123;</span><br><span class="line">        transition = <span class="type">UIViewAnimationTransition</span>.<span class="type">FlipFromRight</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">UIView</span>.beginAnimations(<span class="string">"Animations"</span>, context: <span class="literal">nil</span>)</span><br><span class="line">    <span class="type">UIView</span>.setAnimationDuration(duration)</span><br><span class="line">    <span class="type">UIView</span>.setAnimationCurve(curve)</span><br><span class="line">    <span class="type">UIView</span>.setAnimationTransition(transition, forView: transview, cache: <span class="literal">true</span>)</span><br><span class="line">    <span class="type">UIView</span>.commitAnimations()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="/img/iostransitionview.png" alt=""></p>
+<h2 id="参考资料">参考资料</h2><blockquote>
+<p><a href="http://stackoverflow.com/questions/10701290/horizontal-flip-direction-in-ios-storyboards" target="_blank" rel="external">Horizontal flip direction in iOS Storyboards</a></p>
+</blockquote>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2015/12/10/iOS-fetch-ssid-info/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

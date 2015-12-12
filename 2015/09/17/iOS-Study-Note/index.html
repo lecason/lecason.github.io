@@ -93,6 +93,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">view<span class="variable">.tag</span> = <span class="number">0</span></span><br><span class="line"><span class="built_in">UIView</span> *otherview = [superView viewWithTag:<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>同一个父视图中，先加入的View会被覆盖在下面</p>
+<p>在UIView中Add Button 到里面的时间，UIView 的 Frame Size 一定要保证按钮在里面。不然按钮会接收不到响应事件。</p>
 </blockquote>
 	  
 
@@ -104,6 +105,10 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	
 	
 	
+	
+		
+	
+		
 	
 		
 	
