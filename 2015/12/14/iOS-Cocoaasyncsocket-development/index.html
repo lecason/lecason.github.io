@@ -1,0 +1,342 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS Cocoaasyncsocket 网络编程开发 | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="iOS 直接通过TCP UDP连接服务器，用封装好的 CocoaAsyncSocket 使用起来非常方便。
+使用方法引入头部和遵从代理：
+123456#import &amp;lt;UIKit/UIKit.h&amp;gt;@import CocoaAsyncSocket;@interface ViewContro">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS Cocoaasyncsocket 网络编程开发"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS Cocoaasyncsocket 网络编程开发</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-12-14</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p>iOS 直接通过TCP UDP连接服务器，用封装好的 <a href="https://github.com/robbiehanson/CocoaAsyncSocket" target="_blank" rel="external">CocoaAsyncSocket</a> 使用起来非常方便。</p>
+<h2 id="使用方法">使用方法</h2><p>引入头部和遵从代理：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line">@import CocoaAsyncSocket;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> : <span class="title">UIViewController</span>&lt;<span class="title">AsyncSocketDelegate</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>方法实现</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">"ViewController.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>,<span class="keyword">nonatomic</span>) AsyncSocket *socket;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">    &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初使化和连接服务器</span></span><br><span class="line">    <span class="keyword">self</span><span class="variable">.socket</span> = [[AsyncSocket alloc] initWithDelegate:<span class="keyword">self</span>];</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.socket</span> connectToHost:<span class="string">@"8.8.8.8"</span> onPort:<span class="number">2012</span> error:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接成功回调</span></span><br><span class="line">- (<span class="keyword">void</span>)onSocket:(AsyncSocket *)sock didConnectToHost:(<span class="built_in">NSString</span> *)host port:(<span class="built_in">UInt16</span>)port</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Connect to host"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 连接成功请求读数据</span></span><br><span class="line">    [sock readDataWithTimeout:-<span class="number">1</span> tag:<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 收到数据回调</span></span><br><span class="line">- (<span class="keyword">void</span>)onSocket:(AsyncSocket *)sock didReadData:(<span class="built_in">NSData</span> *)data withTag:(<span class="keyword">long</span>)tag</span><br><span class="line">    &#123;</span><br><span class="line">    [sock readDataWithTimeout:-<span class="number">1</span> tag:<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"did read data"</span>);</span><br><span class="line">    <span class="built_in">NSString</span>* message = [[<span class="built_in">NSString</span> alloc] initWithData:data encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"message is: \n%@"</span>,message);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 断开连接</span></span><br><span class="line">- (<span class="keyword">void</span>)onSocket:(AsyncSocket *)sock willDisconnectWithError:(<span class="built_in">NSError</span> *)err</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Disconnect host"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送数据到服务器</span></span><br><span class="line">- (<span class="keyword">IBAction</span>)send:(<span class="built_in">UIButton</span> *)sender</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"send"</span>);</span><br><span class="line">    [<span class="keyword">self</span><span class="variable">.socket</span> writeData:[<span class="string">@"SEND hello##"</span> dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>] withTimeout:-<span class="number">1</span> tag:<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果不在didConnectToHost 和 didReadData 中调用[sock readDataWithTimeout:-1 tag:0]; 方法，那么只能得到服务器发回来的首条信息，以后服务器发送的将接收不到。</p>
+<p>发送和接收的tag值要一样，不然收不到数据。</p>
+</blockquote>
+<h2 id="参考资料">参考资料</h2><p><a href="http://stackoverflow.com/questions/7997200/how-do-i-get-didreaddata-within-gcdasyncsocket-execute-within-the-current-runloo/7998021#7998021" target="_blank" rel="external">How do I get didReadData within GCDAsyncSocket execute within the current RunLoop?</a></p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+	
+		<li class="prev"><a href="/2015/12/21/iOS-Xunfei/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2015/12/12/iOS-Transition-a-view-with-uiswipegesturerecongnizer/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

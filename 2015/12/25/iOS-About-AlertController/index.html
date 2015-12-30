@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 关于UIAlertController | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="iOS8.0 有了个UIAlertController,感觉挺好用的。
+用UIAlertController实现一个类似UIActionSheet的效果：
+1234567891011121314151617181920212223242526272829303132func moreAction()">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS 关于UIAlertController"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 关于UIAlertController</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-12-25</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p>iOS8.0 有了个UIAlertController,感觉挺好用的。</p>
+<p>用UIAlertController实现一个类似UIActionSheet的效果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">moreAction</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> alertController = <span class="type">UIAlertController</span>(title: <span class="literal">nil</span>, message: <span class="literal">nil</span>, preferredStyle: <span class="type">UIAlertControllerStyle</span>.<span class="type">ActionSheet</span>)</span><br><span class="line">    <span class="keyword">let</span> cancelAction = <span class="type">UIAlertAction</span>(title: <span class="string">"取消"</span>,</span><br><span class="line">    style: <span class="type">UIAlertActionStyle</span>.<span class="type">Cancel</span>, handler: &#123; (action: <span class="type">UIAlertAction</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">let</span> indexAction = <span class="type">UIAlertAction</span>(title: <span class="string">"于主页显示并操作"</span>,</span><br><span class="line">    style: <span class="type">UIAlertActionStyle</span>.<span class="type">Default</span>, handler: &#123; (action: <span class="type">UIAlertAction</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">let</span> managerAction = <span class="type">UIAlertAction</span>(title: <span class="string">"用户管理"</span>,</span><br><span class="line">    style: <span class="type">UIAlertActionStyle</span>.<span class="type">Default</span>, handler: &#123; (action: <span class="type">UIAlertAction</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">let</span> gpsAction = <span class="type">UIAlertAction</span>(title: <span class="string">"GPS定位"</span>,</span><br><span class="line">    style: <span class="type">UIAlertActionStyle</span>.<span class="type">Default</span>, handler: &#123; (action: <span class="type">UIAlertAction</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">let</span> renameAction = <span class="type">UIAlertAction</span>(title: <span class="string">"重命名"</span>,</span><br><span class="line">    style: <span class="type">UIAlertActionStyle</span>.<span class="type">Default</span>, handler: &#123; (action: <span class="type">UIAlertAction</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">let</span> qrAction = <span class="type">UIAlertAction</span>(title: <span class="string">"保存二维码"</span>,</span><br><span class="line">    style: <span class="type">UIAlertActionStyle</span>.<span class="type">Default</span>, handler: &#123; (action: <span class="type">UIAlertAction</span>) -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">    alertController.addAction(cancelAction)</span><br><span class="line">    alertController.addAction(indexAction)</span><br><span class="line">    alertController.addAction(managerAction)</span><br><span class="line">    alertController.addAction(gpsAction)</span><br><span class="line">    alertController.addAction(renameAction)</span><br><span class="line">    alertController.addAction(qrAction)</span><br><span class="line">    <span class="keyword">self</span>.presentViewController(alertController, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果:<br><img src="/img/alertviewcontroller1.png" alt=""></p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2015/12/21/iOS-Xunfei/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

@@ -73,7 +73,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 	  <!-- content -->
 	  <h2 id="Swift_版本">Swift 版本</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line"><span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 圆形头像</span></span><br><span class="line"><span class="keyword">var</span> avater: <span class="type">UIImageView</span> = <span class="type">UIImageView</span>(frame: <span class="type">CGRectMake</span>(<span class="number">60</span>, <span class="number">85</span>, <span class="number">60</span>, <span class="number">60</span>))</span><br><span class="line">avater.image = <span class="type">UIImage</span>(named: <span class="string">"avater"</span>)</span><br><span class="line"><span class="keyword">var</span> path: <span class="type">UIBezierPath</span> = <span class="type">UIBezierPath</span>(arcCenter: <span class="type">CGPointMake</span>(<span class="number">30</span>, <span class="number">30</span>), radius: <span class="number">30</span>, startAngle: <span class="number">0</span>, endAngle: <span class="number">720</span> , clockwise: <span class="literal">true</span>)</span><br><span class="line"><span class="keyword">var</span> shape: <span class="type">CAShapeLayer</span> = <span class="type">CAShapeLayer</span>(layer: <span class="literal">nil</span>)</span><br><span class="line">shape.path = path.<span class="type">CGPath</span></span><br><span class="line">avater.layer.mask = shape</span><br><span class="line"></span><br><span class="line"><span class="comment">// 圆形背景</span></span><br><span class="line"><span class="keyword">var</span> avaterbg: <span class="type">UIImageView</span> = <span class="type">UIImageView</span>(frame: <span class="type">CGRectMake</span>(<span class="number">10</span>, <span class="number">35</span>, <span class="number">64</span>, <span class="number">64</span>))</span><br><span class="line">avaterbg.backgroundColor = <span class="type">UIColor</span>.whiteColor()</span><br><span class="line">avaterbg.center = avater.center</span><br><span class="line"><span class="keyword">var</span> pathbg: <span class="type">UIBezierPath</span> = <span class="type">UIBezierPath</span>(arcCenter: <span class="type">CGPointMake</span>(<span class="number">32</span>, <span class="number">32</span>), radius: <span class="number">32</span>, startAngle: <span class="number">0</span>, endAngle: <span class="number">720</span> , clockwise: <span class="literal">true</span>)</span><br><span class="line"><span class="keyword">var</span> shapebg: <span class="type">CAShapeLayer</span> = <span class="type">CAShapeLayer</span>(layer: <span class="literal">nil</span>)</span><br><span class="line">shapebg.path = pathbg.<span class="type">CGPath</span></span><br><span class="line">avaterbg.layer.mask = shapebg</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.view.addSubview(avaterbg)</span><br><span class="line"><span class="keyword">self</span>.view.addSubview(avater)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>效果，<code>UIBezierPath</code>还是有锯齿<br><img src="/img/roundavater1.png" alt=""></p>
-	  
+<p>还有一种用layer来做的方法效果非常好：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> avendarImageView = <span class="type">UIImageView</span>(frame: <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">60</span>, <span class="number">60</span>))</span><br><span class="line">avendarImageView.image = <span class="type">UIImage</span>(named: <span class="string">"Background"</span>)</span><br><span class="line">avendarImageView.layer.borderWidth = <span class="number">1</span></span><br><span class="line">avendarImageView.layer.masksToBounds = <span class="literal">false</span></span><br><span class="line">avendarImageView.layer.borderColor = <span class="type">UIColor</span>.blackColor().<span class="type">CGColor</span></span><br><span class="line">avendarImageView.layer.cornerRadius = avendarImageView.frame.height/<span class="number">2</span></span><br><span class="line">avendarImageView.clipsToBounds = <span class="literal">true</span></span><br></pre></td></tr></table></figure>	  
 
 	  <div>
   		<center>
@@ -101,6 +102,18 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
 	
 		
 			
@@ -236,9 +249,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 		
 	
 		
-	
-		
 			
+		
+	
 		
 	
 		

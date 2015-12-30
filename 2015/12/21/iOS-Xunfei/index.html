@@ -1,0 +1,341 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 讯飞语音识别极简Demo | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="导入头文件从迅飞开发者平台下载SDK，和导入SDK所要的库。引入头文件，以及遵从代理。
+12345678#import &amp;lt;UIKit/UIKit.h&amp;gt;#import &quot;iflyMSC/iflyMSC.h&quot;#import &quot;iflyMSC/IFlySpeechRecognizerDeleg">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS 讯飞语音识别极简Demo"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 讯飞语音识别极简Demo</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2015-12-21</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <h2 id="导入头文件">导入头文件</h2><p>从<a href="http://www.xfyun.cn" target="_blank" rel="external">迅飞开发者平台</a>下载SDK，和导入SDK所要的库。引入头文件，以及遵从代理。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#import <span class="title">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"iflyMSC/iflyMSC.h"</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"iflyMSC/IFlySpeechRecognizerDelegate.h"</span></span></span><br><span class="line"><span class="preprocessor">#import <span class="title">"iflyMSC/IFlySpeechRecognizer.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> : <span class="title">UIViewController</span>&lt;<span class="title">IFlySpeechRecognizerDelegate</span>&gt;</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) IFlySpeechRecognizer *iFlySpeechRecognizer;   <span class="comment">//不带界面的识别对象</span></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h2 id="初使化AppId">初使化AppId</h2><blockquote>
+<p>注意下载的SDK要和AppId相对应。</p>
+</blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)initAppId</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *initString = [[<span class="built_in">NSString</span> alloc] initWithFormat:<span class="string">@"appid=%@"</span>,<span class="string">@"567f981a"</span>];</span><br><span class="line">    [IFlySpeechUtility createUtility:initString];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="设置识别参数">设置识别参数</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">void</span>)initRecognizer</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//单例模式，无UI的实例</span></span><br><span class="line">    <span class="keyword">if</span> (_iFlySpeechRecognizer == <span class="literal">nil</span>) &#123;</span><br><span class="line">    _iFlySpeechRecognizer = [IFlySpeechRecognizer sharedInstance];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置参数</span></span><br><span class="line">    <span class="keyword">if</span> (_iFlySpeechRecognizer != <span class="literal">nil</span>) &#123;</span><br><span class="line">    <span class="comment">//扩展参数</span></span><br><span class="line">    [_iFlySpeechRecognizer setParameter:<span class="string">@""</span> forKey:[IFlySpeechConstant PARAMS]];</span><br><span class="line">    <span class="comment">//设置听写模式</span></span><br><span class="line">    [_iFlySpeechRecognizer setParameter:<span class="string">@"iat"</span> forKey:[IFlySpeechConstant IFLY_DOMAIN]];</span><br><span class="line">    <span class="comment">//设置最长录音时间</span></span><br><span class="line">    [_iFlySpeechRecognizer setParameter:<span class="string">@"30000"</span> forKey:[IFlySpeechConstant SPEECH_TIMEOUT]];</span><br><span class="line">    <span class="comment">//设置后端点</span></span><br><span class="line">    [_iFlySpeechRecognizer setParameter:<span class="string">@"1800"</span> forKey:[IFlySpeechConstant VAD_EOS]];</span><br><span class="line">    <span class="comment">//设置前端点</span></span><br><span class="line">    [_iFlySpeechRecognizer setParameter:<span class="string">@"1800"</span> forKey:[IFlySpeechConstant VAD_BOS]];</span><br><span class="line">    <span class="comment">//网络等待时间</span></span><br><span class="line">    [_iFlySpeechRecognizer setParameter:<span class="string">@"20000"</span> forKey:[IFlySpeechConstant NET_TIMEOUT]];</span><br><span class="line">    <span class="comment">//设置采样率，推荐使用16K</span></span><br><span class="line">    [_iFlySpeechRecognizer setParameter:<span class="string">@"16000"</span> forKey:[IFlySpeechConstant SA<span class="built_in">MPLE_RATE</span>]];</span><br><span class="line">    <span class="comment">//设置语言</span></span><br><span class="line">    [_iFlySpeechRecognizer setParameter:<span class="string">@"zh_cn"</span> forKey:[IFlySpeechConstant LANGUAGE]];</span><br><span class="line">    <span class="comment">//设置方言</span></span><br><span class="line">    [_iFlySpeechRecognizer setParameter:<span class="string">@"mandarin"</span> forKey:[IFlySpeechConstant ACCENT]];</span><br><span class="line">    <span class="comment">//设置是否返回标点符号</span></span><br><span class="line">    [_iFlySpeechRecognizer setParameter:<span class="string">@"1"</span> forKey:[IFlySpeechConstant ASR_PTT]];</span><br><span class="line">    <span class="comment">//设置数据返回格式</span></span><br><span class="line">    [_iFlySpeechRecognizer setParameter:<span class="string">@"plain"</span> forKey:[IFlySpeechConstant RESULT_TYPE]];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置代理</span></span><br><span class="line">    _iFlySpeechRecognizer<span class="variable">.delegate</span> = <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实现代理协议">实现代理协议</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 出现错误</span></span><br><span class="line">- (<span class="keyword">void</span>) onError:(IFlySpeechError *) error</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"出现错误 ：%@"</span>,error);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 识别结果 </span></span><br><span class="line">- (<span class="keyword">void</span>) onResults:(<span class="built_in">NSArray</span> *) results isLast:(<span class="built_in">BOOL</span>)isLast</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableString</span> *result = [[<span class="built_in">NSMutableString</span> alloc] init];</span><br><span class="line">    <span class="built_in">NSDictionary</span> *dic = [results objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSString</span> *key <span class="keyword">in</span> dic) &#123;</span><br><span class="line">        [result appendFormat:<span class="string">@"\n\n------ %@ (置信度:%@) ------ \n\n"</span>,key,[dic objectForKey:key]];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 忽略结束。号</span></span><br><span class="line">    <span class="keyword">if</span> ([result hasPrefix:<span class="string">@"\n\n------ 。"</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>,result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="点击开始和结束识别">点击开始和结束识别</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">IBAction</span>)understand:(<span class="keyword">id</span>)sender</span><br><span class="line">&#123;   </span><br><span class="line">    <span class="comment">// 开始识别</span></span><br><span class="line">    [_iFlySpeechRecognizer startListening];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">IBAction</span>)finish:(<span class="keyword">id</span>)sender</span><br><span class="line">&#123;   </span><br><span class="line">    <span class="comment">// 停止识别</span></span><br><span class="line">    [_iFlySpeechRecognizer stopListening];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="初使化">初使化</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    [<span class="keyword">self</span> initAppId];</span><br><span class="line">    [<span class="keyword">self</span> initRecognizer];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试结果">测试结果</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2015-12-31 01:09:15.687 fa[23747:446296] [IFLYTEK] -[IFlySpeechUtility login],login=0&#10;2015-12-31 01:09:15.720 fa[23747:446296] [IFLYTEK] +[IFlySystemInfo getWorkPath],_gMscLogPath=(null)&#10;2015-12-31 01:09:15.723 fa[23747:446296] [IFLYTEK] login -[IFlyLoginParam toString:] SessionParam:timeout=20000,appid=567f981a,msc.ver=1.0.1109.1123,openudid=5f45f8636e008e75426c1dd4bb57c83da1a9312a,work_dir=/Users/lecason/Library/Developer/CoreSimulator/Devices/7B272449-DB68-43E8-A196-7C7D3FAA1F1D/data/Containers/Data/Application/4C7C4E0A-9A1A-4063-8068-B8978BC7D946/Library/Caches,carrier=,os.system=iPhone OS,os.release=8.4,os.version=8.4,os.model=x86_64,os.resolution=750*1334,os.manufact=apple,os.jailbreak=0,app.name=noName,app.path=/Users/lecason/Library/Developer/CoreSimulator/Devices/7B272449-DB68-43E8-A196-7C7D3FAA1F1D/data/Containers/Bundle/Application/E071193E-648F-4A18-9A22-378BB22F8649/fa.app,app.pkg=fa.app,net_type=wifi&#10;2015-12-31 01:09:15.723 fa[23747:446296] [IFLYTEK] paramString:&#10;timeout=20000,appid=567f981a,msc.ver=1.0.1109.1123,openudid=5f45f8636e008e75426c1dd4bb57c83da1a9312a,work_dir=/Users/lecason/Library/Developer/CoreSimulator/Devices/7B272449-DB68-43E8-A196-7C7D3FAA1F1D/data/Containers/Data/Application/4C7C4E0A-9A1A-4063-8068-B8978BC7D946/Library/Caches,carrier=,os.system=iPhone OS,os.release=8.4,os.version=8.4,os.model=x86_64,os.resolution=750*1334,os.manufact=apple,os.jailbreak=0,app.name=noName,app.path=/Users/lecason/Library/Developer/CoreSimulator/Devices/7B272449-DB68-43E8-A196-7C7D3FAA1F1D/data/Containers/Bundle/Application/E071193E-648F-4A18-9A22-378BB22F8649/fa.app,app.pkg=fa.app,net_type=wifi&#10;2015-12-31 01:09:15.726 fa[23747:446296] [IFLYTEK] login in&#10;2015-12-31 01:09:15.726 fa[23747:446296] [IFLYTEK] +[IFlySpeechRecognizer sharedInstance][IN],iflyInstance=0&#10;2015-12-31 01:09:15.726 fa[23747:446296] [IFLYTEK] +[IFlySpeechRecognizer sharedInstance][OUT],iflyInstance=53658592&#10;2015-12-31 01:09:20.069 fa[23747:446296] [IFLYTEK] -[IFlySpeechRecognizer startListening][IN]&#10;2015-12-31 01:09:20.070 fa[23747:446296] [IFLYTEK] isr SessionParam:engine_type=cloud,sub=iat,language=zh_cn,plr=0,audio_source=1,vad_speech_tail=1800,msc.skin=0,rse=utf8,asr_audio_path=record.pcm,sample_rate=16000,timeout=20000,domain=iat,speech_timeout=30000,vad_timeout=1800,vad_bos=1800,rst=plain,vad_eos=1800,auf=audio/L16;rate=16000,ptt=1,voice_change=0,sch=0,accent=mandarin,msc.ver=1.0.1109.1123,openudid=5f45f8636e008e75426c1dd4bb57c83da1a9312a,carrier=,os.system=iPhone OS,os.release=8.4,os.version=8.4,os.model=x86_64,os.resolution=750*1334,os.manufact=apple,os.jailbreak=0,app.name=noName,app.path=/Users/lecason/Library/Developer/CoreSimulator/Devices/7B272449-DB68-43E8-A196-7C7D3FAA1F1D/data/Containers/Bundle/Application/E071193E-648F-4A18-9A22-378BB22F8649/fa.app,app.pkg=fa.app,net_type=wifi&#10;2015-12-31 01:09:20.070 fa[23747:446296] [IFLYTEK] params=engine_type=cloud,sub=iat,language=zh_cn,plr=0,audio_source=1,vad_speech_tail=1800,msc.skin=0,rse=utf8,asr_audio_path=record.pcm,sample_rate=16000,timeout=20000,domain=iat,speech_timeout=30000,vad_timeout=1800,vad_bos=1800,rst=plain,vad_eos=1800,auf=audio/L16;rate=16000,ptt=1,voice_change=0,sch=0,accent=mandarin,msc.ver=1.0.1109.1123,openudid=5f45f8636e008e75426c1dd4bb57c83da1a9312a,carrier=,os.system=iPhone OS,os.release=8.4,os.version=8.4,os.model=x86_64,os.resolution=750*1334,os.manufact=apple,os.jailbreak=0,app.name=noName,app.path=/Users/lecason/Library/Developer/CoreSimulator/Devices/7B272449-DB68-43E8-A196-7C7D3FAA1F1D/data/Containers/Bundle/Application/E071193E-648F-4A18-9A22-378BB22F8649/fa.app,app.pkg=fa.app,net_type=wifi&#10;2015-12-31 01:09:20.070 fa[23747:446296] [IFLYTEK] grammarid=(null)&#10;2015-12-31 01:09:20.070 fa[23747:446296] [IFLYTEK] audioSource=1&#10;2015-12-31 01:09:20.070 fa[23747:446296] [IFLYTEK] isListening:NO&#10;2015-12-31 01:09:20.071 fa[23747:446296] [IFLYTEK] -[IFlySpeechRecognizer startListening:grammar:][IN]&#10;2015-12-31 01:09:20.071 fa[23747:446296] [IFLYTEK] _mscer count0=1&#10;2015-12-31 01:09:20.071 fa[23747:446296] [IFLYTEK] iflySpeechQueue0=1&#10;2015-12-31 01:09:20.071 fa[23747:446296] [IFLYTEK] _mscer count2=3&#10;2015-12-31 01:09:20.071 fa[23747:446296] [IFLYTEK] _mscer count3=2&#10;2015-12-31 01:09:20.071 fa[23747:446340] [IFLYTEK] -[IFlyMscRecognizer main][IN],self=53528272&#10;2015-12-31 01:09:20.071 fa[23747:446296] [IFLYTEK] iflySpeechQueue1=3&#10;2015-12-31 01:09:20.072 fa[23747:446296] [IFLYTEK] -[IFlySpeechRecognizer startListening:grammar:][OUT]&#10;2015-12-31 01:09:20.072 fa[23747:446296] [IFLYTEK] params:&#10;engine_type=cloud,sub=iat,language=zh_cn,plr=0,audio_source=1,vad_speech_tail=1800,msc.skin=0,rse=utf8,asr_audio_path=record.pcm,sample_rate=16000,timeout=20000,domain=iat,speech_timeout=30000,vad_timeout=1800,vad_bos=1800,rst=plain,vad_eos=1800,auf=audio/L16;rate=16000,ptt=1,voice_change=0,sch=0,accent=mandarin,msc.ver=1.0.1109.1123,openudid=5f45f8636e008e75426c1dd4bb57c83da1a9312a,carrier=,os.system=iPhone OS,os.release=8.4,os.version=8.4,os.model=x86_64,os.resolution=750*1334,os.manufact=apple,os.jailbreak=0,app.name=noName,app.path=/Users/lecason/Library/Developer/CoreSimulator/Devices/7B272449-DB68-43E8-A196-7C7D3FAA1F1D/data/Containers/Bundle/Application/E071193E-648F-4A18-9A22-378BB22F8649/fa.app,app.pkg=fa.app,net_type=wifi&#10;2015-12-31 01:09:20.072 fa[23747:446296] [IFLYTEK] startListening audioSource:1&#10;2015-12-31 01:09:20.072 fa[23747:446296] [IFLYTEK] -[IFlySpeechRecognizer runService][OUT]&#10;2015-12-31 01:09:20.072 fa[23747:446296] [IFLYTEK] -[IFlySpeechRecognizer startListening][OUT]&#10;2015-12-31 01:09:20.072 fa[23747:446340] [IFLYTEK] Converted String : 2016/12/31 01:09:20 072&#10;2015-12-31 01:09:20.073 fa[23747:446296] [IFLYTEK] -[IFlyMscRecognizer startRecord][IN]&#10;2015-12-31 01:09:20.073 fa[23747:446296] [IFLYTEK] +[IFlyAudioSession initRecordingAudioSession]&#10;2015-12-31 01:09:20.074 fa[23747:446296] [IFLYTEK] -[IFlyPcmRecorder setSample:],rate=16000&#10;2015-12-31 01:09:20.074 fa[23747:446296] [IFLYTEK] +[IFlySystemInfo getWorkPath],_gMscLogPath=(null)&#10;2015-12-31 01:09:20.074 fa[23747:446296] [IFLYTEK] -[IFlyPcmRecorder start],[IN]&#10;2015-12-31 01:09:20.124 fa[23747:446296] [IFLYTEK] pcmRecorder|timeValue:0.049352&#10;2015-12-31 01:09:20.124 fa[23747:446296] [IFLYTEK] -[IFlyPcmRecorder start],[OUT],ret =0&#10;2015-12-31 01:09:20.124 fa[23747:446296] [IFLYTEK] -[IFlyMscRecognizer startRecord][OUT]&#10;2015-12-31 01:09:20.124 fa[23747:446340] [IFLYTEK] -[IFlyMscRecognizer beginSession][IN],self=&#10;2015-12-31 01:09:20.124 fa[23747:446340] [IFLYTEK] beginSession before state=1&#10;2015-12-31 01:09:20.127 fa[23747:446340] [IFLYTEK] QISRSessionBegin:engine_type=cloud,sub=iat,language=zh_cn,plr=0,audio_source=1,vad_speech_tail=1800,msc.skin=0,rse=utf8,asr_audio_path=record.pcm,sample_rate=16000,timeout=20000,domain=iat,speech_timeout=30000,vad_timeout=1800,vad_bos=1800,rst=plain,vad_eos=1800,auf=audio/L16;rate=16000,ptt=1,voice_change=0,sch=0,accent=mandarin,msc.ver=1.0.1109.1123,openudid=5f45f8636e008e75426c1dd4bb57c83da1a9312a,carrier=,os.system=iPhone OS,os.release=8.4,os.version=8.4,os.model=x86_64,os.resolution=750*1334,os.manufact=apple,os.jailbreak=0,app.name=noName,app.path=/Users/lecason/Library/Developer/CoreSimulator/Devices/7B272449-DB68-43E8-A196-7C7D3FAA1F1D/data/Containers/Bundle/Application/E071193E-648F-4A18-9A22-378BB22F8649/fa.app,app.pkg=fa.app,net_type=wifi&#10;2015-12-31 01:09:20.200 fa[23747:446340] [IFLYTEK] QISRRegisterNotify=0&#10;2015-12-31 01:09:20.201 fa[23747:446340] [IFLYTEK] beginSession after state=1,_error=0&#10;2015-12-31 01:09:20.201 fa[23747:446340] [IFLYTEK] -[IFlyMscRecognizer beginSession][OUT],self=53528272&#10;2015-12-31 01:09:20.201 fa[23747:446340] [IFLYTEK] _startDate,50338112&#10;2015-12-31 01:09:20.205 fa[23747:446353] [IFLYTEK] recog_status_callback type==1,status=79&#10;2015-12-31 01:09:20.383 fa[23747:446353] [IFLYTEK] recog_status_callback type==0,status=1&#10;2015-12-31 01:09:22.946 fa[23747:446353] [IFLYTEK] recog_result_callback resultStatus==0,result=47889584,resultLen=6&#10;2015-12-31 01:09:22.946 fa[23747:446353] [IFLYTEK] -[ISREngine isVoiceChange],voiceChange=0&#10;2015-12-31 01:09:22.947 fa[23747:446296] &#10;&#10;------ &#20013;&#22269; (&#32622;&#20449;&#24230;:100) ------ &#10;&#10;2015-12-31 01:09:24.496 fa[23747:446353] [IFLYTEK] recog_status_callback type==0,status=3&#10;2015-12-31 01:09:24.497 fa[23747:446296] [IFLYTEK] -[IFlyPcmRecorder stop][IN]&#10;2015-12-31 01:09:24.497 fa[23747:446296] [IFLYTEK] -[IFlyPcmRecorder stop]|AudioQueueFlush&#10;2015-12-31 01:09:24.497 fa[23747:446353] [IFLYTEK] recog_status_callback type==0,status=3&#10;2015-12-31 01:09:24.497 fa[23747:446296] [IFLYTEK] stop recording success&#10;2015-12-31 01:09:24.498 fa[23747:446353] [IFLYTEK] recog_result_callback resultStatus==5,result=50332544,resultLen=3&#10;2015-12-31 01:09:24.498 fa[23747:446353] [IFLYTEK] -[ISREngine isVoiceChange],voiceChange=0&#10;2015-12-31 01:09:24.521 fa[23747:446296] [IFLYTEK] -[IFlyPcmRecorder stop]|AudioQueueStop&#10;2015-12-31 01:09:24.542 fa[23747:446296] [IFLYTEK] -[IFlyPcmRecorder stop]|AudioQueueDispose&#10;2015-12-31 01:09:24.542 fa[23747:446296] [IFLYTEK] -[IFlyPcmRecorder stop][OUT]&#10;2015-12-31 01:09:24.546 fa[23747:446340] [IFLYTEK] while end,self=53528272&#10;2015-12-31 01:09:24.546 fa[23747:446340] [IFLYTEK] -[IFlyMscRecognizer setSessionInfo][IN]&#10;2015-12-31 01:09:24.547 fa[23747:446340] [IFLYTEK] info:&#123;&#34;rec_ustop&#34;:&#34;0&#34;,&#34;app_fau&#34;:310,&#34;app_start&#34;:&#34;2016/12/31 01:09:20 072&#34;,&#34;app_frs&#34;:2875,&#34;rec_close&#34;:4425,&#34;app_lrs&#34;:4426,&#34;rec_start&#34;:307,&#34;rec_open&#34;:1,&#34;app_ssb&#34;:52,&#34;rec_ready&#34;:52,&#34;app_lau&#34;:4425&#125;&#10;2015-12-31 01:09:24.547 fa[23747:446340] [IFLYTEK] -[IFlyMscRecognizer setSessionInfo][OUT]&#10;2015-12-31 01:09:24.548 fa[23747:446340] [IFLYTEK] -[ISREngine stopEngine] _szSession=53715544[IN]&#10;2015-12-31 01:09:24.549 fa[23747:446340] [IFLYTEK] -[IFlyMscRecognizer setState:][ISREnd IN]&#10;2015-12-31 01:09:24.549 fa[23747:446340] [IFLYTEK] -[IFlySpeechRecognizer onError:] [IN] errorCode=0&#10;2015-12-31 01:09:24.549 fa[23747:446340] [IFLYTEK] -[IFlySpeechRecognizer onError:][OUT]&#10;2015-12-31 01:09:24.549 fa[23747:446296] &#20986;&#29616;&#38169;&#35823; &#65306;&#60;IFlySpeechError: 0x7fad02f74d80&#62;&#10;2015-12-31 01:09:24.549 fa[23747:446340] [IFLYTEK] -[IFlyMscRecognizer setState:][ISREnd OUT]&#10;2015-12-31 01:09:24.549 fa[23747:446340] [IFLYTEK] -[IFlyMscRecognizer main][OUT],self=53528272&#10;2015-12-31 01:09:24.550 fa[23747:446340] [IFLYTEK] -[IFlyMscRecognizer dealloc][IN],self=53528272&#10;2015-12-31 01:09:24.550 fa[23747:446340] [IFLYTEK] -[IFlyMscRecognizer dealloc][OUT],self=53528272</span><br></pre></td></tr></table></figure>	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+	
+		<li class="prev"><a href="/2015/12/25/iOS-About-AlertController/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2015/12/14/iOS-Cocoaasyncsocket-development/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2015 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
