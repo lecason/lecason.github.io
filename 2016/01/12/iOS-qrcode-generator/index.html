@@ -1,0 +1,347 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 创建二维码 | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="试了几个创建两维码的方法都是不能保存到手机相册里面的。猜想应该是生成图片格式问题。最后找到一个可以的，顺便转成Swift版本。
+Objective C 版本123456789101112131415161718192021222324252627282930313233343536373839404">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="iOS 创建二维码"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">iOS 创建二维码</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2016-01-12</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <p>试了几个创建两维码的方法都是不能保存到手机相册里面的。猜想应该是生成图片格式问题。最后找到一个可以的，顺便转成Swift版本。</p>
+<h2 id="Objective_C_版本">Objective C 版本</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">*  创建二维码</span><br><span class="line">*</span><br><span class="line">*  @param text 二维码文字</span><br><span class="line">*  @param size  二维码大小</span><br><span class="line">*/</span></span><br><span class="line">- (<span class="built_in">UIImage</span> *)generatorQRCode:(<span class="built_in">NSString</span> *)text withSize:(<span class="built_in">CGFloat</span>)size</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 1.实例化二维码滤镜</span></span><br><span class="line">    <span class="built_in">CIFilter</span> *filter = [<span class="built_in">CIFilter</span> filterWithName:<span class="string">@"CIQRCodeGenerator"</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2.恢复滤镜的默认属性</span></span><br><span class="line">    [filter setDefaults];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3.将字符串转成二进制数据</span></span><br><span class="line">    <span class="built_in">NSData</span> *data = [text dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 4.通过KVC设置滤镜inputMessage数据</span></span><br><span class="line">    [filter setValue:data forKey:<span class="string">@"inputMessage"</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5.获取滤镜输出的图像</span></span><br><span class="line">    <span class="built_in">CIImage</span> *outputImage = [filter outputImage];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 6.将CIImage转成UIImage</span></span><br><span class="line">    <span class="built_in">UIImage</span> *image = [<span class="keyword">self</span> createNonInterpolated<span class="built_in">UIImageFormCIImage</span>:outputImage withSize:size];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 7.返回二维码</span></span><br><span class="line">    <span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">*  根据CIImage生成指定大小的UIImage</span><br><span class="line">*</span><br><span class="line">*  @param image CIImage</span><br><span class="line">*  @param size  图片宽度</span><br><span class="line">*/</span></span><br><span class="line">- (<span class="built_in">UIImage</span> *)createNonInterpolated<span class="built_in">UIImageFormCIImage</span>:(<span class="built_in">CIImage</span> *)image withSize:(<span class="built_in">CGFloat</span>) size</span><br><span class="line">    &#123;</span><br><span class="line">    <span class="built_in">CGRect</span> extent = <span class="built_in">CGRectIntegral</span>(image<span class="variable">.extent</span>);</span><br><span class="line">    <span class="built_in">CGFloat</span> scale = MIN(size/<span class="built_in">CGRectGetWidth</span>(extent), size/<span class="built_in">CGRectGetHeight</span>(extent));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1.创建bitmap;</span></span><br><span class="line">    size_t width = <span class="built_in">CGRectGetWidth</span>(extent) * scale;</span><br><span class="line">    size_t height = <span class="built_in">CGRectGetHeight</span>(extent) * scale;</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> cs = <span class="built_in">CGColorSpaceCreateDeviceGray</span>();</span><br><span class="line">    <span class="built_in">CGContextRef</span> bitmapRef = <span class="built_in">CGBitmapContextCreate</span>(<span class="literal">nil</span>, width, height, <span class="number">8</span>, <span class="number">0</span>, cs, (<span class="built_in">CGBitmapInfo</span>)k<span class="built_in">CGImageAlphaNone</span>);</span><br><span class="line">    <span class="built_in">CIContext</span> *context = [<span class="built_in">CIContext</span> contextWithOptions:<span class="literal">nil</span>];</span><br><span class="line">    <span class="built_in">CGImageRef</span> bitmapImage = [context create<span class="built_in">CGImage</span>:image fromRect:extent];</span><br><span class="line">    <span class="built_in">CGContextSetInterpolationQuality</span>(bitmapRef, k<span class="built_in">CGInterpolationNone</span>);</span><br><span class="line">    <span class="built_in">CGContextScaleCTM</span>(bitmapRef, scale, scale);</span><br><span class="line">    <span class="built_in">CGContextDrawImage</span>(bitmapRef, extent, bitmapImage);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2.保存bitmap到图片</span></span><br><span class="line">    <span class="built_in">CGImageRef</span> scaledImage = <span class="built_in">CGBitmapContextCreateImage</span>(bitmapRef);</span><br><span class="line">    <span class="built_in">CGContextRelease</span>(bitmapRef);</span><br><span class="line">    <span class="built_in">CGImageRelease</span>(bitmapImage);</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">UIImage</span> imageWith<span class="built_in">CGImage</span>:scaledImage];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Swift_版本">Swift 版本</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 生成两维码</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">generatorQRCode</span><span class="params">(text: String, size: CGFloat)</span></span> -&gt; <span class="type">UIImage</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="built_in">filter</span> = <span class="type">CIFilter</span>(name: <span class="string">"CIQRCodeGenerator"</span>)</span><br><span class="line">    <span class="built_in">filter</span>?.setDefaults()</span><br><span class="line">    <span class="keyword">let</span> data = text.dataUsingEncoding(<span class="type">NSUTF8StringEncoding</span>)</span><br><span class="line">    <span class="built_in">filter</span>?.setValue(data, forKey: <span class="string">"inputMessage"</span>)</span><br><span class="line">    <span class="keyword">let</span> outputImage = <span class="built_in">filter</span>?.outputImage</span><br><span class="line">    <span class="keyword">let</span> image = <span class="keyword">self</span>.createNonInterpolatedUIImageFormCIImage(outputImage!, size: size)</span><br><span class="line">    <span class="keyword">return</span> image</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保存二维码</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">createNonInterpolatedUIImageFormCIImage</span><span class="params">(image: CIImage, size: CGFloat)</span></span> -&gt; <span class="type">UIImage</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> extent = <span class="type">CGRectIntegral</span>(image.extent)</span><br><span class="line">    <span class="keyword">let</span> scale = <span class="built_in">min</span>(size / <span class="type">CGRectGetWidth</span>(extent), size / <span class="type">CGRectGetHeight</span>(extent))</span><br><span class="line">    <span class="keyword">let</span> width = <span class="type">CGRectGetWidth</span>(extent) * scale</span><br><span class="line">    <span class="keyword">let</span> height = <span class="type">CGRectGetHeight</span>(extent) * scale</span><br><span class="line">    <span class="keyword">let</span> cs = <span class="type">CGColorSpaceCreateDeviceGray</span>()</span><br><span class="line">    <span class="keyword">let</span> bitmapRef = <span class="type">CGBitmapContextCreate</span>(<span class="literal">nil</span>, <span class="type">Int</span>(width), <span class="type">Int</span>(height), <span class="number">8</span>, <span class="number">0</span>, cs, <span class="type">CGImageAlphaInfo</span>.<span class="type">None</span>.rawValue)</span><br><span class="line">    <span class="keyword">let</span> context = <span class="type">CIContext</span>(options: <span class="literal">nil</span>)</span><br><span class="line">    <span class="keyword">let</span> bitmapImage = context.createCGImage(image, fromRect: extent)</span><br><span class="line">    <span class="type">CGContextSetInterpolationQuality</span>(bitmapRef, <span class="type">CGInterpolationQuality</span>.<span class="type">None</span>)</span><br><span class="line">    <span class="type">CGContextScaleCTM</span>(bitmapRef, scale, scale);</span><br><span class="line">    <span class="type">CGContextDrawImage</span>(bitmapRef, extent, bitmapImage);</span><br><span class="line">    <span class="keyword">let</span> scaledImage = <span class="type">CGBitmapContextCreateImage</span>(bitmapRef)</span><br><span class="line">    <span class="keyword">let</span> retrunImage = <span class="type">UIImage</span>(<span class="type">CGImage</span>: scaledImage!)</span><br><span class="line">    <span class="keyword">return</span> retrunImage</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用上面方法创建的二维码就可以用下面的方法来把创建的图片保存到手机相册里面。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIImageWriteToSavedPhotosAlbum</span>(image, <span class="literal">nil</span>, <span class="literal">nil</span>, <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料">参考资料</h1><p><a href="http://www.jianshu.com/p/4d42c15b4c1f" target="_blank" rel="external">YotrolZ 二维码</a></p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2016/01/02/iOS-Custom-Device-Orientation/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2016 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
