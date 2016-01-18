@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift QQ分享Demo | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="一、准备工作
+Xcode 版本 Version 7.2 (7C68)QQ SDK iOS_OpenSDK_2.9.5_all
+
+二、导入相关文件
+三、设置URL
+四、修改必要的工程配置属性在工程配置中的“Build Settings”一栏中找到“Linking”配置区，给“Other Linker ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Swift QQ分享Demo"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Swift QQ分享Demo</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2016-01-13</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <h2 id="一、准备工作">一、准备工作</h2><blockquote>
+<p>Xcode 版本 Version 7.2 (7C68)<br>QQ SDK iOS_OpenSDK_2.9.5_all</p>
+</blockquote>
+<h2 id="二、导入相关文件">二、导入相关文件</h2><p><img src="/img/qqshare1.png" alt=""></p>
+<h2 id="三、设置URL">三、设置URL</h2><p><img src="/img/qqshare2.png" alt=""></p>
+<h2 id="四、修改必要的工程配置属性">四、修改必要的工程配置属性</h2><p>在工程配置中的“Build Settings”一栏中找到“Linking”配置区，给“Other Linker Flags”配置项添加属性值“-fobjc-arc”。</p>
+<h2 id="五、重写App_Delegate">五、重写App Delegate</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">TencentOAuth</span>.<span class="type">HandleOpenURL</span>(url)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, handleOpenURL url: NSURL)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">TencentOAuth</span>.<span class="type">HandleOpenURL</span>(url)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="六、初使化并使用">六、初使化并使用</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">UIKit</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">TencentSessionDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> tencentOAuth: <span class="type">TencentOAuth</span>!</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="keyword">self</span>.screenShotMethod()</span><br><span class="line">        <span class="keyword">self</span>.initTencentOuth()</span><br><span class="line">        <span class="keyword">self</span>.sendShareImage()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初使化QQ分享接口</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">initTencentOuth</span><span class="params">()</span></span> &#123;</span><br><span class="line">        tencentOAuth = <span class="type">TencentOAuth</span>(appId: <span class="string">"1234567890"</span>, andDelegate: <span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分享文本消息</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">sendShareMessage</span><span class="params">(message: String)</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> txt = <span class="type">QQApiTextObject</span>.objectWithText(message) <span class="keyword">as</span>! <span class="type">QQApiTextObject</span></span><br><span class="line">        <span class="keyword">let</span> req = <span class="type">SendMessageToQQReq</span>(content: txt)</span><br><span class="line">        <span class="type">QQApiInterface</span>.sendReq(req)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分享图片消息</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">sendShareImage</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从沙盒中得到图片数据</span></span><br><span class="line">        <span class="keyword">let</span> documentsPath = <span class="type">NSSearchPathForDirectoriesInDomains</span>(.<span class="type">DocumentDirectory</span>, .<span class="type">UserDomainMask</span>, <span class="literal">true</span>)[<span class="number">0</span>] <span class="keyword">as</span> <span class="type">String</span></span><br><span class="line">        <span class="keyword">let</span> destinationPath = documentsPath + <span class="string">"/detail.jpg"</span></span><br><span class="line">        <span class="keyword">let</span> image = <span class="type">UIImage</span>(contentsOfFile:destinationPath)</span><br><span class="line">        <span class="keyword">let</span> imageData = <span class="type">UIImageJPEGRepresentation</span>(image!, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 分享到QQ</span></span><br><span class="line">        <span class="keyword">let</span> imgObj = <span class="type">QQApiImageObject</span>.objectWithData(imageData, previewImageData: imageData, title: <span class="string">"分享图片"</span>, description: <span class="string">"截图"</span>) <span class="keyword">as</span>! <span class="type">QQApiObject</span></span><br><span class="line">        <span class="keyword">let</span> req = <span class="type">SendMessageToQQReq</span>(content: imgObj)</span><br><span class="line">        <span class="type">QQApiInterface</span>.sendReq(req)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: QQ分享代理</span></span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">tencentDidLogin</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"登录AccessToken : <span class="subst">\(tencentOAuth.accessToken)</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">tencentDidNotLogin</span><span class="params">(cancelled: Bool)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> cancelled &#123; <span class="built_in">print</span>(<span class="string">"用户取消登录"</span>) &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; <span class="built_in">print</span>(<span class="string">"等录失败"</span>) &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">tencentDidNotNetWork</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"无网络连接，请设置网络"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 截图并保存图片到沙盒</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">screenShotMethod</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 截图</span></span><br><span class="line">        <span class="type">UIGraphicsBeginImageContext</span>(view.frame.size)</span><br><span class="line">        view.layer.renderInContext(<span class="type">UIGraphicsGetCurrentContext</span>()!)</span><br><span class="line">        <span class="keyword">let</span> image = <span class="type">UIGraphicsGetImageFromCurrentImageContext</span>()</span><br><span class="line">        <span class="type">UIGraphicsEndImageContext</span>()</span><br><span class="line">        <span class="comment">// 保存</span></span><br><span class="line">        <span class="keyword">let</span> documentsPath = <span class="type">NSSearchPathForDirectoriesInDomains</span>(.<span class="type">DocumentDirectory</span>, .<span class="type">UserDomainMask</span>, <span class="literal">true</span>)[<span class="number">0</span>] <span class="keyword">as</span> <span class="type">String</span></span><br><span class="line">        <span class="keyword">let</span> destinationPath = documentsPath + <span class="string">"/detail.jpg"</span></span><br><span class="line">        <span class="type">UIImageJPEGRepresentation</span>(image,<span class="number">1.0</span>)!.writeToFile(destinationPath, atomically: <span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+	
+		
+			
+			
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2016/01/09/iOS-Wechat-Login-Pure-Demo/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2016 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
