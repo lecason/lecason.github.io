@@ -1,0 +1,315 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift 新浪微博分享Demo | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="Xcode 版本 Version 7.2 (7C68)SinaWeiBo版本 WEIBO_IOS_SDK V3.1.1
+
+设置Bundle IDApple ID如果没有的话,先随意填写,当获取了合法的Apple ID之后,改回新浪应用基本信息里面填写的Bundle ID。
+设置工程回调URL Sch">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Swift 新浪微博分享Demo"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Swift 新浪微博分享Demo</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2016-01-23</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <blockquote>
+<p>Xcode 版本 Version 7.2 (7C68)<br>SinaWeiBo版本 WEIBO_IOS_SDK V3.1.1</p>
+</blockquote>
+<h2 id="设置Bundle_ID">设置Bundle ID</h2><p>Apple ID如果没有的话,先随意填写,当获取了合法的Apple ID之后,改回新浪应用基本信息里面填写的Bundle ID。</p>
+<h2 id="设置工程回调URL_Scheme">设置工程回调URL Scheme</h2><p><img src="/img/sinashare1.png" alt=""></p>
+<h2 id="引入新浪SDK">引入新浪SDK</h2><p><img src="/img/sinashare2.png" alt=""></p>
+<h2 id="设置Bridging-Header-h">设置Bridging-Header.h</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#ifndef SinaShareDemo_Bridging_Header_h</span></span><br><span class="line"><span class="preprocessor">#define SinaShareDemo_Bridging_Header_h</span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#import <span class="title">"WeiboSDK.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="preprocessor">#endif /* SinaShareDemo_Bridging_Header_h */</span></span><br></pre></td></tr></table></figure>
+<h2 id="设置编译选项">设置编译选项</h2><p>在工程中引⼊入静态库之后,需要在编译时添加 –objC 编译选项,避免静态库中类 加载 不全造成程序崩溃。⽅方法:程序 Target-&gt;Buid Settings-&gt;Linking 下 Other Linker Flags 项添加-ObjC。</p>
+<h2 id="注册AppDelegate_并重写handleOpenURL_和_openURL_方法">注册AppDelegate 并重写handleOpenURL 和 openURL 方法</h2><blockquote>
+<p>AppDelegate注意要遵从<code>WeiboSDKDelegate</code></p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="comment">// 注册 Appkey</span></span><br><span class="line">    <span class="type">WeiboSDK</span>.registerApp(sinaAppId)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重写 openURL</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">WeiboSDK</span>.handleOpenURL(url, delegate: <span class="keyword">self</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重写 handleOpenURL</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">application</span><span class="params">(application: UIApplication, handleOpenURL url: NSURL)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">WeiboSDK</span>.handleOpenURL(url, delegate: <span class="keyword">self</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="开始使用">开始使用</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="keyword">self</span>.shareSinaWeibo()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 发送分享请求</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">shareSinaWeibo</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> request = <span class="type">WBSendMessageToWeiboRequest</span>()</span><br><span class="line">        request.message = messageToShare(<span class="string">"Hello"</span>, image: <span class="type">UIImage</span>(named: <span class="string">"hello"</span>)!)</span><br><span class="line">        <span class="type">WeiboSDK</span>.sendRequest(request)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分享内容</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">messageToShare</span><span class="params">(text: String, image: UIImage)</span></span> -&gt; <span class="type">WBMessageObject</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 文字内容</span></span><br><span class="line">        <span class="keyword">let</span> message = <span class="type">WBMessageObject</span>.message() <span class="keyword">as</span>! <span class="type">WBMessageObject</span></span><br><span class="line">        message.text = text</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 图片内容</span></span><br><span class="line">        <span class="keyword">let</span> imageObject = <span class="type">WBImageObject</span>()</span><br><span class="line">        imageObject.imageData = <span class="type">UIImagePNGRepresentation</span>(image)</span><br><span class="line">        message.imageObject = imageObject</span><br><span class="line">        <span class="keyword">return</span> message</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考资料">参考资料</h1><p><a href="http://open.weibo.com/" target="_blank" rel="external">微博开放平台</a></p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2016/01/13/Swift-QQ-Share-Demo/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2016 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
