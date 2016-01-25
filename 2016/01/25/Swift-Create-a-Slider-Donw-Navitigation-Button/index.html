@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift 创建导航下拉菜单按钮 | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="前言点击导航栏标题，会下拉一个View, 同时按钮箭头也会旋转，没写View的拖拽返回
+文件12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Swift 创建导航下拉菜单按钮"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Swift 创建导航下拉菜单按钮</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2016-01-25</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <h2 id="前言">前言</h2><p>点击导航栏标题，会下拉一个View, 同时按钮箭头也会旋转，没写View的拖拽返回</p>
+<h2 id="文件">文件</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  CSNavigationButton.swift</span></span><br><span class="line"><span class="comment">//  ScrollView Test</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  Created by Lecason on 16/1/25.</span></span><br><span class="line"><span class="comment">//  Copyright © 2016年 Shenzhen WEL Technology Co., Ltd. All rights reserved.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="type">UIKit</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CSNavigationButton</span>: <span class="title">UIButton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> contentView: <span class="type">UIView</span>!      <span class="comment">// 内容页</span></span><br><span class="line">    <span class="keyword">var</span> controllerView: <span class="type">UIView</span>! <span class="comment">// 控制器页</span></span><br><span class="line">    <span class="keyword">var</span> animationTime: <span class="type">Double</span> = <span class="number">0.5</span> <span class="comment">// 动画时长</span></span><br><span class="line">    <span class="keyword">var</span> arrow: <span class="type">UIImageView</span>! <span class="comment">// 箭头</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    required <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    convenience <span class="keyword">init</span>(frame: <span class="type">CGRect</span>, controllerView: <span class="type">UIView</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(frame: frame)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置内容页</span></span><br><span class="line">        contentView = <span class="type">UIView</span>()</span><br><span class="line">        contentView.frame = <span class="type">CGRectMake</span>(<span class="number">0</span>, -<span class="type">UIScreen</span>.mainScreen().bounds.height, <span class="type">UIScreen</span>.mainScreen().bounds.width, <span class="type">UIScreen</span>.mainScreen().bounds.height)</span><br><span class="line">        contentView.backgroundColor = <span class="type">UIColor</span>.blueColor()</span><br><span class="line">        <span class="keyword">self</span>.addTarget(<span class="keyword">self</span>, action: <span class="string">"buttonAction:"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">TouchUpInside</span>)</span><br><span class="line">        <span class="keyword">self</span>.controllerView = controllerView</span><br><span class="line">        <span class="keyword">self</span>.controllerView.addSubview(contentView)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设置箭头</span></span><br><span class="line">        arrow = <span class="type">UIImageView</span>()</span><br><span class="line">        arrow.frame = <span class="type">CGRectMake</span>((frame.width - frame.height) + frame.height/<span class="number">4</span>, frame.height/<span class="number">4</span>, frame.height/<span class="number">2</span>, frame.height/<span class="number">2</span>)</span><br><span class="line">        arrow.image = <span class="type">UIImage</span>(named: <span class="string">"NavArrow"</span>)</span><br><span class="line">        <span class="keyword">self</span>.addSubview(arrow)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 按钮事件</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">buttonAction</span><span class="params">(sender: UIButton)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 向下滑动</span></span><br><span class="line">        <span class="keyword">if</span> sender.selected == <span class="literal">false</span> &#123;</span><br><span class="line">            sender.selected = <span class="literal">true</span></span><br><span class="line">            controllerView.bringSubviewToFront(contentView)</span><br><span class="line">            <span class="type">UIView</span>.beginAnimations(<span class="literal">nil</span>, context: <span class="literal">nil</span>)</span><br><span class="line">            <span class="type">UIView</span>.setAnimationDuration(animationTime)</span><br><span class="line">            <span class="type">UIView</span>.setAnimationCurve(<span class="type">UIViewAnimationCurve</span>.<span class="type">EaseInOut</span>)</span><br><span class="line">            <span class="keyword">self</span>.contentView.frame.origin.y = <span class="number">0</span></span><br><span class="line">            <span class="type">UIView</span>.commitAnimations()</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 箭头旋转</span></span><br><span class="line">            <span class="type">UIView</span>.beginAnimations(<span class="literal">nil</span>, context: <span class="literal">nil</span>)</span><br><span class="line">            <span class="type">UIView</span>.setAnimationDuration(animationTime)</span><br><span class="line">            <span class="type">UIView</span>.setAnimationCurve(<span class="type">UIViewAnimationCurve</span>.<span class="type">EaseInOut</span>)</span><br><span class="line">            <span class="keyword">self</span>.arrow.transform = <span class="type">CGAffineTransformMakeRotation</span>(<span class="number">180.0</span> * <span class="type">CGFloat</span>(<span class="type">M_PI</span>) /  <span class="number">180.0</span>)</span><br><span class="line">            <span class="type">UIView</span>.commitAnimations()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 向上滑动</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> sender.selected == <span class="literal">true</span> &#123;</span><br><span class="line">            sender.selected = <span class="literal">false</span></span><br><span class="line">            <span class="type">UIView</span>.beginAnimations(<span class="literal">nil</span>, context: <span class="literal">nil</span>)</span><br><span class="line">            <span class="type">UIView</span>.setAnimationDuration(animationTime)</span><br><span class="line">            <span class="type">UIView</span>.setAnimationCurve(<span class="type">UIViewAnimationCurve</span>.<span class="type">EaseInOut</span>)</span><br><span class="line">            <span class="keyword">self</span>.contentView.frame.origin.y = -<span class="type">UIScreen</span>.mainScreen().bounds.height</span><br><span class="line">            <span class="type">UIView</span>.commitAnimations()</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 箭头旋转</span></span><br><span class="line">            <span class="type">UIView</span>.beginAnimations(<span class="literal">nil</span>, context: <span class="literal">nil</span>)</span><br><span class="line">            <span class="type">UIView</span>.setAnimationDuration(animationTime)</span><br><span class="line">            <span class="type">UIView</span>.setAnimationCurve(<span class="type">UIViewAnimationCurve</span>.<span class="type">EaseInOut</span>)</span><br><span class="line">            <span class="keyword">self</span>.arrow.transform = <span class="type">CGAffineTransformMakeRotation</span>(<span class="number">0</span> * <span class="type">CGFloat</span>(<span class="type">M_PI</span>) /  <span class="number">180.0</span>)</span><br><span class="line">            <span class="type">UIView</span>.commitAnimations()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用">使用</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">UIKit</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> navButton = <span class="type">CSNavigationButton</span>(frame: <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">140</span>, <span class="number">30</span>), controllerView: <span class="keyword">self</span>.view)</span><br><span class="line">        navButton.setTitle(<span class="string">"LECASON"</span>, forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</span><br><span class="line">        navButton.backgroundColor = <span class="type">UIColor</span>.greenColor()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> lb = <span class="type">UILabel</span>()</span><br><span class="line">        lb.frame = <span class="type">CGRectMake</span>(<span class="number">100</span>, <span class="number">100</span>, <span class="number">200</span>, <span class="number">40</span>)</span><br><span class="line">        lb.text = <span class="string">"Just for test"</span></span><br><span class="line">        navButton.contentView.addSubview(lb)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.navigationItem.titleView = navButton</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="效果">效果</h2><p><img src="/img/csnavigationbutton1.png" alt=""></p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2016/01/25/Swift-Create-a-Segment-Slider-View/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2016 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
