@@ -85,7 +85,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <blockquote>
 <p>如果在StoryBoard里面，直接把BarButton拖到想要改变的NavigationBar里面就可以了。</p>
 </blockquote>
-	  
+<p>然后又发现是可以在当前的ViewController里面设置的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置导航栏返回按钮文字及颜色</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">initNavigationBar</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> backButton = <span class="type">UIBarButtonItem</span>(title: <span class="string">""</span>, style: <span class="type">UIBarButtonItemStyle</span>.<span class="type">Plain</span>, target: <span class="literal">nil</span>, action: <span class="literal">nil</span>)</span><br><span class="line">    <span class="keyword">self</span>.navigationController?.navigationBar.tintColor = <span class="type">UIColor</span>.whiteColor()</span><br><span class="line">    <span class="keyword">self</span>.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>	  
 
 	  <div>
   		<center>
