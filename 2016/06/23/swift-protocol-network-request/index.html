@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift 协议式封装网络请求 | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="定义网络协议我们将通过定义一个网络协议，用来确定网络请求的基础URL，完整URL，请求的方法，以及请求的参数。
+123456protocol NetworkTargetType &amp;#123;    var baseURL: String &amp;#123; get &amp;#125;    var url: S">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Swift 协议式封装网络请求"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Swift 协议式封装网络请求</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2016-06-23</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <h2 id="定义网络协议">定义网络协议</h2><p>我们将通过定义一个网络协议，用来确定网络请求的基础URL，完整URL，请求的方法，以及请求的参数。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">NetworkTargetType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> baseURL: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">var</span> url: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">var</span> method: <span class="type">Alamofire</span>.<span class="type">Method</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">var</span> parameters: [<span class="type">String</span>: <span class="type">AnyObject</span>]? &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们通过扩展这个协议，来实现默认值，以后添加的API都在这里面配置。</p>
+<blockquote>
+<p>可以从这里添加更多的变量，来实现是否打印请求，结果，等扩展更多功能。</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">NetworkAPI</span>: <span class="title">NetworkTargetType</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// API地址</span></span><br><span class="line">    <span class="keyword">var</span> baseURL: <span class="type">String</span> &#123; <span class="keyword">return</span> <span class="string">"http://api.weibo.com/"</span> &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// 拼接请求字符串</span></span><br><span class="line">    <span class="keyword">var</span> url: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> .<span class="type">GetAds</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"<span class="subst">\(baseURL)</span>getads"</span></span><br><span class="line">            <span class="keyword">case</span> .<span class="type">GetCategories</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"<span class="subst">\(baseURL)</span>getcategories"</span></span><br><span class="line">            <span class="keyword">case</span> .<span class="type">GetNews</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"<span class="subst">\(baseURL)</span>getnews"</span></span><br><span class="line">            <span class="keyword">case</span> .<span class="type">GetWeibos</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"https://api.weibo.com/2/statuses/public_timeline.json"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// 请求方法</span></span><br><span class="line">    <span class="keyword">var</span> method: <span class="type">Alamofire</span>.<span class="type">Method</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> .<span class="type">GetWeibos</span>:</span><br><span class="line">        <span class="keyword">return</span> .<span class="type">GET</span></span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">return</span> .<span class="type">POST</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// 配置参数</span></span><br><span class="line">    <span class="keyword">var</span> parameters: [<span class="type">String</span>: <span class="type">AnyObject</span>]? &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> .<span class="type">GetAds</span>(<span class="keyword">let</span> type):</span><br><span class="line">                <span class="keyword">return</span> [<span class="string">"type"</span>: <span class="type">String</span>(type)]</span><br><span class="line">            <span class="keyword">case</span> .<span class="type">GetCategories</span>(<span class="keyword">let</span> userid):</span><br><span class="line">                <span class="keyword">return</span> [<span class="string">"userid"</span>: <span class="type">String</span>(userid)]</span><br><span class="line">            <span class="keyword">case</span> .<span class="type">GetNews</span>(<span class="keyword">let</span> pagenum, <span class="keyword">let</span> pagesize):</span><br><span class="line">                <span class="keyword">return</span> [<span class="string">"pagenum"</span>: <span class="type">String</span>(pagenum), <span class="string">"pagesize"</span>: <span class="type">String</span>(pagesize)]</span><br><span class="line">            <span class="keyword">case</span> .<span class="type">GetWeibos</span>(<span class="keyword">let</span> accessToken):</span><br><span class="line">                <span class="keyword">return</span> [</span><br><span class="line">                    <span class="string">"access_token"</span>: accessToken</span><br><span class="line">                ]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// 是否打印请求</span></span><br><span class="line">    <span class="keyword">var</span> isPrintRequest: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// 是否打印结果</span></span><br><span class="line">    <span class="keyword">var</span> isPrintResponse: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>能过Enum来定义API，以及一个Message来确定失败和成功的提示</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">NetworkAPI</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">GetAds</span>(type: <span class="type">Int</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">GetCategories</span>(userid: <span class="type">Int</span>)</span><br><span class="line">    <span class="comment">/// 获取新闻 pagenum 起始页 pagesize 每页大小</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">GetNews</span>(pagenum: <span class="type">Int</span>, pagesize: <span class="type">Int</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">GetWeibos</span>(accessToke: <span class="type">String</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">CSMessage</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Success</span>(<span class="type">String</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="type">Fail</span>(<span class="type">String</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="添加UIViewController可请求式协议">添加UIViewController可请求式协议</h2><p>通过ObjectMapper, Alamofire， 来实现请求到数据封装成Model,看需求也可以通过SwiftyJSON封装成只取出想要的值。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Requestable</span>: <span class="title">class</span> </span>&#123;</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">setupNetworkComponentWith</span><span class="generics">&lt;T: Mappable&gt;</span><span class="params">(api: NetworkAPI, mapType: T.<span class="keyword">Type</span>, mappedObjectHandle: <span class="params">(<span class="params">(object: T)</span></span></span></span> -&gt; ())?, moreInfo: ((message: <span class="type">CSMessage</span>)-&gt;())?) -&gt; <span class="type">Request</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>可以按项目需要来配置参数</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Requestable</span> <span class="title">where</span> <span class="title">Self</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// NetworkComponent 初使化设置 [必需]</span></span><br><span class="line"><span class="func"><span class="keyword">func</span> <span class="title">setupNetworkComponentWith</span><span class="generics">&lt;T: Mappable&gt;</span><span class="params">(api: NetworkAPI, mapType: T.<span class="keyword">Type</span>, mappedObjectHandle: <span class="params">(<span class="params">(object: T)</span></span></span></span> -&gt; ())?, moreInfo: ((message: <span class="type">CSMessage</span>)-&gt;())?) -&gt; <span class="type">Request</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 开始请求地址</span></span><br><span class="line">        <span class="keyword">let</span> request = <span class="type">Alamofire</span>.request(api.method, api.url, parameters: api.parameters).responseJSON &#123; (response) <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">switch</span> response.result &#123;</span><br><span class="line">                <span class="keyword">case</span> .<span class="type">Success</span>(<span class="keyword">let</span> value):</span><br><span class="line"></span><br><span class="line">                <span class="keyword">let</span> responseJSON = <span class="type">JSON</span>(value)</span><br><span class="line">                <span class="keyword">if</span> api.isPrintResponse &#123; responseJSON.debugPringJSON() &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">let</span> mapObject = <span class="type">Mapper</span>&lt;<span class="type">T</span>&gt;().<span class="built_in">map</span>(value) &#123;</span><br><span class="line">                    mappedObjectHandle?(object: mapObject)</span><br><span class="line">                    moreInfo?(message: <span class="type">CSMessage</span>.<span class="type">Success</span>(<span class="string">"mapped object success"</span>))</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    moreInfo?(message: <span class="type">CSMessage</span>.<span class="type">Fail</span>(<span class="string">"unable to mapped object"</span>))</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">case</span> .<span class="type">Failure</span>(<span class="keyword">let</span> error):</span><br><span class="line">                    <span class="built_in">print</span>(error.localizedDescription)</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 打印请求</span></span><br><span class="line">        <span class="keyword">if</span> api.isPrintRequest &#123; request.debugPringRequest() &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 返回请求</span></span><br><span class="line">        <span class="keyword">return</span> request</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面的方法是用来打印参数和结果的，为了方便Debug</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">JSON</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// 打印JSON结果</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">debugPringJSON</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"-----------------------------------------------------------------------"</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="keyword">self</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"-----------------------------------------------------------------------"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Request</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// 打印Request参数</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">debugPringRequest</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"-----------------------------------------------------------------------"</span>)</span><br><span class="line">        guard <span class="keyword">let</span> httpBodyData = <span class="keyword">self</span>.request?.<span class="type">HTTPBody</span> <span class="keyword">else</span> &#123; <span class="built_in">print</span>(<span class="string">"请求：<span class="subst">\( <span class="keyword">self</span>)</span>"</span>); <span class="keyword">return</span> &#125;</span><br><span class="line">        guard <span class="keyword">let</span> parameterString = <span class="type">String</span>(data: httpBodyData, encoding:<span class="type">NSUTF8StringEncoding</span>) <span class="keyword">else</span> &#123; <span class="built_in">print</span>(<span class="string">"请求：<span class="subst">\(<span class="keyword">self</span>)</span>"</span>); <span class="keyword">return</span> &#125;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"请求：<span class="subst">\(<span class="keyword">self</span>)</span>"</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"参数：<span class="subst">\(parameterString)</span>"</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"-----------------------------------------------------------------------"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// 得到Request参数</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">getUniqueRequestString</span><span class="params">()</span></span> -&gt; <span class="type">String</span>? &#123;</span><br><span class="line">        guard <span class="keyword">let</span> urlString = <span class="keyword">self</span>.request?.<span class="type">URLString</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">nil</span> &#125;</span><br><span class="line">        guard <span class="keyword">let</span> httpBodyData = <span class="keyword">self</span>.request?.<span class="type">HTTPBody</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> urlString &#125;</span><br><span class="line">        guard <span class="keyword">let</span> parameterString = <span class="type">String</span>(data: httpBodyData, encoding:<span class="type">NSUTF8StringEncoding</span>) <span class="keyword">else</span> &#123; <span class="keyword">return</span> urlString &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"<span class="subst">\(urlString)</span>?<span class="subst">\(parameterString)</span>"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用方法">使用方法</h2><blockquote>
+<p>WeiboResponse 模型可以查看ObjectMapper的用法， mapType是Alamofire请求成功后要封装成的模型，模式必需要遵从ObjectMapper的Mappable协议。mappedObjectHandle是得到模型，moreInfo是更多信息。</p>
+<p>self.setupNetworkComponentWith…设置完就会开始请求网络接口。</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">UIKit</span></span><br><span class="line"><span class="keyword">import</span> <span class="type">Alamofire</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">Requestable</span> </span>&#123; <span class="comment">// [1] 遵从协议</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// [2] 配置参数</span></span><br><span class="line">        <span class="keyword">self</span>.setupNetworkComponentWith(<span class="type">NetworkAPI</span>.<span class="type">GetWeibos</span>(accessToke: <span class="string">"2.00E7lO_Gz3nuNE20518953d1TBPE_C"</span>), mapType: <span class="type">WeiboResponse</span>.<span class="keyword">self</span>, mappedObjectHandle: &#123; (object) -&gt; () <span class="keyword">in</span></span><br><span class="line">        <span class="comment">// 得到WeiboResponse模型</span></span><br><span class="line">        &#125;, moreInfo: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>moreInfo可以打印更多信息</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">moreInfo: &#123; (message) <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">switch</span> message &#123;</span><br><span class="line">        <span class="keyword">case</span> .<span class="type">Success</span>(<span class="keyword">let</span> successText):</span><br><span class="line">        <span class="built_in">print</span>(successText)</span><br><span class="line">        <span class="keyword">case</span> .<span class="type">Fail</span>(<span class="keyword">let</span> failText):</span><br><span class="line">        <span class="built_in">print</span>(failText)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="结果">结果</h2><p><img src="/img/requestable1.png" alt=""></p>
+<h2 id="管理不同请求">管理不同请求</h2><p>设置的时候会返回不同的Alamofire的Request对象，可以查看Alamofre来看具体用法。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 微博请求</span></span><br><span class="line"><span class="keyword">let</span> weiboRequest = <span class="keyword">self</span>.setupNetworkComponentWith(<span class="type">NetworkAPI</span>.<span class="type">GetWeibos</span>(accessToke: <span class="string">"2.00E7lO_Gz3nuNE20518953d1TBPE_C"</span>), mapType: <span class="type">WeiboResponse</span>.<span class="keyword">self</span>, mappedObjectHandle: <span class="literal">nil</span>, moreInfo: <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 新闻请求</span></span><br><span class="line"><span class="keyword">let</span> newsRequest = <span class="keyword">self</span>.setupNetworkComponentWith(<span class="type">NetworkAPI</span>.<span class="type">GetNews</span>(pagenum: <span class="number">0</span>, pagesize: <span class="number">5</span>), mapType: <span class="type">NewsResponse</span>.<span class="keyword">self</span>, mappedObjectHandle: <span class="literal">nil</span>, moreInfo: <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取消微博请求</span></span><br><span class="line">weiboRequest.cancel()</span><br></pre></td></tr></table></figure>
+<p>使用的时候有补全功能<br><img src="/img/requestable2.png" alt=""></p>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+	
+		<li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2016/06/22/swift-protocol-share-view/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2016 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Swift 协议式封装分享控件 | LECASON</title>
+  <meta name="author" content="Lecason">
+  
+  <meta name="description" content="首先通过CollectionView自定义一个分享的控件12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Swift 协议式封装分享控件"/>
+  <meta property="og:site_name" content="LECASON"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="LECASON" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">  
+  <link rel="stylesheet" href="/css/sidenav.css" media="screen" type="text/css">  
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-50404779-3']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+
+</head>
+
+<body id="body" data-spy="scroll" data-target=".toc">
+  <div class="container" id="container">
+	<div class="content">
+	  <div class="page-header">		
+  <h1><a class="brand" href="/">LECASON</a><span class="split"></span><span class="title">Swift 协议式封装分享控件</span><span class="date" id="title-date"><i class="fa fa-clock-o"></i> 2016-06-22</span></h1>
+</div>		
+
+<div class="row page">
+  <!-- cols -->	
+  
+  
+
+  
+	<div class="col-md-12">
+	  
+
+	  <!-- content -->
+	  <h2 id="首先通过CollectionView自定义一个分享的控件">首先通过CollectionView自定义一个分享的控件</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">UIKit</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">CSShareViewDelegate</span>: <span class="title">class</span> </span>&#123;</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">clickShareViewAt</span><span class="params">(index: Int, type: CSShareType)</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CSShareView</span>: <span class="title">UIView</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> height: <span class="type">CGFloat</span> = <span class="number">140</span></span><br><span class="line">    <span class="keyword">var</span> cancelButton: <span class="type">UIButton</span>!</span><br><span class="line">    <span class="keyword">var</span> collectionView: <span class="type">UICollectionView</span>!</span><br><span class="line">    <span class="keyword">var</span> shareModel: [<span class="type">CSShareModel</span>] = []</span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> delegate: <span class="type">CSShareViewDelegate</span>?</span><br><span class="line">    </span><br><span class="line">    private <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    convenience <span class="keyword">init</span>(view: <span class="type">UIView</span>, shareModel: [<span class="type">CSShareModel</span>]) &#123;</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(frame: <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="type">UIScreen</span>.mainScreen().bounds.height, width: <span class="type">UIScreen</span>.mainScreen().bounds.width, height: <span class="number">140</span>))</span><br><span class="line">        <span class="keyword">self</span>.shareModel = shareModel</span><br><span class="line">        <span class="keyword">self</span>.backgroundColor = <span class="type">UIColor</span>.groupTableViewBackgroundColor()</span><br><span class="line">        cancelButton = <span class="type">UIButton</span>(frame: <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">100</span>, width: <span class="type">UIScreen</span>.mainScreen().bounds.width, height: <span class="number">40</span>))</span><br><span class="line">        cancelButton.setTitle(<span class="string">"取消"</span>, forState: .<span class="type">Normal</span>)</span><br><span class="line">        cancelButton.setTitleColor(<span class="type">UIColor</span>.darkGrayColor(), forState: <span class="type">UIControlState</span>.<span class="type">Normal</span>)</span><br><span class="line">        cancelButton.backgroundColor = <span class="type">UIColor</span>.whiteColor()</span><br><span class="line">        cancelButton.addTarget(<span class="keyword">self</span>, action: <span class="string">"dismissShareView"</span>, forControlEvents: <span class="type">UIControlEvents</span>.<span class="type">TouchUpInside</span>)</span><br><span class="line">        <span class="keyword">self</span>.addSubview(cancelButton)</span><br><span class="line">        <span class="keyword">self</span>.initCollectionView()</span><br><span class="line">        view.addSubview(<span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">initCollectionView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> flowLayout = <span class="type">UICollectionViewFlowLayout</span>()</span><br><span class="line">        flowLayout.itemSize = <span class="type">CGSizeMake</span>(<span class="number">70</span>, <span class="number">70</span>)</span><br><span class="line">        flowLayout.scrollDirection = <span class="type">UICollectionViewScrollDirection</span>.<span class="type">Horizontal</span></span><br><span class="line">        <span class="keyword">let</span> nib = <span class="type">UINib</span>(nibName: <span class="string">"SMShareCollectionViewCell"</span>, bundle: <span class="literal">nil</span>)</span><br><span class="line">        collectionView = <span class="type">UICollectionView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="type">UIScreen</span>.mainScreen().bounds.width, height: <span class="number">100</span>), collectionViewLayout: flowLayout)</span><br><span class="line">        collectionView.backgroundColor = <span class="type">UIColor</span>.groupTableViewBackgroundColor()</span><br><span class="line">        collectionView.delegate = <span class="keyword">self</span></span><br><span class="line">        collectionView.dataSource = <span class="keyword">self</span></span><br><span class="line">        collectionView.showsHorizontalScrollIndicator = <span class="literal">false</span></span><br><span class="line">        collectionView.registerNib(nib, forCellWithReuseIdentifier: <span class="string">"SMShareCollectionViewCellIdentifier"</span>)</span><br><span class="line">        <span class="keyword">self</span>.addSubview(collectionView)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    required <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        fatalError(<span class="string">"init(coder:) has not been implemented"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">dismissShareView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="type">UIView</span>.animateWithDuration(<span class="number">0.25</span>, delay: <span class="number">0</span>, options: <span class="type">UIViewAnimationOptions</span>.<span class="type">CurveEaseInOut</span>, animations: &#123; [<span class="keyword">unowned</span> <span class="keyword">self</span>] () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span>.frame.origin.y = <span class="type">UIScreen</span>.mainScreen().bounds.height</span><br><span class="line">            &#125;, completion: <span class="literal">nil</span> )</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">showShareView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="type">UIView</span>.animateWithDuration(<span class="number">0.25</span>, delay: <span class="number">0</span>, options: <span class="type">UIViewAnimationOptions</span>.<span class="type">CurveEaseInOut</span>, animations: &#123; [<span class="keyword">unowned</span> <span class="keyword">self</span>] () -&gt; <span class="type">Void</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span>.frame.origin.y = <span class="type">UIScreen</span>.mainScreen().bounds.height - <span class="keyword">self</span>.height</span><br><span class="line">            &#125;, completion: <span class="literal">nil</span> )</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">CSShareView</span>: <span class="title">UICollectionViewDelegateFlowLayout</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int)</span></span> -&gt; <span class="type">UIEdgeInsets</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">UIEdgeInsetsMake</span>(<span class="number">10</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">5</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int)</span></span> -&gt; <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">15</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">CSShareView</span>: <span class="title">UICollectionViewDataSource</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(collectionView: UICollectionView, numberOfItemsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> shareModel.<span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UICollectionViewCell</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> cell = collectionView.dequeueReusableCellWithReuseIdentifier(<span class="string">"SMShareCollectionViewCellIdentifier"</span>, forIndexPath: indexPath) <span class="keyword">as</span>! <span class="type">SMShareCollectionViewCell</span></span><br><span class="line">        cell.iconImageView.image = <span class="type">UIImage</span>(named: shareModel[indexPath.row].icon.rawValue ?? <span class="string">""</span>)</span><br><span class="line">        cell.shareLabel.text = shareModel[indexPath.row].name.rawValue</span><br><span class="line">        <span class="keyword">return</span> cell</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">CSShareView</span>: <span class="title">UICollectionViewDelegate</span> </span>&#123;</span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)</span></span> &#123;</span><br><span class="line">        collectionView.deselectItemAtIndexPath(indexPath, animated: <span class="literal">true</span>)</span><br><span class="line">        <span class="keyword">self</span>.delegate?.clickShareViewAt(indexPath.row, type: shareModel[indexPath.row].name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="效果：">效果：</h2><p><img src="/img/swiftshareview1.png" alt=""></p>
+<h2 id="用协议的方法封装分享的方法">用协议的方法封装分享的方法</h2><blockquote>
+<p>要先按官方方法引入微信，QQ，微博的SDK</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">UIKit</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">CSShareable</span>: <span class="title">class</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> shareTitle: <span class="type">String</span>? &#123; <span class="keyword">get</span> &#125; <span class="comment">/// 分享标题</span></span><br><span class="line">    <span class="keyword">var</span> shareView: <span class="type">CSShareView</span>! &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125; <span class="comment">/// 分享控件</span></span><br><span class="line">    <span class="keyword">var</span> shareURL: <span class="type">String</span>? &#123; <span class="keyword">get</span> &#125; <span class="comment">/// 分享链接</span></span><br><span class="line">    <span class="keyword">var</span> shareImage: <span class="type">UIImage</span>? &#123; <span class="keyword">get</span> &#125; <span class="comment">/// 分享图片</span></span><br><span class="line">    <span class="keyword">var</span> sharePreviewImageURL: <span class="type">String</span>? &#123; <span class="keyword">get</span> &#125; <span class="comment">/// QQ分享需要的图片地址</span></span><br><span class="line">    <span class="keyword">var</span> shareDescription: <span class="type">String</span>? &#123; <span class="keyword">get</span> &#125; <span class="comment">/// QQ分享需要的分享描述</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">setupShareView</span><span class="params">()</span></span>  <span class="comment">/// CSShareable 设置分享控件 [必需]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">CSShareType</span>: <span class="title">String</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// 新浪微博</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">WeiboTimeline</span> = <span class="string">"新浪微博"</span></span><br><span class="line">    <span class="comment">/// 微信朋友圈</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">WXSceneTimeline</span> = <span class="string">"微信朋友圈"</span></span><br><span class="line">    <span class="comment">/// 微信好友</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">WXSession</span> = <span class="string">"微信好友"</span></span><br><span class="line">    <span class="comment">/// QQ好友</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">QQSession</span> = <span class="string">"QQ好友"</span></span><br><span class="line">    <span class="comment">/// QQ空间</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">QQZone</span> = <span class="string">"QQ空间"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">CSShareIcon</span>: <span class="title">String</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="type">WeiboTimeline</span> = <span class="string">"Weibo"</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">WXSceneTimeline</span> = <span class="string">"Friend"</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">WXSession</span> = <span class="string">"Wechat"</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">QQSession</span> = <span class="string">"QQ"</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">QQZone</span> = <span class="string">"Qzone"</span></span><br><span class="line">    <span class="keyword">case</span> <span class="type">Blank</span> = <span class="string">"Blank"</span>  <span class="comment">// Assets.xcassets 必需存在这张图片</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CSShareModel</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> icon: <span class="type">CSShareIcon</span></span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">CSShareType</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">CSShareable</span> <span class="title">where</span> <span class="title">Self</span>: <span class="title">UIViewController</span>, <span class="title">Self</span>: <span class="title">CSShareViewDelegate</span>  </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 默认值</span></span><br><span class="line">    <span class="keyword">var</span> shareTitle: <span class="type">String</span>? &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"分享标题"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> shareURL: <span class="type">String</span>? &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"http://www.welkj.com"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> shareImage: <span class="type">UIImage</span>? &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">UIImage</span>(named: <span class="type">CSShareIcon</span>.<span class="type">Blank</span>.rawValue)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> sharePreviewImageURL: <span class="type">String</span>? &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"http://welkj.com/img/LOGO2.png"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> shareDescription: <span class="type">String</span>? &#123;</span><br><span class="line">        <span class="keyword">return</span>  <span class="string">"分享描述"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// CSShareable 设置分享控件 [必需]</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">setupShareView</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> shareModels: [<span class="type">CSShareModel</span>] = []</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="type">WeiboSDK</span>.isCanShareInWeiboAPP() &#123;</span><br><span class="line">            shareModels.append(<span class="type">CSShareModel</span>(icon: .<span class="type">WeiboTimeline</span>, name: .<span class="type">WeiboTimeline</span>))</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="type">WXApi</span>.isWXAppInstalled() &amp;&amp; <span class="type">WXApi</span>.isWXAppSupportApi() &#123;</span><br><span class="line">            shareModels.append(<span class="type">CSShareModel</span>(icon: .<span class="type">WXSceneTimeline</span>, name: .<span class="type">WXSceneTimeline</span>))</span><br><span class="line">            shareModels.append(<span class="type">CSShareModel</span>(icon: .<span class="type">WXSession</span>, name: .<span class="type">WXSession</span>))</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="type">QQApiInterface</span>.isQQInstalled() &amp;&amp; <span class="type">QQApiInterface</span>.isQQSupportApi() &#123;</span><br><span class="line">            shareModels.append(<span class="type">CSShareModel</span>(icon: .<span class="type">QQSession</span>, name: .<span class="type">QQSession</span>))</span><br><span class="line">            shareModels.append(<span class="type">CSShareModel</span>(icon: .<span class="type">QQZone</span>, name: .<span class="type">QQZone</span>))</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">self</span>.shareView = <span class="type">CSShareView</span>(view: <span class="keyword">self</span>.view, shareModel: shareModels)</span><br><span class="line">        <span class="keyword">self</span>.shareView.delegate = <span class="keyword">self</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// CSShareable 设置分享控件 [必需] 需要在 CSShareViewDelegate 里面调用</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">shareViewClickShareViewAt</span><span class="params">(index: Int, type: CSShareType)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 分享的标题内容及链接</span></span><br><span class="line">        <span class="keyword">let</span> title = shareTitle ?? <span class="string">""</span></span><br><span class="line">        <span class="keyword">let</span> image = shareImage ?? <span class="type">UIImage</span>(named: <span class="type">CSShareIcon</span>.<span class="type">Blank</span>.rawValue)! <span class="comment">// 如果没有图片分享将不成功</span></span><br><span class="line">        <span class="keyword">let</span> url = shareURL ?? <span class="string">""</span></span><br><span class="line">        <span class="keyword">let</span> previewImageURL = sharePreviewImageURL ?? <span class="string">""</span></span><br><span class="line">        <span class="keyword">let</span> description = shareDescription ?? <span class="string">""</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> type == <span class="type">CSShareType</span>.<span class="type">WeiboTimeline</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.shareToWeiboTimeline(title, image: image, url: url)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> type == <span class="type">CSShareType</span>.<span class="type">WXSceneTimeline</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.shareToWechat(title, image: image, url: url, type: <span class="type">WXSceneTimeline</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> type == <span class="type">CSShareType</span>.<span class="type">WXSession</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.shareToWechat(title, image: image, url: url, type: <span class="type">WXSceneSession</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> type == <span class="type">CSShareType</span>.<span class="type">QQSession</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.shareToTencent(title, description: description, url: url, previewImageURL: previewImageURL, type: <span class="type">CSShareType</span>.<span class="type">QQSession</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> type == <span class="type">CSShareType</span>.<span class="type">QQZone</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.shareToTencent(title, description: description, url: url, previewImageURL: previewImageURL, type: <span class="type">CSShareType</span>.<span class="type">QQZone</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.shareView.dismissShareView()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 微博分享内容</span></span><br><span class="line">    private <span class="func"><span class="keyword">func</span> <span class="title">shareToWeiboTimeline</span><span class="params">(text: String, image: UIImage, url: String)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> request = <span class="type">WBSendMessageToWeiboRequest</span>()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 文字</span></span><br><span class="line">        <span class="keyword">let</span> message = <span class="type">WBMessageObject</span>.message() <span class="keyword">as</span>! <span class="type">WBMessageObject</span></span><br><span class="line">        message.text = <span class="string">"<span class="subst">\(text)</span> 链接地址:<span class="subst">\(url)</span>"</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 图片</span></span><br><span class="line">        <span class="keyword">let</span> imageObject = <span class="type">WBImageObject</span>()</span><br><span class="line">        imageObject.imageData = <span class="type">UIImagePNGRepresentation</span>(image)</span><br><span class="line">        message.imageObject = imageObject</span><br><span class="line">        request.message = message</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发送</span></span><br><span class="line">        <span class="type">WeiboSDK</span>.sendRequest(request)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 微信分享</span></span><br><span class="line">    private <span class="func"><span class="keyword">func</span> <span class="title">shareToWechat</span><span class="params">(text: String, image: UIImage, url: String, type: WXScene)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> message =  <span class="type">WXMediaMessage</span>()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 文字</span></span><br><span class="line">        message.title = text</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 图片</span></span><br><span class="line">        <span class="keyword">let</span> imageObject =  <span class="type">WXImageObject</span>()</span><br><span class="line">        imageObject.imageData = <span class="type">UIImagePNGRepresentation</span>(image)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 图片缩略图</span></span><br><span class="line">        <span class="keyword">let</span> width = <span class="number">240.0</span> <span class="keyword">as</span> <span class="type">CGFloat</span></span><br><span class="line">        <span class="keyword">let</span> height = width*image.size.height/image.size.width</span><br><span class="line">        <span class="type">UIGraphicsBeginImageContext</span>(<span class="type">CGSizeMake</span>(width, height))</span><br><span class="line">        image.drawInRect(<span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, width, height))</span><br><span class="line">        message.setThumbImage(<span class="type">UIGraphicsGetImageFromCurrentImageContext</span>())</span><br><span class="line">        <span class="type">UIGraphicsEndImageContext</span>()</span><br><span class="line"></span><br><span class="line">        <span class="comment">// URL</span></span><br><span class="line">        <span class="keyword">let</span> web = <span class="type">WXWebpageObject</span>()</span><br><span class="line">        web.webpageUrl = url</span><br><span class="line">        message.mediaObject = web</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发送</span></span><br><span class="line">        <span class="keyword">let</span> req =  <span class="type">SendMessageToWXReq</span>()</span><br><span class="line">        req.bText = <span class="literal">false</span></span><br><span class="line">        req.message = message</span><br><span class="line">        req.scene = <span class="type">Int32</span>(type.rawValue)</span><br><span class="line">        <span class="type">WXApi</span>.sendReq(req)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// QQ分享文本消息</span></span><br><span class="line">    private <span class="func"><span class="keyword">func</span> <span class="title">shareToTencent</span><span class="params">(title: String, description: String, url: String, previewImageURL: String, type: CSShareType)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> newsObj = <span class="type">QQApiNewsObject</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(string: url), title: title, description: description, previewImageURL: <span class="type">NSURL</span>(string: previewImageURL), targetContentType: <span class="type">QQApiURLTargetTypeNews</span>)</span><br><span class="line">        <span class="keyword">let</span> req = <span class="type">SendMessageToQQReq</span>(content: newsObj)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> type == <span class="type">CSShareType</span>.<span class="type">QQSession</span> &#123;</span><br><span class="line">            <span class="type">QQApiInterface</span>.sendReq(req)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> type == <span class="type">CSShareType</span>.<span class="type">QQZone</span> &#123;</span><br><span class="line">            <span class="type">QQApiInterface</span>.<span class="type">SendReqToQZone</span>(req)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// CSShareable 显示分享控件</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">showShareView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        shareView.showShareView()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="使用方法">使用方法</h2><blockquote>
+<p>由于是基于协议，所以输入的方法和变量都有提示。</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">UIKit</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">CSShareable</span>  </span>&#123;  <span class="comment">// [1] 遵从协议</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> shareView: <span class="type">CSShareView</span>! <span class="comment">// [2] 创建shareView</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="keyword">self</span>.setupShareView() <span class="comment">// [3] 初使化分享控件</span></span><br><span class="line">        <span class="keyword">self</span>.showShareView() <span class="comment">// [5] 显示分享控件</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">CSShareViewDelegate</span> </span>&#123;  <span class="comment">// [4] 实现协议方法</span></span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">clickShareViewAt</span><span class="params">(index: Int, type: CSShareType)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.shareViewClickShareViewAt(index, type: type)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>分享内容是通过使用协议变量的方法更改，如果不实现，将全部使用默认值 </p>
+</blockquote>
+<h2 id="更改要分享的内容">更改要分享的内容</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="type">UIKit</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">CSShareable</span>  </span>&#123;  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> shareView: <span class="type">CSShareView</span>! </span><br><span class="line">    <span class="comment">// ----------------- [1] 更改要分享的内容---------------------</span></span><br><span class="line">    <span class="keyword">var</span> shareTitle: <span class="type">String</span>? <span class="comment">// 分享标题</span></span><br><span class="line">    <span class="keyword">var</span> shareURL: <span class="type">String</span>? <span class="comment">// 分享链接</span></span><br><span class="line">    <span class="keyword">var</span> shareImage: <span class="type">UIImage</span>? <span class="comment">// 分享图片</span></span><br><span class="line">    <span class="keyword">var</span> sharePreviewImageURL: <span class="type">String</span>? <span class="comment">// QQ分享需要的图片地址</span></span><br><span class="line">    <span class="keyword">var</span> shareDescription: <span class="type">String</span>? <span class="comment">// QQ分享需要的分享描述</span></span><br><span class="line">    <span class="comment">// --------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="func"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        <span class="keyword">self</span>.setupShareView()</span><br><span class="line">        <span class="keyword">self</span>.shareTitle = <span class="string">"要更改的标题"</span> <span class="comment">// [2] 更改成想要的内容</span></span><br><span class="line">        <span class="keyword">self</span>.showShareView()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">CSShareViewDelegate</span> </span>&#123;  </span><br><span class="line">    <span class="func"><span class="keyword">func</span> <span class="title">clickShareViewAt</span><span class="params">(index: Int, type: CSShareType)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.shareViewClickShareViewAt(index, type: type)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+	  
+
+	  <div>
+  		<center>
+		  <div class="pagination">
+<ul class="pagination">
+	
+	
+	
+	
+	
+		
+			
+		
+	
+		
+			
+			
+		
+	
+		
+			
+			
+			
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+			
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+		
+	
+	
+		<li class="prev"><a href="/2016/06/23/swift-protocol-network-request/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>prev</a></li>
+	
+	<li><a href="/"><i class="fa fa-archive"></i>Home</a></li>
+	
+		<li class="next"><a href="/2016/03/01/Swift-List-Button/" class="alignright next">next<i class="fa fa-arrow-circle-o-right"></i></a></li>
+	
+</ul>
+</div>
+
+		</center>
+	  </div>
+	  
+	</div> <!-- col-md-9/col-md-12 -->
+	
+  </div><!-- row -->
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'lecason';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+	</div>
+  </div>
+  <div class="container-narrow">
+	<footer> <p>
+  &copy; 2016 <a href="http://weibo.com/lecason" target="_blank">Lecason</a>
+  
+with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>. Theme base on <a href="http://github.com/wzpan/hexo-theme-wixo/">Wixo</a>.<span id="busuanzi_container_site_pv">
+Pv <a><span id="busuanzi_value_site_pv"></span></a> Times.
+</span> <span id="busuanzi_container_site_uv">
+Uv <a><span id="busuanzi_value_site_uv"></span></a> Times.
+</span>
+</p>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+ </footer>
+  </div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.tableofcontents.min.js"></script>
+<script src="/js/tocgenerator.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
